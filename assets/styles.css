@@ -241,7 +241,7 @@ html[lang="en"] [data-i18n="pt"] { display: none; }
   display: grid;
   grid-template-rows: auto 1fr;
   background-color: var(--paper);
-  background-image: url('../uploads/hero.jpeg');
+  background-image: url('../uploads/hero.webp');
   background-size: cover;
   background-position: center;
 }

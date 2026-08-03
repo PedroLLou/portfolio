@@ -193,10 +193,33 @@ O texto do card do Didata vem do `PRODUCT.md` do próprio repositório
 (currículo BR verificável, correção por foto, memória da turma, e a
 regra de que a IA sugere e o professor confirma), não de paráfrase.
 
+## Imagens
+
+Tudo que é exibido está em WebP, redimensionado para o dobro do maior
+tamanho que ocupa na tela. Carregar 1440px numa imagem que renderiza a
+522px é pagar quatro vezes por pixel que ninguém vê.
+
+| Arquivo | Antes | Depois | |
+|---|---|---|---|
+| `hero.webp` | 760 KB | 326 KB | 57% |
+| `didata.webp` | 1,4 MB | 96 KB | 93% |
+| `kyber-crm.webp` | 159 KB | 57 KB | 64% |
+| `pedro.webp` | 126 KB | 31 KB | 76% |
+| `brava-dashboard.webp` | 159 KB | 28 KB | 83% |
+
+**2,6 MB para 537 KB, 79% menor.** Conferido ampliando as capturas 2x
+antes de trocar: o texto da barra lateral do CRM, que é pequeno, claro e
+sobre fundo escuro, saiu sem artefato.
+
+`pedro.jpg` continua no repositório porque é o `og:image`, e o suporte a
+WebP em cartão social ainda é irregular fora do navegador. Ela não é
+carregada pela página.
+
+Para refazer com capturas novas: `scripts/otimizar-imagens.ps1`.
+
 ## Pendências
 
-- `didata.png` tem 1,4 MB e `hero.jpeg` 760 KB. O hero não é lazy, então
-  pesa no primeiro carregamento. Converter para WebP ou AVIF cortaria a
-  maior parte disso sem diferença visível.
 - As fontes vêm do Google Fonts por `<link>`. Auto-hospedar com
   `font-display: swap` tiraria uma conexão do caminho crítico.
+- O `og:image` é o retrato quadrado. Cartão social pede 1200x630, então
+  uma imagem própria renderizaria melhor no LinkedIn e no WhatsApp.
