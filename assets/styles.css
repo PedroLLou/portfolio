@@ -1,0 +1,1409 @@
+/* =========================================================
+   Pedro Lourençoni Lima
+   "Prova de gravura" - engraver's proof.
+
+   Redesign-preserve: the cream/ink brand, Spectral + IBM Plex,
+   hairlines and roman numerals are kept. What changed is the
+   craft: one modular type scale instead of 24 ad-hoc sizes,
+   numerals demoted from repeated eyebrows to marginal folios,
+   AA contrast throughout, and scroll-driven reveals in pure CSS.
+   ========================================================= */
+
+/* =========================================================
+   1. TOKENS
+   ========================================================= */
+:root {
+  /* --- surface --- */
+  --paper:       #F2EADC;
+  --paper-2:     #F8F2E7;   /* raised card */
+  --paper-sunk:  #ECE4D5;   /* recessed band */
+  --plate:       #0B2A7A;   /* inked panel */
+
+  /* --- ink ---
+     Every value below passes WCAG AA on --paper at its used size.
+     The old #6A6B7A (4.40:1) and #9A9AA8 (2.32:1) are gone. */
+  --ink:         #171C2E;
+  --ink-strong:  #131832;
+  --ink-soft:    #22273D;
+  --body:        #3D4157;   /* 8.40:1 */
+  --body-2:      #4A4E63;   /* 6.86:1 */
+  --meta:        #5C6070;   /* 5.23:1 - smallest mono text */
+
+  --blue:        #123A8C;   /* 8.75:1 */
+  --blue-deep:   #0F2E6E;
+  --blue-dark:   #0B1F4D;
+
+  /* --- ink on the plate (cream on #0B2A7A) --- */
+  --plate-ink:      #F2EADC;
+  --plate-ink-2:    rgba(242,234,220,0.88);
+  --plate-ink-meta: rgba(242,234,220,0.74);  /* 5.6:1 */
+  --plate-rule:     rgba(242,234,220,0.28);
+
+  /* --- rules: three weights, used deliberately --- */
+  --rule-hair:   rgba(18,58,140,0.16);  /* internal division */
+  --rule:        rgba(18,58,140,0.26);  /* block edge */
+  --rule-strong: rgba(18,58,140,0.42);  /* section break */
+
+  /* --- type --------------------------------------------
+     One modular scale. Nothing outside it. */
+  --serif: 'Spectral', Georgia, 'Times New Roman', serif;
+  --sans:  'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --mono:  'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --t-micro: 0.6875rem;                      /* 11   mono labels   */
+  --t-small: 0.8125rem;                      /* 13   mono meta     */
+  --t-body:  0.9375rem;                      /* 15   body          */
+  --t-lede:  clamp(1.125rem, 0.9rem + 0.7vw, 1.3125rem);   /* 18-21 */
+  --t-h3:    clamp(1.25rem,  1.1rem + 0.5vw, 1.5rem);      /* 20-24 */
+  --t-h2:    clamp(1.75rem,  1.3rem + 1.8vw, 2.75rem);     /* 28-44 */
+  --t-folio: clamp(2.25rem,  1.4rem + 3.4vw, 4.5rem);      /* 36-72 */
+  --t-hero:  clamp(2rem,     0.6rem + 5.4vw, 4.75rem);     /* 32-76 */
+
+  /* --- space: 4px base, no arbitrary values --- */
+  --s-1: 0.25rem;  --s-2: 0.5rem;   --s-3: 0.75rem;  --s-4: 1rem;
+  --s-5: 1.5rem;   --s-6: 2rem;     --s-7: 3rem;     --s-8: 4rem;
+  --s-9: 6rem;     --s-10: 8rem;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --maxw: 1120px;
+  --gutter: 2.5rem;
+  --folio-col: 6rem;   /* marginal numeral column */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  /* the fixed nav must not cover an anchored heading */
+  scroll-padding-top: 6rem;
+}
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  line-height: 1.65;
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* engraved figures line up in columns */
+  font-variant-numeric: tabular-nums;
+}
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { color: var(--blue-dark); }
+/* height:auto is required: the width/height attributes in the markup
+   would otherwise pin the used height while max-width shrinks the
+   width, stretching the image vertically */
+img { max-width: 100%; height: auto; display: block; }
+::selection { background: var(--blue); color: var(--paper); }
+
+h1, h2, h3, p, dl, dd, dt, ol, ul, figure, blockquote { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* bilingual: both languages ship in the HTML, CSS picks one */
+html[lang="pt"] [data-i18n="en"],
+html[lang="en"] [data-i18n="pt"] { display: none; }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 100;
+  padding: var(--s-3) var(--s-5);
+  background: var(--blue-deep);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: var(--t-small);
+}
+.skip-link:focus-visible { left: var(--s-4); top: var(--s-4); color: var(--paper); }
+
+/* =========================================================
+   2. PAGE SHELL
+   ========================================================= */
+.page {
+  position: relative;
+  overflow-x: clip;
+  background: var(--paper);
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(18,58,140,0.035) 0px,
+    rgba(18,58,140,0.035) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+.shell {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section { padding-block: var(--s-9); }
+
+/* Rhythm is hierarchy: a uniform 96/96 on every section tells the reader
+   nothing. Projects get more air on the way in, the supporting sections
+   get less, so the page breathes unevenly on purpose. */
+.section--loose { padding-block: var(--s-10) var(--s-9); }
+.section--tight { padding-block: var(--s-8); }
+
+/* --- reusable type roles --- */
+.label {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--meta);
+}
+.mono {
+  font-family: var(--mono);
+  font-size: var(--t-small);
+  line-height: 1.7;
+  color: var(--meta);
+}
+
+/* =========================================================
+   3. SECTION HEAD - the marginal folio
+   The roman numeral used to sit as a tiny eyebrow above every
+   section, five times, which is exactly the templated rhythm
+   this design should avoid. It is now a book folio hanging in
+   the margin, and each section carries a real <h2>.
+   ========================================================= */
+.head {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--folio-col) minmax(0, 1fr);
+  column-gap: var(--s-6);
+  align-items: start;
+  padding-bottom: var(--s-5);
+  margin-bottom: var(--s-7);
+}
+/* the rule lives on a pseudo-element so it can draw itself in
+   without scaling the heading text along with it */
+.head::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--rule-strong);
+  transform-origin: left center;
+}
+.head__folio {
+  grid-row: span 2;
+  justify-self: end;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--t-folio);
+  line-height: 0.78;
+  color: var(--blue);
+  /* optical: italic serif numerals sit slightly high next to a cap-height h2 */
+  transform: translateY(0.06em);
+  font-variant-numeric: normal;
+}
+.head__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: var(--t-h2);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink-strong);
+  text-wrap: balance;
+}
+.head__note {
+  grid-column: 2;
+  margin-top: var(--s-3);
+  max-width: 46ch;
+  color: var(--body-2);
+}
+
+/* =========================================================
+   4. HERO - the plate
+   The photograph is bright only across its middle third
+   (measured L=0.76 centre vs 0.14-0.23 at the edges), so ink
+   type has to stay in that band. The composition breaks its
+   symmetry below the title instead: meta hangs left, language
+   sits right, against a printer's plate frame.
+   ========================================================= */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background-color: var(--paper);
+  background-image: url('../uploads/hero.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+
+.hero__bar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 26px var(--gutter);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+.hero__links { display: flex; gap: 28px; }
+.hero__links a { color: var(--meta); }
+.hero__links a:hover { color: var(--blue-deep); }
+
+.hero__body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 32px 150px;
+  text-align: center;
+}
+
+.hero__name {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: clamp(26px, 4.1vw, 54px);
+  line-height: 1.08;
+  /* uppercase wants positive tracking; the original negative value was
+     fighting the caps and the monospaced advance at the same time */
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--blue);
+}
+.hero__tagline {
+  max-width: 470px;
+  font-size: 15px;
+  line-height: 1.62;
+  color: var(--body);
+  text-wrap: pretty;
+}
+.hero__stack {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  color: var(--blue);
+}
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+.hero__cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.hero__mini { display: flex; justify-content: center; gap: 8px; }
+
+.hero__rule {
+  margin-top: 22px;
+  width: 1px;
+  height: 52px;
+  background: linear-gradient(to bottom, rgba(18,58,140,0.55), rgba(18,58,140,0));
+}
+
+/* =========================================================
+   5. CONTROLS
+   ========================================================= */
+.langswitch {
+  position: absolute;
+  right: var(--gutter);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  border: 1px solid rgba(18,58,140,0.3);
+  background: rgba(242,234,220,0.85);
+}
+.langswitch__btn {
+  padding: 5px 13px;
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--meta);
+  transition: color 200ms ease, background 200ms ease;
+}
+.langswitch__btn + .langswitch__btn { border-left: 1px solid rgba(18,58,140,0.24); }
+.langswitch__btn:hover { color: var(--blue-deep); }
+.langswitch__btn[aria-pressed="true"] {
+  background: rgba(15,46,110,0.14);
+  color: var(--blue-deep);
+}
+
+.btn {
+  display: inline-block;
+  padding: var(--s-3) var(--s-5);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: background 220ms ease, color 220ms ease,
+              border-color 220ms ease, transform 120ms ease;
+}
+.btn:active { transform: translateY(1px); }
+
+.btn--solid { background: var(--blue-deep); color: var(--paper); }
+.btn--solid:hover { background: var(--blue-dark); color: var(--paper); }
+
+.btn--ghost {
+  background: rgba(242,234,220,0.9);
+  border-color: rgba(15,46,110,0.4);
+  color: var(--blue-deep);
+}
+.btn--ghost:hover { background: #FFF; color: var(--blue-deep); }
+
+.btn--paper { background: var(--paper); color: var(--plate); }
+.btn--paper:hover { background: #FFF; color: var(--plate); }
+
+.btn--outline { border-color: rgba(242,234,220,0.5); color: var(--plate-ink); }
+.btn--outline:hover { background: rgba(242,234,220,0.14); color: var(--plate-ink); }
+
+.chip {
+  display: grid;
+  place-items: center;
+  min-width: 2.125rem;
+  height: 2.125rem;
+  padding-inline: var(--s-3);
+  background: rgba(242,234,220,0.9);
+  border: 1px solid rgba(15,46,110,0.32);
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--blue-deep);
+  transition: background 220ms ease;
+}
+.chip:hover { background: #FFF; color: var(--blue-deep); }
+
+/* =========================================================
+   6. STICKY NAV
+   ========================================================= */
+.pillnav {
+  position: fixed;
+  z-index: 40;
+  top: var(--s-5);
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  padding: var(--s-2) var(--s-2) var(--s-2) var(--s-5);
+  border: 1px solid rgba(18,58,140,0.28);
+  background: rgba(242,234,220,0.94);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 40px -26px rgba(11,42,122,0.85);
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.08em;
+  transform: translateX(-50%) translateY(-1rem);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 320ms ease, transform 460ms var(--ease), visibility 320ms;
+}
+.pillnav.is-visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.pillnav a { color: var(--meta); }
+.pillnav a:hover { color: var(--blue-deep); }
+.pillnav__home { font-weight: 600; color: var(--blue-deep); }
+.pillnav__cta {
+  padding: var(--s-2) var(--s-4);
+  background: var(--blue-deep);
+  color: var(--paper);
+  transition: background 220ms ease;
+}
+.pillnav__cta:hover { background: var(--blue-dark); color: var(--paper); }
+
+@media (prefers-reduced-transparency: reduce) {
+  .pillnav { background: var(--paper); backdrop-filter: none; }
+}
+
+/* =========================================================
+   7. I - SOBRE
+   ========================================================= */
+.about__grid {
+  display: grid;
+  grid-template-columns: var(--folio-col) minmax(0, 1fr) 17.5rem;
+  column-gap: var(--s-6);
+  align-items: start;
+}
+.about__prose {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+.about__lede {
+  font-family: var(--serif);
+  font-size: var(--t-lede);
+  line-height: 1.62;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  text-wrap: pretty;
+}
+/* first line of the lede acts as the opening of a printed page */
+.about__lede::first-line { letter-spacing: 0.005em; }
+.about__note { max-width: 58ch; color: var(--body-2); }
+
+.about__side { display: flex; flex-direction: column; gap: var(--s-4); }
+.portrait {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+}
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.02);
+  transition: transform 900ms var(--ease), filter 900ms ease;
+}
+.portrait:hover img { transform: scale(1.03); filter: saturate(1) contrast(1.04); }
+.about__facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+.about__facts li {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  color: var(--meta);
+  padding-left: var(--s-3);
+  border-left: 1px solid var(--rule);
+}
+
+/* skills: definition columns, hairlines only between rows */
+.skills {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--s-7);
+  margin-top: var(--s-2);
+}
+.skills__item {
+  display: grid;
+  gap: var(--s-1);
+  padding-block: var(--s-4);
+  border-top: 1px solid var(--rule-hair);
+}
+.skills dt {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+.skills dd { font-size: 0.9375rem; line-height: 1.55; color: var(--body); }
+
+/* =========================================================
+   8. II - SERVIÇOS
+   Was five equal cells, the same grid family as two other
+   sections. Now an editorial run-in list: numerals hang, the
+   name sets in serif, and one hairline separates each entry.
+   ========================================================= */
+.services { background: var(--paper-sunk); border-block: 1px solid var(--rule); }
+
+.svc { display: grid; }
+.svc__row {
+  display: grid;
+  grid-template-columns: var(--folio-col) minmax(0, 1fr) auto;
+  column-gap: var(--s-6);
+  align-items: baseline;
+  padding-block: var(--s-5);
+  border-top: 1px solid var(--rule-hair);
+}
+.svc__row:last-child { border-bottom: 1px solid var(--rule-hair); }
+.svc__num {
+  justify-self: end;
+  font-family: var(--mono);
+  font-size: var(--t-small);
+  letter-spacing: 0.1em;
+  color: var(--blue);
+}
+.svc__name {
+  font-family: var(--serif);
+  font-size: var(--t-h3);
+  line-height: 1.25;
+  color: var(--ink-strong);
+}
+.svc__note {
+  max-width: 34ch;
+  font-size: var(--t-small);
+  line-height: 1.6;
+  color: var(--body-2);
+  text-align: right;
+}
+
+/* --- how a project runs: four steps, no card chrome --- */
+.process {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--s-6);
+  margin-top: var(--s-7);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--rule-strong);
+}
+.process__step { display: grid; gap: var(--s-2); align-content: start; }
+.process__num {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  color: var(--blue);
+}
+.process__name {
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  color: var(--ink-strong);
+}
+.process__note {
+  font-size: var(--t-small);
+  line-height: 1.6;
+  color: var(--body-2);
+  max-width: 30ch;
+}
+
+/* =========================================================
+   9. III - PROJETOS
+   Three distinct layout families, deliberately:
+   (a) the feature plate, (b) an asymmetric 2-up, (c) an index.
+   ========================================================= */
+.projects { display: flex; flex-direction: column; gap: var(--s-7); }
+
+/* --- (a) feature --- */
+.feature {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+}
+.feature__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-7);
+  border-right: 1px solid var(--rule-hair);
+}
+.badge {
+  align-self: flex-start;
+  padding: var(--s-1) var(--s-2);
+  background: var(--blue-deep);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.feature__name {
+  font-family: var(--serif);
+  font-weight: 700;
+  /* deliberately below --t-h2 so the section heading still outranks it */
+  font-size: clamp(1.75rem, 1.3rem + 1.5vw, 2.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink-strong);
+}
+.feature__desc { max-width: 46ch; color: var(--body); }
+.feature__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: auto;
+  padding-top: var(--s-3);
+}
+.feature__shot {
+  display: grid;
+  place-items: center;
+  padding: var(--s-6);
+  background: rgba(18,58,140,0.06);
+  overflow: hidden;
+}
+.feature__shot img {
+  border: 1px solid rgba(18,58,140,0.22);
+  box-shadow: 0 24px 48px -32px rgba(11,42,122,0.6);
+  transition: transform 900ms var(--ease);
+}
+.feature:hover .feature__shot img { transform: scale(1.02); }
+
+/* --- (b) asymmetric 2-up: the CRM carries more, so it gets more --- */
+.duo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: var(--s-5);
+  align-items: stretch;
+}
+.work {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+  transition: border-color 420ms ease, box-shadow 420ms ease, transform 420ms var(--ease);
+}
+.work:hover {
+  transform: translateY(-4px);
+  border-color: rgba(18,58,140,0.5);
+  box-shadow: 0 34px 60px -44px rgba(11,42,122,0.8);
+}
+.work--plate { background: var(--plate); border-color: rgba(18,58,140,0.5); }
+.work__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-6);
+  flex: 1;
+}
+.work__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+.work__name {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: var(--t-h3);
+  color: var(--ink-strong);
+}
+.work__desc { font-size: 0.9375rem; line-height: 1.6; color: var(--body); }
+.work__foot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  margin-top: auto;
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--rule-hair);
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  line-height: 1.7;
+  color: var(--meta);
+}
+.work__shot {
+  height: 12.5rem;
+  overflow: hidden;
+  border-bottom: 1px solid var(--rule-hair);
+}
+.work__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 900ms var(--ease);
+}
+.work:hover .work__shot img { transform: scale(1.04); }
+.work__shot--left img { object-position: top left; }
+
+/* full-width variant: the shot becomes a left column instead of a top
+   strip, so a single card does not read as a broken two-up row */
+.work--wide { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
+.work--wide .work__shot {
+  height: auto;
+  border-bottom: 0;
+  border-right: 1px solid var(--rule-hair);
+}
+.work--wide .work__body { padding: var(--s-7); justify-content: center; }
+
+.tag {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--meta);
+}
+.link-out {
+  font-family: var(--mono);
+  font-size: var(--t-small);
+  color: var(--blue);
+  border-bottom: 1px solid rgba(18,58,140,0.3);
+  align-self: flex-start;
+  transition: border-color 200ms ease;
+}
+.link-out:hover { border-bottom-color: currentColor; }
+.link-out--plate {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  margin-top: var(--s-4);
+  color: var(--plate-ink);
+  border-bottom-color: var(--plate-rule);
+}
+.link-out--plate:hover { color: var(--plate-ink); border-bottom-color: var(--plate-ink); }
+
+/* --- tech lists: hairline separators instead of a row of middle dots --- */
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1) var(--s-4);
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.04em;
+  color: var(--meta);
+}
+.stack li { position: relative; }
+.stack li + li::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--s-4) / -2);
+  top: 0.3em;
+  bottom: 0.25em;
+  width: 1px;
+  background: var(--rule);
+}
+
+/* --- (b2) the plate band: Kyber CRM carries the most, so it gets
+       a full-width inverted panel with its figures set as display type --- */
+.band {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  column-gap: var(--s-8);
+  padding: var(--s-7);
+  background: var(--plate);
+  color: var(--plate-ink);
+  border: 1px solid rgba(18,58,140,0.5);
+}
+.band__text { display: flex; flex-direction: column; gap: var(--s-4); }
+.band__name {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  line-height: 1.1;
+  color: var(--plate-ink);
+}
+.band__desc { max-width: 54ch; color: var(--plate-ink-2); }
+.band .stack { color: var(--plate-ink-meta); margin-top: auto; }
+.band .stack li + li::before { background: var(--plate-rule); }
+.band .work__head { align-items: baseline; }
+/* --tag defaults to a paper-tone grey; on the plate it has to invert */
+.band .tag { color: var(--plate-ink-meta); }
+
+.band__shot {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin-top: var(--s-6);
+  border: 1px solid var(--plate-rule);
+}
+
+.figures {
+  align-self: start;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--plate-rule);
+  border: 1px solid var(--plate-rule);
+}
+.figure { display: grid; gap: var(--s-1); padding: var(--s-4); background: var(--plate); }
+.figure__label {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--plate-ink-meta);
+}
+.figure__value {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--plate-ink);
+}
+
+/* --- (c) index: not a third card grid --- */
+.index__row {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) minmax(0, 16rem) auto;
+  column-gap: var(--s-6);
+  align-items: baseline;
+  padding-block: var(--s-5);
+  border-top: 1px solid var(--rule-hair);
+}
+.index__row:last-child { border-bottom: 1px solid var(--rule-hair); }
+.index__name {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.1875rem;
+  line-height: 1.25;
+  color: var(--ink-strong);
+}
+.index__kind {
+  display: block;
+  margin-bottom: var(--s-1);
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+.index__desc { font-size: var(--t-small); line-height: 1.6; color: var(--body-2); }
+.index__tech {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  line-height: 1.6;
+  color: var(--meta);
+}
+
+/* --- the client roster.
+   Four small-business sites listed on their own would read as odd jobs.
+   What makes them worth showing is that they all come out of one written
+   standard, so the standard gets equal weight beside the register. --- */
+.roster {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  column-gap: var(--s-8);
+  margin-top: var(--s-6);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--rule-strong);
+}
+.roster__standard { display: grid; gap: var(--s-3); align-content: start; }
+.roster__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.1875rem;
+  line-height: 1.25;
+  color: var(--ink-strong);
+}
+.roster__intro {
+  max-width: 32ch;
+  font-size: var(--t-small);
+  line-height: 1.6;
+  color: var(--body-2);
+}
+.roster__spec { display: grid; gap: var(--s-2); margin-top: var(--s-1); }
+.roster__spec li {
+  padding-left: var(--s-3);
+  border-left: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  line-height: 1.5;
+  letter-spacing: 0.03em;
+  color: var(--meta);
+}
+
+.roster__list { display: grid; align-content: start; }
+.roster__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--s-5);
+  padding-block: var(--s-4);
+  border-top: 1px solid var(--rule-hair);
+  align-items: baseline;
+}
+.roster__row:last-child { border-bottom: 1px solid var(--rule-hair); }
+.roster__name {
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  color: var(--ink-strong);
+}
+.roster__what {
+  grid-column: 1 / -1;
+  margin-top: var(--s-1);
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.04em;
+  color: var(--meta);
+}
+.roster__link {
+  justify-self: end;
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  white-space: nowrap;
+  color: var(--blue);
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease;
+}
+.roster__link:hover { border-bottom-color: currentColor; }
+
+/* --- client quotes, sitting right after the work they refer to --- */
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--s-8);
+  margin-top: var(--s-6);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--rule-strong);
+}
+.quote { display: grid; gap: var(--s-4); align-content: start; }
+.quote p {
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+  /* hang the opening quote mark into the margin */
+  text-indent: -0.42em;
+}
+.quote figcaption {
+  display: grid;
+  gap: 2px;
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.quote cite { font-style: normal; font-weight: 500; color: var(--blue); }
+.quote figcaption span { color: var(--meta); }
+
+/* =========================================================
+   11. IV - EXPERIÊNCIA
+   ========================================================= */
+.experience { background: var(--paper-sunk); border-top: 1px solid var(--rule); }
+.job {
+  display: grid;
+  grid-template-columns: var(--folio-col) minmax(0, 11rem) minmax(0, 1fr);
+  column-gap: var(--s-6);
+  padding-block: var(--s-5);
+  border-top: 1px solid var(--rule-hair);
+}
+.job:last-child { border-bottom: 1px solid var(--rule-hair); }
+.job__when {
+  grid-column: 2;
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  color: var(--meta);
+}
+.job__what { display: grid; gap: var(--s-2); }
+.job__role {
+  font-family: var(--serif);
+  font-size: 1.1875rem;
+  line-height: 1.3;
+  color: var(--ink-strong);
+}
+.job__desc { max-width: 62ch; font-size: 0.9375rem; line-height: 1.6; color: var(--body-2); }
+
+/* =========================================================
+   12. V - CONTATO
+   ========================================================= */
+.contact {
+  padding-block: var(--s-9);
+  background: var(--plate);
+  color: var(--plate-ink);
+}
+.contact .head::after { background: var(--plate-rule); }
+.contact .head__folio { color: var(--plate-ink); }
+.contact .head__title { color: var(--plate-ink); max-width: 20ch; }
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--s-7);
+}
+.contact__cell {
+  display: grid;
+  gap: var(--s-1);
+  padding-block: var(--s-4);
+  /* it is an <a>, so it would otherwise inherit link blue onto the plate */
+  color: var(--plate-ink);
+  border-top: 1px solid var(--plate-rule);
+  transition: padding-left 320ms var(--ease), border-color 320ms ease;
+}
+.contact__cell:hover { padding-left: var(--s-3); border-top-color: var(--plate-ink); }
+.contact__kind {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--plate-ink-meta);
+}
+.contact__value { font-size: 0.9375rem; color: var(--plate-ink); overflow-wrap: anywhere; }
+.contact__cta { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-7); }
+
+/* =========================================================
+   12b. CASE STUDY PAGE
+   ========================================================= */
+.page--doc { padding-top: var(--s-6); }
+
+.doc__top { padding-block: var(--s-6) var(--s-8); }
+.doc__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding-bottom: var(--s-8);
+}
+.doc__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--meta);
+  transition: color 200ms ease;
+}
+.doc__back:hover { color: var(--blue-deep); }
+
+.doc__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--ink-strong);
+}
+.doc__lede {
+  max-width: 54ch;
+  margin-top: var(--s-5);
+  font-family: var(--serif);
+  font-size: var(--t-lede);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+.doc__meta {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--s-6);
+  margin-top: var(--s-8);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--rule-strong);
+}
+.doc__meta > div { display: grid; gap: var(--s-1); align-content: start; }
+.doc__meta dt {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+.doc__meta dd { font-size: var(--t-small); line-height: 1.5; color: var(--body-2); }
+
+/* the dashboard is dark navy, so it sits on the plate rather than on paper */
+.doc__shot {
+  display: grid;
+  gap: var(--s-3);
+  padding-block: var(--s-6) var(--s-8);
+}
+.doc__shot img {
+  width: 100%;
+  border: 1px solid var(--rule);
+  box-shadow: 0 30px 60px -40px rgba(11,42,122,0.7);
+}
+.doc__shot figcaption {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+  color: var(--meta);
+}
+
+.doc__body { display: grid; gap: var(--s-4); max-width: 64ch; }
+.doc__body--tight { margin-top: var(--s-6); }
+.doc__body p { font-size: 1rem; line-height: 1.75; color: var(--body); text-wrap: pretty; }
+
+/* the five technical notes: two columns of hairline-separated prose,
+   not five more cards */
+.notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--s-8);
+}
+.note {
+  display: grid;
+  gap: var(--s-2);
+  padding-block: var(--s-5);
+  border-top: 1px solid var(--rule-hair);
+}
+.note__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.1875rem;
+  line-height: 1.25;
+  color: var(--ink-strong);
+}
+.note p { font-size: 0.9375rem; line-height: 1.7; color: var(--body-2); max-width: 46ch; }
+code {
+  font-family: var(--mono);
+  font-size: 0.875em;
+  color: var(--blue);
+  overflow-wrap: anywhere;
+}
+
+/* the decision is the centrepiece, so it gets the plate */
+.decision {
+  padding-block: var(--s-9);
+  margin-block: var(--s-8);
+  background: var(--plate);
+  color: var(--plate-ink);
+}
+.decision .head::after { background: var(--plate-rule); }
+.decision .head__folio,
+.decision .head__title { color: var(--plate-ink); }
+.decision__body { display: grid; gap: var(--s-4); max-width: 62ch; }
+.decision__lede {
+  font-family: var(--serif);
+  font-size: var(--t-lede);
+  line-height: 1.55;
+  color: var(--plate-ink);
+  text-wrap: pretty;
+}
+.decision__body p { font-size: 1rem; line-height: 1.75; color: var(--plate-ink-2); }
+
+/* the figures grid again, but on paper this time */
+.figures--paper {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  background: var(--rule-hair);
+  border-color: var(--rule);
+}
+.figures--paper .figure { background: var(--paper); }
+.figures--paper .figure__label { color: var(--meta); }
+.figures--paper .figure__value { color: var(--blue); }
+
+.stack--lg { font-size: var(--t-small); margin-top: var(--s-2); }
+
+.doc__end {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-5);
+  padding-block: var(--s-8) var(--s-9);
+}
+.doc__endrule { display: flex; align-items: center; gap: var(--s-4); width: 100%; }
+.doc__endrule span { flex: 1; height: 1px; background: var(--rule); }
+.doc__endrule i { width: 7px; height: 7px; rotate: 45deg; background: var(--blue); }
+.doc__endnote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.0625rem;
+  color: var(--body-2);
+  text-align: center;
+}
+.doc__endcta { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-2); }
+
+/* =========================================================
+   13. FOOTER
+   ========================================================= */
+.footer {
+  display: grid;
+  gap: var(--s-5);
+  padding-block: var(--s-7) var(--s-8);
+  justify-items: center;
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.08em;
+  color: var(--meta);
+}
+.footer__rule {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  width: 100%;
+}
+.footer__rule span { flex: 1; height: 1px; background: var(--rule); }
+.footer__rule i { width: 7px; height: 7px; rotate: 45deg; background: var(--blue); }
+.footer__line { text-align: center; letter-spacing: 0.14em; text-transform: uppercase; }
+.footer__colophon {
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.875rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--body-2);
+}
+
+/* =========================================================
+   14. MOTION
+   Scroll-driven animation, native CSS: no scroll listeners,
+   no observers, nothing on the main thread. Only transform
+   and opacity are animated.
+   ========================================================= */
+@keyframes om-rise    { from { opacity: 0; transform: translateY(1.25rem); } to { opacity: 1; transform: none; } }
+@keyframes om-wipe    { from { opacity: 0; transform: translateY(0.75rem); } to { opacity: 1; transform: none; } }
+@keyframes om-rule    { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__body { animation: om-rise 1000ms var(--ease) both; }
+
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: om-wipe linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 46%;
+    }
+    /* section rules draw themselves in as the head arrives */
+    .head::after {
+      animation: om-rule linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 34%;
+    }
+  }
+}
+
+/* =========================================================
+   15. RESPONSIVE
+   ========================================================= */
+@media (max-width: 68.75rem) {          /* 1100 */
+  :root { --folio-col: 4.5rem; }
+  /* the tech line drops to a second row, so every cell needs explicit
+     placement or the trailing link auto-flows under the title */
+  .index__row { grid-template-columns: minmax(0, 13rem) minmax(0, 1fr) auto; }
+  .index__row > div     { grid-area: 1 / 1 / 3 / 2; }
+  .index__desc          { grid-area: 1 / 2 / 2 / 3; }
+  .index__row .link-out { grid-area: 1 / 3 / 2 / 4; justify-self: end; }
+  .index__tech          { grid-area: 2 / 2 / 3 / 4; margin-top: var(--s-2); }
+}
+
+@media (max-width: 60rem) {             /* 960 */
+  :root { --gutter: 1.75rem; }
+  .section { padding-block: var(--s-8); }
+
+  .about__grid { grid-template-columns: var(--folio-col) minmax(0, 1fr); }
+  .about__side {
+    grid-column: 2;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--s-5);
+    margin-top: var(--s-6);
+  }
+  .portrait { flex: 0 0 12.5rem; }
+  .about__facts { flex: 1; }
+
+  .feature { grid-template-columns: 1fr; }
+  .feature__text { border-right: 0; border-bottom: 1px solid var(--rule-hair); padding: var(--s-6); }
+  .duo { grid-template-columns: 1fr; }
+  .work--wide { grid-template-columns: 1fr; }
+  .work--wide .work__shot { height: 12.5rem; border-right: 0; border-bottom: 1px solid var(--rule-hair); }
+  .work--wide .work__body { padding: var(--s-6); }
+  .contact__grid { grid-template-columns: 1fr; }
+
+  .band { grid-template-columns: 1fr; row-gap: var(--s-6); padding: var(--s-6); }
+  .band .stack { margin-top: 0; }
+
+  .roster { grid-template-columns: 1fr; row-gap: var(--s-6); }
+  .roster__intro { max-width: none; }
+  .process { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--s-5); }
+  .quotes { grid-template-columns: 1fr; row-gap: var(--s-6); }
+  .quote + .quote { padding-top: var(--s-6); border-top: 1px solid var(--rule-hair); }
+
+  .doc__meta { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--s-4); }
+  .notes { grid-template-columns: 1fr; column-gap: 0; }
+  .figures--paper { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 48rem) {             /* 768 */
+  :root { --folio-col: 0; }
+
+  /* folio leaves the margin and sits inline above the title */
+  .head { grid-template-columns: 1fr; row-gap: var(--s-2); }
+  .head__folio { grid-row: auto; justify-self: start; font-size: 2.25rem; transform: none; }
+  .head__note { grid-column: 1; }
+
+  /* absolute-right would collide with the links once they wrap */
+  .hero__bar {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px var(--gutter);
+  }
+  .hero__links { flex-wrap: wrap; justify-content: center; gap: 20px; }
+  .langswitch { position: static; transform: none; }
+  .hero__name { white-space: normal; font-size: clamp(24px, 8vw, 40px); }
+  .hero__body { padding-bottom: 90px; }
+
+  .svc__row { grid-template-columns: 2.5rem minmax(0, 1fr); row-gap: var(--s-2); }
+  .svc__num { justify-self: start; }
+  .svc__note { grid-column: 2; text-align: left; max-width: none; }
+
+  /* clear the explicit placement set at the wider breakpoint, or it
+     leaves the link stranded on an implicit third track */
+  .index__row { grid-template-columns: 1fr; row-gap: var(--s-2); }
+  .index__row > div,
+  .index__desc,
+  .index__tech,
+  .index__row .link-out { grid-area: auto; margin-top: 0; }
+  .index__row .link-out { justify-self: start; }
+
+  .job { grid-template-columns: 1fr; row-gap: var(--s-2); }
+  .job__when { grid-column: 1; }
+
+  .skills { grid-template-columns: 1fr; column-gap: 0; }
+
+  .pillnav { top: var(--s-3); gap: var(--s-4); padding-left: var(--s-4); }
+}
+
+@media (max-width: 32.5rem) {           /* 520 */
+  :root { --gutter: 1.25rem; }
+  .section { padding-block: var(--s-7); }
+
+  .hero__cta { flex-direction: column; align-self: stretch; }
+  .hero__cta .btn { text-align: center; }
+
+  .about__side { flex-direction: column; }
+  .portrait { flex: none; width: 100%; max-width: 15rem; }
+
+  .feature__text, .work__body { padding: var(--s-5); }
+  .feature__shot { padding: var(--s-4); }
+  .band { padding: var(--s-5); }
+  .figures { grid-template-columns: 1fr; }
+  .process { grid-template-columns: 1fr; }
+  .process__note { max-width: none; }
+  /* domains are long; let the link drop under the name instead of squeezing */
+  .roster__row { grid-template-columns: 1fr; }
+  .roster__link { justify-self: start; margin-top: var(--s-1); white-space: normal; overflow-wrap: anywhere; }
+  .roster__what { margin-top: var(--s-2); }
+  .doc__meta { grid-template-columns: 1fr; }
+  .figures--paper { grid-template-columns: 1fr; }
+  .doc__endcta { flex-direction: column; align-self: stretch; }
+  .doc__endcta .btn { text-align: center; }
+
+  .contact__cta { flex-direction: column; }
+  .contact__cta .btn { text-align: center; }
+}
+
+@media (max-width: 25rem) {             /* 400 */
+  .pillnav { gap: var(--s-3); padding-left: var(--s-3); letter-spacing: 0.04em; }
+  /* longest label drops first so the bar stays on one line */
+  .pillnav__opt { display: none; }
+}
+
+/* =========================================================
+   16. REDUCED MOTION / PRINT
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .work:hover, .feature:hover .feature__shot img,
+  .portrait:hover img, .work:hover .work__shot img { transform: none; }
+}
+
+@media print {
+  .pillnav, .langswitch, .skip-link, .hero__links { display: none !important; }
+  .page { background-image: none; }
+  .hero { min-height: auto; background-image: none; }
+  .contact { background: #FFF; color: #000; }
+  .contact .head__folio, .contact .head__title, .contact__value { color: #000; }
+  .work--plate { background: #FFF; }
+  .work--plate .work__name, .work--plate .work__desc { color: #000; }
+}

@@ -1,0 +1,16 @@
+# Originais em alta resolucao, fora do que e publicado.
+#
+# NAO REMOVA esta linha. imagens/crm.png e a captura crua da Central do dia
+# do Kyber CRM, com MRR, nomes de cliente, telefone e um CPF visiveis.
+# A versao que vai ao ar e uploads/kyber-crm.png, com esses dados destruidos
+# por mosaico. Este repositorio e publico.
+imagens/
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Dependencias e build, caso um dia existam
+node_modules/
+.vercel/

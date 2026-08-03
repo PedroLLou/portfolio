@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt" data-title-pt="Pedro Lourençoni Lima · Desenvolvedor Full Stack" data-title-en="Pedro Lourençoni Lima · Full-Stack Developer">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pedro Lourençoni Lima · Desenvolvedor Full Stack</title>
+<meta name="description" content="Desenvolvedor full stack e fundador da Kyber Tech. React, Node.js, TypeScript e IA aplicada. Do problema ao produto em produção." />
+<meta name="author" content="Pedro Lourençoni Lima" />
+<meta name="theme-color" content="#F2EADC" />
+<link rel="canonical" href="https://pedrolou.dev/" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://pedrolou.dev/" />
+<meta property="og:title" content="Pedro Lourençoni Lima · Desenvolvedor Full Stack" />
+<meta property="og:description" content="Desenvolvedor full stack e fundador da Kyber Tech. Do problema ao produto em produção." />
+<meta property="og:image" content="https://pedrolou.dev/uploads/pedro.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="image" href="uploads/hero.jpeg" />
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+<a class="skip-link" href="#sobre">
+  <span data-i18n="pt">Pular para o conteúdo</span><span data-i18n="en" lang="en">Skip to content</span>
+</a>
+
+<div class="page">
+
+  <!-- ============================ HERO ============================ -->
+  <header id="top" class="hero">
+    <div class="hero__bar">
+      <nav class="hero__links" aria-label="Principal">
+        <a href="#sobre"><span data-i18n="pt">Sobre</span><span data-i18n="en" lang="en">About</span></a>
+        <a href="#projetos"><span data-i18n="pt">Projetos</span><span data-i18n="en" lang="en">Projects</span></a>
+        <a href="#experiencia"><span data-i18n="pt">Experiência</span><span data-i18n="en" lang="en">Experience</span></a>
+        <a href="#contato"><span data-i18n="pt">Contato</span><span data-i18n="en" lang="en">Contact</span></a>
+      </nav>
+      <div class="langswitch" role="group" aria-label="Idioma / Language">
+        <button type="button" class="langswitch__btn" data-setlang="pt" title="Português" aria-pressed="true">PT</button>
+        <button type="button" class="langswitch__btn" data-setlang="en" title="English" aria-pressed="false">EN</button>
+      </div>
+    </div>
+
+    <div class="hero__body">
+      <h1 class="hero__name">Pedro Lourençoni Lima</h1>
+      <p class="hero__tagline">
+        <span data-i18n="pt">Desenvolvedor full stack e fundador da Kyber Tech. Do problema ao produto em produção.</span>
+        <span data-i18n="en" lang="en">Full-stack developer and founder of Kyber Tech. From the problem to a product in production.</span>
+      </p>
+      <span class="hero__stack">React · Node.js · TypeScript · IA</span>
+
+      <div class="hero__actions">
+        <div class="hero__cta">
+          <a class="btn btn--solid" href="#projetos">
+            <span data-i18n="pt">Ver projetos</span><span data-i18n="en" lang="en">View projects</span>
+          </a>
+          <a class="btn btn--ghost" href="#contato">
+            <span data-i18n="pt">Vamos conversar</span><span data-i18n="en" lang="en">Let's talk</span>
+          </a>
+        </div>
+        <div class="hero__mini">
+          <a class="chip" id="cv-link" href="uploads/curriculo-pt.pdf" download>
+            <span data-i18n="pt">Currículo PDF</span><span data-i18n="en" lang="en">Resume PDF</span>
+          </a>
+          <a class="chip" href="https://www.linkedin.com/in/pedrolourenconilima" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+          <a class="chip" href="https://github.com/PedroLLou" target="_blank" rel="noreferrer" aria-label="GitHub">gh</a>
+        </div>
+      </div>
+
+      <div class="hero__rule" aria-hidden="true"></div>
+    </div>
+  </header>
+
+  <!-- ========================= STICKY NAV ========================= -->
+  <nav class="pillnav" id="pillnav" aria-label="Seções">
+    <a class="pillnav__home" href="#top">PL</a>
+    <a href="#sobre"><span data-i18n="pt">Sobre</span><span data-i18n="en" lang="en">About</span></a>
+    <a href="#projetos"><span data-i18n="pt">Projetos</span><span data-i18n="en" lang="en">Projects</span></a>
+    <a class="pillnav__opt" href="#experiencia"><span data-i18n="pt">Experiência</span><span data-i18n="en" lang="en">Experience</span></a>
+    <a class="pillnav__cta" href="#contato"><span data-i18n="pt">Contato</span><span data-i18n="en" lang="en">Contact</span></a>
+  </nav>
+
+  <main>
+
+  <!-- ========================= I · SOBRE ========================= -->
+  <section id="sobre" class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">I</span>
+      <h2 class="head__title">
+        <span data-i18n="pt">Onde a web encontra IA aplicada</span>
+        <span data-i18n="en" lang="en">Where the web meets applied AI</span>
+      </h2>
+    </div>
+
+    <div class="about__grid">
+      <div class="about__prose reveal" style="grid-column: 2">
+        <p class="about__lede">
+          <span data-i18n="pt">Desenvolvedor full stack de Goiânia. Fundador da Kyber Tech, minha empresa de software: sites, sistemas, automação e IA para clientes reais. Toco o Didata, plataforma com IA para professores e carro-chefe da Kyber, já em produção, e um CRM interno com servidor MCP próprio que permite rodar o negócio por chat.</span>
+          <span data-i18n="en" lang="en">Full-stack developer from Goiânia. Founder of Kyber Tech, my software company: websites, systems, automation and AI for real clients. I ship Didata, an AI platform for teachers and Kyber's flagship, already in production, plus an internal CRM with its own MCP server that runs the business by chat.</span>
+        </p>
+        <p class="about__note">
+          <span data-i18n="pt">Interesses: desenvolvimento web, arquitetura de software, IA aplicada, product management e UX/UI.</span>
+          <span data-i18n="en" lang="en">Interests: web development, software architecture, applied AI, product management and UX/UI.</span>
+        </p>
+
+        <dl class="skills">
+          <div class="skills__item">
+            <dt>Core</dt>
+            <dd>React, Next.js, TypeScript, JavaScript, Node.js, Python</dd>
+          </div>
+          <div class="skills__item">
+            <dt><span data-i18n="pt">Back-end e dados</span><span data-i18n="en" lang="en">Back-end and data</span></dt>
+            <dd>NestJS, REST APIs, PostgreSQL, MySQL/MariaDB, Supabase, Prisma</dd>
+          </div>
+          <div class="skills__item">
+            <dt>IA / LLMs</dt>
+            <dd>
+              <span data-i18n="pt">OpenAI, Anthropic, RAG, engenharia de prompt, Claude Code, MCP</span>
+              <span data-i18n="en" lang="en">OpenAI, Anthropic, RAG, prompt engineering, Claude Code, MCP</span>
+            </dd>
+          </div>
+          <div class="skills__item">
+            <dt>Front-end</dt>
+            <dd>
+              <span data-i18n="pt">HTML/CSS, Tailwind CSS, Figma, design responsivo</span>
+              <span data-i18n="en" lang="en">HTML/CSS, Tailwind CSS, Figma, responsive design</span>
+            </dd>
+          </div>
+          <div class="skills__item">
+            <dt><span data-i18n="pt">DevOps e qualidade</span><span data-i18n="en" lang="en">DevOps and quality</span></dt>
+            <dd>
+              <span data-i18n="pt">Git/GitHub, CI/CD (GitHub Actions), Vercel, testes (Vitest, Playwright)</span>
+              <span data-i18n="en" lang="en">Git/GitHub, CI/CD (GitHub Actions), Vercel, testing (Vitest, Playwright)</span>
+            </dd>
+          </div>
+          <div class="skills__item">
+            <dt><span data-i18n="pt">Também</span><span data-i18n="en" lang="en">Also</span></dt>
+            <dd>
+              <span data-i18n="pt">Automação de processos, bots (WhatsApp, Discord), Lua (FiveM)</span>
+              <span data-i18n="en" lang="en">Process automation, bots (WhatsApp, Discord), Lua (FiveM)</span>
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <aside class="about__side reveal">
+        <figure class="portrait">
+          <img src="uploads/pedro.jpg" alt="Retrato de Pedro Lourençoni Lima" width="560" height="700" />
+        </figure>
+        <ul class="about__facts">
+          <li>Goiânia, GO, Brasil</li>
+          <li><span data-i18n="pt">PT nativo, EN avançado, ES intermediário</span><span data-i18n="en" lang="en">PT native, EN advanced, ES intermediate</span></li>
+          <li><span data-i18n="pt">PUC-GO, Ciência da Computação, 2022 a 2027</span><span data-i18n="en" lang="en">PUC-GO, Computer Science, 2022 to 2027</span></li>
+          <li>Microsoft Azure AI, Anthropic Claude Code e MCP</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ======================== II · SERVIÇOS ======================== -->
+  <section class="services">
+    <div class="section section--tight shell">
+      <div class="head">
+        <span class="head__folio" aria-hidden="true">II</span>
+        <h2 class="head__title">
+          <span data-i18n="pt">O que eu construo para empresas</span>
+          <span data-i18n="en" lang="en">What I build for companies</span>
+        </h2>
+      </div>
+
+      <ol class="svc reveal">
+        <li class="svc__row">
+          <span class="svc__num">01</span>
+          <span class="svc__name"><span data-i18n="pt">Desenvolvimento de SaaS</span><span data-i18n="en" lang="en">SaaS development</span></span>
+          <span class="svc__note"><span data-i18n="pt">Produto do zero ao deploy, com contas, cobrança e multiusuário.</span><span data-i18n="en" lang="en">Product from zero to deploy, with accounts, billing and multi-tenancy.</span></span>
+        </li>
+        <li class="svc__row">
+          <span class="svc__num">02</span>
+          <span class="svc__name"><span data-i18n="pt">Desenvolvimento web</span><span data-i18n="en" lang="en">Web development</span></span>
+          <span class="svc__note"><span data-i18n="pt">Sites e sistemas sob medida, rápidos e indexáveis.</span><span data-i18n="en" lang="en">Bespoke sites and systems, fast and indexable.</span></span>
+        </li>
+        <li class="svc__row">
+          <span class="svc__num">03</span>
+          <span class="svc__name"><span data-i18n="pt">Aplicações com IA e automação</span><span data-i18n="en" lang="en">AI and automation apps</span></span>
+          <span class="svc__note"><span data-i18n="pt">LLMs, RAG e integrações que tiram horas repetidas da semana.</span><span data-i18n="en" lang="en">LLMs, RAG and integrations that remove repeated hours from the week.</span></span>
+        </li>
+        <li class="svc__row">
+          <span class="svc__num">04</span>
+          <span class="svc__name"><span data-i18n="pt">Dashboards e sistemas internos</span><span data-i18n="en" lang="en">Dashboards and internal systems</span></span>
+          <span class="svc__note"><span data-i18n="pt">Painéis que substituem a planilha, com dados em tempo real.</span><span data-i18n="en" lang="en">Panels that replace the spreadsheet, with realtime data.</span></span>
+        </li>
+        <li class="svc__row">
+          <span class="svc__num">05</span>
+          <span class="svc__name"><span data-i18n="pt">UX/UI e design de interface</span><span data-i18n="en" lang="en">UX/UI and interface design</span></span>
+          <span class="svc__note"><span data-i18n="pt">Interface desenhada e implementada pela mesma pessoa.</span><span data-i18n="en" lang="en">Interface designed and implemented by the same person.</span></span>
+        </li>
+      </ol>
+
+      <ol class="process">
+        <li class="process__step">
+          <span class="process__num">01</span>
+          <span class="process__name"><span data-i18n="pt">Conversa</span><span data-i18n="en" lang="en">Conversation</span></span>
+          <span class="process__note"><span data-i18n="pt">Entender o problema antes de falar de tecnologia. Sai daqui o escopo, não uma lista de recursos.</span><span data-i18n="en" lang="en">Understand the problem before talking about technology. What comes out is a scope, not a feature list.</span></span>
+        </li>
+        <li class="process__step">
+          <span class="process__num">02</span>
+          <span class="process__name"><span data-i18n="pt">Proposta</span><span data-i18n="en" lang="en">Proposal</span></span>
+          <span class="process__note"><span data-i18n="pt">Escopo, prazo e preço num link, sem login e sem anexo. O que está fora fica escrito também.</span><span data-i18n="en" lang="en">Scope, timeline and price in a link, no login and no attachment. What is out of scope is written down too.</span></span>
+        </li>
+        <li class="process__step">
+          <span class="process__num">03</span>
+          <span class="process__name"><span data-i18n="pt">Produção</span><span data-i18n="en" lang="en">Build</span></span>
+          <span class="process__note"><span data-i18n="pt">Etapas acompanháveis por link de status, e uma prévia no ar bem antes do lançamento.</span><span data-i18n="en" lang="en">Stages you can follow through a status link, and a preview online well before launch.</span></span>
+        </li>
+        <li class="process__step">
+          <span class="process__num">04</span>
+          <span class="process__name"><span data-i18n="pt">Lançamento</span><span data-i18n="en" lang="en">Launch</span></span>
+          <span class="process__note"><span data-i18n="pt">Vai para o domínio próprio, e o canal continua aberto depois que entra no ar.</span><span data-i18n="en" lang="en">It moves to your own domain, and the channel stays open after it goes live.</span></span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ======================== III · PROJETOS ======================== -->
+  <section id="projetos" class="section section--loose shell projects">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">III</span>
+      <h2 class="head__title">
+        <span data-i18n="pt">Produtos em produção, não protótipos</span>
+        <span data-i18n="en" lang="en">Products in production, not prototypes</span>
+      </h2>
+      <p class="head__note">
+        <span data-i18n="pt">Quatro deles rodam hoje, com usuários de verdade e conta para pagar no fim do mês.</span>
+        <span data-i18n="en" lang="en">Four of these run today, with real users and a bill to pay at the end of the month.</span>
+      </p>
+    </div>
+
+    <!-- (a) feature plate -->
+    <article class="feature reveal">
+      <div class="feature__text">
+        <span class="badge">
+          <span data-i18n="pt">Destaque, em produção</span><span data-i18n="en" lang="en">Featured, in production</span>
+        </span>
+        <h3 class="feature__name">Didata</h3>
+        <p class="feature__desc">
+          <span data-i18n="pt">IA pedagógica que trabalha dentro do currículo brasileiro: gera aula, atividade e prova citando o código da habilidade da BNCC, corrige prova por foto e guarda a memória de cada turma. A IA sugere, o professor confirma. Carro-chefe da Kyber Tech.</span>
+          <span data-i18n="en" lang="en">Pedagogical AI that works inside the Brazilian curriculum: it drafts lessons, activities and exams citing the BNCC skill code, grades exams from a photo and keeps the memory of each class. The AI suggests, the teacher confirms. Kyber Tech's flagship.</span>
+        </p>
+        <ul class="stack">
+          <li>Next.js</li><li>React</li><li>TypeScript</li><li>Node.js</li><li>PostgreSQL</li>
+          <li>Prisma</li><li>Supabase</li><li>OpenAI</li><li>Anthropic</li><li>RAG</li><li>Vision</li>
+        </ul>
+        <div class="feature__cta">
+          <a class="btn btn--solid" href="https://usedidata.com.br" target="_blank" rel="noreferrer">
+            <span data-i18n="pt">Ver ao vivo</span><span data-i18n="en" lang="en">View live</span>
+          </a>
+          <span class="tag">usedidata.com.br</span>
+        </div>
+      </div>
+      <div class="feature__shot">
+        <img src="uploads/didata.png" alt="Interface do Didata" width="1440" height="900" loading="lazy" />
+      </div>
+    </article>
+
+    <!-- (b) full-width plate band -->
+    <article class="band reveal">
+      <div class="band__text">
+        <div class="work__head">
+          <h3 class="band__name">Kyber CRM</h3>
+          <span class="tag"><span data-i18n="pt">Privado</span><span data-i18n="en" lang="en">Private</span></span>
+        </div>
+        <p class="band__desc">
+          <span data-i18n="pt">Sistema interno da Kyber, em produção e usado todo dia. Um app Next.js serve quatro superfícies sobre o mesmo modelo de dados e a mesma camada de autorização: painel de operação, servidor MCP para um agente de IA tocar o sistema por conversa, páginas públicas por token e rotinas em cron.</span>
+          <span data-i18n="en" lang="en">Kyber's internal system, in production and used every day. One Next.js app serves four surfaces over the same data model and the same authorization layer: an ops dashboard, an MCP server that lets an AI agent run the system by conversation, token-based public pages and cron routines.</span>
+        </p>
+        <ul class="stack">
+          <li>Next.js 15</li><li>React 19</li><li>TypeScript</li><li>Supabase</li><li>Postgres RLS</li><li>MCP</li><li>Vercel</li>
+        </ul>
+        <a class="link-out link-out--plate" href="projetos/kyber-crm.html">
+          <span data-i18n="pt">Ler o estudo de caso</span><span data-i18n="en" lang="en">Read the case study</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      <img class="band__shot" src="uploads/kyber-crm.png" alt="Central do dia do Kyber CRM, com dados de cliente borrados" width="1901" height="790" loading="lazy" />
+      <dl class="figures">
+        <div class="figure">
+          <dt class="figure__label"><span data-i18n="pt">Ferramentas MCP</span><span data-i18n="en" lang="en">MCP tools</span></dt>
+          <dd class="figure__value">70</dd>
+        </div>
+        <div class="figure">
+          <dt class="figure__label"><span data-i18n="pt">Policies de RLS</span><span data-i18n="en" lang="en">RLS policies</span></dt>
+          <dd class="figure__value">133</dd>
+        </div>
+        <div class="figure">
+          <dt class="figure__label"><span data-i18n="pt">Tabelas</span><span data-i18n="en" lang="en">Tables</span></dt>
+          <dd class="figure__value">29</dd>
+        </div>
+        <div class="figure">
+          <dt class="figure__label"><span data-i18n="pt">Linhas de TypeScript</span><span data-i18n="en" lang="en">Lines of TypeScript</span></dt>
+          <dd class="figure__value">21.133</dd>
+        </div>
+      </dl>
+    </article>
+
+    <!-- (c) two-up -->
+    <article class="work work--wide reveal">
+      <div class="work__shot work__shot--left">
+        <img src="uploads/brava-dashboard.jfif" alt="Dashboard do Brava.gg" width="1600" height="821" loading="lazy" />
+      </div>
+      <div class="work__body">
+        <div class="work__head">
+          <h3 class="work__name">Brava.gg</h3>
+          <span class="tag"><span data-i18n="pt">Privado</span><span data-i18n="en" lang="en">Private</span></span>
+        </div>
+        <p class="work__desc">
+          <span data-i18n="pt">Servidor de roleplay FiveM completo, feito por um time de três: scripts e sistema de recompensas em Lua, mais dashboard web de 13 telas e site público.</span>
+          <span data-i18n="en" lang="en">Full FiveM roleplay server built by a team of three: in-game scripts and a rewards system in Lua, plus a 13-screen web dashboard and public site.</span>
+        </p>
+        <div class="work__foot">
+          <ul class="stack"><li>Lua</li><li>React</li><li>Vite</li><li>TypeScript</li><li>Tailwind CSS</li><li>MySQL</li></ul>
+        </div>
+      </div>
+    </article>
+
+    <!-- (d) index -->
+    <ol class="index">
+      <li class="index__row reveal">
+        <div>
+          <span class="index__kind">Open source</span>
+          <h3 class="index__name">gerador-curriculo</h3>
+        </div>
+        <p class="index__desc">
+          <span data-i18n="pt">Kit que usa IA para gerar currículos sob medida por vaga, em PDF e DOCX. Bilíngue.</span>
+          <span data-i18n="en" lang="en">Kit that uses AI to generate job-tailored resumes in PDF and DOCX. Bilingual.</span>
+        </p>
+        <span class="index__tech">Python, Markdown, Claude Code, MCP</span>
+        <a class="link-out" href="https://github.com/PedroLLou/gerador-curriculo" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </li>
+      <li class="index__row reveal">
+        <div>
+          <span class="index__kind"><span data-i18n="pt">Público</span><span data-i18n="en" lang="en">Public</span></span>
+          <h3 class="index__name">EduPlay</h3>
+        </div>
+        <p class="index__desc">
+          <span data-i18n="pt">Plataforma de cursos online com CRUDs, controle de progresso e emissão de certificados.</span>
+          <span data-i18n="en" lang="en">Online courses platform with CRUDs, progress tracking and certificate issuing.</span>
+        </p>
+        <span class="index__tech">React, TypeScript, Vite, REST</span>
+        <a class="link-out" href="https://github.com/PedroLLou/EduPlay" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </li>
+      <li class="index__row reveal">
+        <div>
+          <span class="index__kind">TCC</span>
+          <h3 class="index__name"><span data-i18n="pt">Avaliação de competências de devs</span><span data-i18n="en" lang="en">Developer competency assessment</span></h3>
+        </div>
+        <p class="index__desc">
+          <span data-i18n="pt">Sistema de gestão e avaliação de competências de profissionais de software.</span>
+          <span data-i18n="en" lang="en">System to manage and assess software professionals' competencies.</span>
+        </p>
+        <span class="index__tech">NestJS, React, TypeScript, GitHub Actions</span>
+        <a class="link-out" href="https://github.com/PedroLLou/tcc20261" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </li>
+    </ol>
+
+    <div class="roster">
+      <div class="roster__standard reveal">
+        <h3 class="roster__title">
+          <span data-i18n="pt">Clientes atendidos pela Kyber</span>
+          <span data-i18n="en" lang="en">Clients served through Kyber</span>
+        </h3>
+        <p class="roster__intro">
+          <span data-i18n="pt">Não é um site por vez, do zero. Existe um padrão escrito, e nada vai ao ar sem passar por ele.</span>
+          <span data-i18n="en" lang="en">Not one site at a time, from scratch. There is a written standard, and nothing goes live without clearing it.</span>
+        </p>
+        <ul class="roster__spec">
+          <li><span data-i18n="pt">HTML estático, sem build e sem framework</span><span data-i18n="en" lang="en">Static HTML, no build and no framework</span></li>
+          <li><span data-i18n="pt">Fontes self-hospedadas, imagens WebP otimizadas</span><span data-i18n="en" lang="en">Self-hosted fonts, optimised WebP images</span></li>
+          <li><span data-i18n="pt">Canonical, Open Graph, JSON-LD e sitemap</span><span data-i18n="en" lang="en">Canonical, Open Graph, JSON-LD and sitemap</span></li>
+          <li><span data-i18n="pt">Contraste AA, foco visível, testado a 375px</span><span data-i18n="en" lang="en">AA contrast, visible focus, tested at 375px</span></li>
+          <li><span data-i18n="pt">Domínio registrado no nome do cliente</span><span data-i18n="en" lang="en">Domain registered in the client's own name</span></li>
+        </ul>
+      </div>
+
+      <ol class="roster__list reveal">
+        <li class="roster__row">
+          <span class="roster__name">Premium Construções</span>
+          <a class="roster__link" href="https://www.premiumconstrutora.com.br" target="_blank" rel="noreferrer">premiumconstrutora.com.br ↗</a>
+          <span class="roster__what"><span data-i18n="pt">Obras públicas, Goiânia GO. Site, dashboard, bot de WhatsApp e IA de notas fiscais</span><span data-i18n="en" lang="en">Public works, Goiânia GO. Website, dashboard, WhatsApp bot and AI invoice reader</span></span>
+        </li>
+        <li class="roster__row">
+          <span class="roster__name">Ela Bela</span>
+          <a class="roster__link" href="https://www.elabelaestetica.com.br" target="_blank" rel="noreferrer">elabelaestetica.com.br ↗</a>
+          <span class="roster__what"><span data-i18n="pt">Estética avançada, Morrinhos GO</span><span data-i18n="en" lang="en">Advanced aesthetics, Morrinhos GO</span></span>
+        </li>
+        <li class="roster__row">
+          <span class="roster__name">Infinita Saúde</span>
+          <a class="roster__link" href="https://www.infinitafisio.com.br" target="_blank" rel="noreferrer">infinitafisio.com.br ↗</a>
+          <span class="roster__what"><span data-i18n="pt">Fisioterapia pélvica, Goianésia GO</span><span data-i18n="en" lang="en">Pelvic physiotherapy, Goianésia GO</span></span>
+        </li>
+        <li class="roster__row">
+          <span class="roster__name">Jordanna Santos</span>
+          <a class="roster__link" href="https://www.jordannasantostecnica.com.br" target="_blank" rel="noreferrer">jordannasantostecnica.com.br ↗</a>
+          <span class="roster__what"><span data-i18n="pt">Técnica capilar, Senador Canedo GO</span><span data-i18n="en" lang="en">Hair technician, Senador Canedo GO</span></span>
+        </li>
+        <li class="roster__row">
+          <span class="roster__name">Encanto Gourmet</span>
+          <a class="roster__link" href="https://www.encantogourmetbuffet.com.br" target="_blank" rel="noreferrer">encantogourmetbuffet.com.br ↗</a>
+          <span class="roster__what"><span data-i18n="pt">Buffet de casamentos e festas, Goiânia GO</span><span data-i18n="en" lang="en">Wedding and party catering, Goiânia GO</span></span>
+        </li>
+      </ol>
+    </div>
+
+    <div class="quotes">
+      <figure class="quote reveal">
+        <blockquote>
+          <p>“O Pedro, da Kyber Tech, entendeu na primeira conversa o que a gente precisava passar, seriedade e confiança, e entregou um site limpo, rápido e profissional, que hoje é nossa referência ao falar com órgãos públicos e parceiros. O melhor foi tratar tudo direto com quem desenvolve, sem intermediário e dentro do prazo.”</p>
+        </blockquote>
+        <figcaption>
+          <cite>Alessandra</cite>
+          <span><span data-i18n="pt">Dona, Construtora Premium</span><span data-i18n="en" lang="en">Owner, Construtora Premium</span></span>
+        </figcaption>
+      </figure>
+
+      <figure class="quote reveal">
+        <blockquote>
+          <p>“Antes a informação ficava espalhada; hoje acompanhamos jogadores, economia, alertas e a saúde do servidor em tempo real, tudo numa tela só. Ele entendeu exatamente o que a operação precisava, entregou sob medida e continua dando suporte quando chamamos.”</p>
+        </blockquote>
+        <figcaption>
+          <cite>Cidade Brava RP</cite>
+          <span><span data-i18n="pt">Cliente, Brava Dashboard</span><span data-i18n="en" lang="en">Client, Brava Dashboard</span></span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ======================= IV · EXPERIÊNCIA ======================= -->
+  <section id="experiencia" class="experience">
+    <div class="section section--tight shell">
+      <div class="head">
+        <span class="head__folio" aria-hidden="true">IV</span>
+        <h2 class="head__title">
+          <span data-i18n="pt">Por onde passei</span>
+          <span data-i18n="en" lang="en">Where I have worked</span>
+        </h2>
+      </div>
+
+      <ol class="timeline reveal">
+        <li class="job">
+          <span class="job__when"><span data-i18n="pt">mar/2026 → atual<br />remoto</span><span data-i18n="en" lang="en">Mar 2026 → present<br />remote</span></span>
+          <div class="job__what">
+            <span class="job__role">
+              <span data-i18n="pt">Fundador e Desenvolvedor Full Stack, Kyber Tech</span>
+              <span data-i18n="en" lang="en">Founder and Full-Stack Developer, Kyber Tech</span>
+            </span>
+            <span class="job__desc">
+              <span data-i18n="pt">Empresa de software própria: sites, sistemas, automação e IA para clientes reais. Didata e Kyber CRM do zero ao deploy.</span>
+              <span data-i18n="en" lang="en">My own software company: websites, systems, automation and AI for real clients. Didata and Kyber CRM from zero to deploy.</span>
+            </span>
+          </div>
+        </li>
+        <li class="job">
+          <span class="job__when"><span data-i18n="pt">ago/2025 → atual<br />Goiânia, PJ</span><span data-i18n="en" lang="en">Aug 2025 → present<br />Goiânia, contract</span></span>
+          <div class="job__what">
+            <span class="job__role">
+              <span data-i18n="pt">Desenvolvedor, Premium Construções e Serviços</span>
+              <span data-i18n="en" lang="en">Developer, Premium Construções e Serviços</span>
+            </span>
+            <span class="job__desc">
+              <span data-i18n="pt">Site, dashboard, bot de WhatsApp e IA para leitura de notas fiscais.</span>
+              <span data-i18n="en" lang="en">Website, dashboard, WhatsApp bot and AI for invoice reading.</span>
+            </span>
+          </div>
+        </li>
+        <li class="job">
+          <span class="job__when"><span data-i18n="pt">jun/2023 → jan/2026<br />remoto</span><span data-i18n="en" lang="en">Jun 2023 → Jan 2026<br />remote</span></span>
+          <div class="job__what">
+            <span class="job__role">
+              <span data-i18n="pt">Desenvolvedor Freelancer, FiveM/GTA RP e automações</span>
+              <span data-i18n="en" lang="en">Freelance Developer, FiveM/GTA RP and automations</span>
+            </span>
+            <span class="job__desc">
+              <span data-i18n="pt">Scripts, automações e integrações para cerca de 15 comunidades online.</span>
+              <span data-i18n="en" lang="en">Scripts, automations and integrations for around 15 online communities.</span>
+            </span>
+          </div>
+        </li>
+        <li class="job">
+          <span class="job__when"><span data-i18n="pt">2021 → atual<br />voluntário</span><span data-i18n="en" lang="en">2021 → present<br />volunteer</span></span>
+          <div class="job__what">
+            <span class="job__role">
+              <span data-i18n="pt">Diretor de Transmissão e Suporte Técnico, Igreja Sal da Terra</span>
+              <span data-i18n="en" lang="en">Broadcast Director and Technical Support, Igreja Sal da Terra</span>
+            </span>
+            <span class="job__desc">
+              <span data-i18n="pt">Transmissão ao vivo (OBS, ATEM), treinamento de voluntários e suporte de redes.</span>
+              <span data-i18n="en" lang="en">Live streaming (OBS, ATEM), volunteer training and network support.</span>
+            </span>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ========================= V · CONTATO ========================= -->
+  <section id="contato" class="contact">
+    <div class="shell">
+      <div class="head">
+        <span class="head__folio" aria-hidden="true">V</span>
+        <h2 class="head__title">
+          <span data-i18n="pt">Tem uma vaga ou um projeto?</span>
+          <span data-i18n="en" lang="en">Got a role or a project?</span>
+        </h2>
+      </div>
+
+      <div class="contact__grid">
+        <a class="contact__cell" href="mailto:pedroloulima@gmail.com">
+          <span class="contact__kind">E-mail</span>
+          <span class="contact__value">pedroloulima@gmail.com</span>
+        </a>
+        <a class="contact__cell" href="https://wa.me/5562999369087" target="_blank" rel="noreferrer">
+          <span class="contact__kind">WhatsApp</span>
+          <span class="contact__value">+55 62 99936-9087</span>
+        </a>
+        <a class="contact__cell" href="https://www.linkedin.com/in/pedrolourenconilima" target="_blank" rel="noreferrer">
+          <span class="contact__kind">LinkedIn</span>
+          <span class="contact__value">/pedrolourenconilima</span>
+        </a>
+        <a class="contact__cell" href="https://github.com/PedroLLou" target="_blank" rel="noreferrer">
+          <span class="contact__kind">GitHub</span>
+          <span class="contact__value">/PedroLLou</span>
+        </a>
+      </div>
+
+      <div class="contact__cta">
+        <a class="btn btn--paper" href="mailto:pedroloulima@gmail.com">
+          <span data-i18n="pt">Vamos conversar</span><span data-i18n="en" lang="en">Let's talk</span>
+        </a>
+        <a class="btn btn--outline" href="uploads/curriculo-pt.pdf" download>Currículo PT (PDF)</a>
+        <a class="btn btn--outline" href="uploads/curriculo-en.pdf" download>Resume EN (PDF)</a>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ========================== FOOTER ========================== -->
+  <footer class="footer shell">
+    <div class="footer__rule" aria-hidden="true"><span></span><i></i><span></span></div>
+    <span class="footer__line">
+      pedrolou.dev · <a href="https://somoskyber.com.br" target="_blank" rel="noreferrer">somoskyber.com.br</a> · Goiânia, GO · MMXXVI
+    </span>
+    <span class="footer__colophon">
+      <span data-i18n="pt">Composto em Spectral e IBM Plex. Gravura sobre papel digital.</span>
+      <span data-i18n="en" lang="en">Set in Spectral and IBM Plex. Engraving on digital paper.</span>
+    </span>
+  </footer>
+
+</div>
+
+<script src="assets/main.js" defer></script>
+</body>
+</html>

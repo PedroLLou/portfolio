@@ -1,0 +1,202 @@
+# pedrolou.dev - portfólio
+
+Site estático bilíngue (PT/EN), sem build e sem dependências.
+Implementado a partir do design `Portfolio Pedro.dc.html` (Claude Design)
+e depois reconstruído sobre um sistema de design próprio.
+
+## Estrutura
+
+```
+index.html                  home, PT e EN lado a lado
+projetos/kyber-crm.html     estudo de caso
+assets/styles.css           tokens, layout, motion, breakpoints
+assets/main.js              troca de idioma e nav fixa
+favicon.svg
+uploads/                    imagens e currículos em PDF
+imagens/                    originais em alta, fora do que é publicado
+```
+
+Cada página declara os próprios títulos em
+`<html data-title-pt="..." data-title-en="...">`, então o `main.js` serve
+home e estudos de caso sem alteração.
+
+## Rodar localmente
+
+```bash
+npx serve -l 4321 .
+```
+
+## Sistema de design
+
+**Direção: "prova de gravura".** Papel creme, tinta azul, Spectral para
+títulos, IBM Plex Sans para texto, IBM Plex Mono para metadados. Fios de
+1px em três pesos, nada de sombra pesada, nada de canto arredondado
+exceto onde já existia.
+
+**Escala tipográfica.** Oito degraus (`--t-micro` a `--t-hero`), e nada
+fora deles. A versão anterior usava 24 combinações de tamanho/peso/família
+ajustadas à mão, com passos imperceptíveis (14 e 14.5, 10.5 e 11).
+
+**Espaçamento.** Base 4px, de `--s-1` a `--s-10`. Sem valores avulsos.
+
+**Cor.** Todo token de texto passa WCAG AA no tamanho em que é usado.
+Os dois cinzas mais claros do design original (`#6A6B7A` em 4.40:1 e
+`#9A9AA8` em 2.32:1) foram removidos.
+
+## Decisões que valem explicação
+
+**Os algarismos romanos saíram do topo das seções.** Antes eram uma
+etiqueta pequena repetida acima de cada título, cinco vezes, que é
+exatamente o ritmo de template que este projeto não quer. Agora são
+fólios: algarismo grande em Spectral itálico pendurado na margem
+esquerda, alinhado à primeira linha do título. Cada seção ganhou um
+`<h2>` de verdade, o que também conserta a hierarquia de headings, que
+antes pulava de `h1` para `h3`.
+
+**Véu de papel no hero.** A `hero.jpeg` é clara só no terço central
+(luminância medida: 0.76 no centro contra 0.14-0.23 nas bordas). Sem
+tratamento, o texto tinta ficava refém de onde a viewport corta a foto.
+Um gradiente radial creme atrás do bloco do título resolve isso e deixa
+o nome legível em qualquer recorte.
+
+**Três famílias de layout em Projetos.** Antes eram três grades de
+células iguais em sequência (5 serviços, 3 cards, 3 minis), o que achata
+tudo. Agora: placa em destaque para o Didata, faixa invertida de largura
+total para o Kyber CRM com os números em display, dupla assimétrica para
+Premium e Brava, e índice em linhas para os três menores. Serviços virou
+lista editorial com nota à direita, em vez de células vazias.
+
+**Listas de stack sem pontinho.** Os separadores `·` viraram fios de 1px
+gerados em CSS. Uma linha com nove pontos do meio lê como ruído.
+
+## Idioma
+
+Cada trecho bilíngue existe duas vezes na marcação, com `data-i18n="pt"`
+ou `data-i18n="en"`. A troca é só CSS, a partir do atributo `lang` do
+`<html>`:
+
+```css
+html[lang="pt"] [data-i18n="en"] { display: none; }
+html[lang="en"] [data-i18n="pt"] { display: none; }
+```
+
+Os dois idiomas estão no HTML servido, o que é bom para SEO, e a página
+funciona em português mesmo sem JavaScript. O `main.js` cuida do resto:
+lê a escolha salva em `localStorage` (`pl.lang`), cai para
+`navigator.language` na primeira visita, e atualiza `<title>`, o link do
+currículo e o `aria-pressed` dos botões.
+
+## Motion
+
+As entradas por scroll usam `animation-timeline: view()` nativo, dentro
+de um `@supports`. Não há listener de scroll, observer nem trabalho na
+main thread, e só `transform` e `opacity` são animados. O fio de cada
+seção se desenha num pseudo-elemento, não no container, senão o título
+seria esticado junto.
+
+A única coisa que ainda depende de JavaScript é a nav fixa: aparece
+quando a rolagem passa 75% da altura do hero, com a altura medida uma vez
+e recalculada no `resize`, então o handler não toca no layout.
+
+`prefers-reduced-motion` desliga tudo.
+
+## Acessibilidade
+
+- 182 elementos com texto auditados, zero reprovações de contraste AA.
+- Hierarquia `h1` a `h3` sem saltos.
+- Skip link, `:focus-visible` visível, landmarks, `aria-pressed` no
+  seletor de idioma (PT/EN em texto, sem imagem externa).
+- Sem overflow horizontal em 320, 375, 768, 1024, 1280 e 1440px.
+
+## Deploy
+
+Qualquer host estático. Na Vercel, basta apontar para a raiz, sem comando
+de build e sem diretório de saída.
+
+## Estudos de caso
+
+`projetos/kyber-crm.html` segue a estrutura que a pesquisa de portfólio
+recomenda: problema, abordagem, como foi resolvido, a decisão de projeto
+que vale contar, e os números. A seção IV (não enviar mensagem
+automaticamente) ganha a placa invertida de propósito: é o trecho que
+mostra critério, não habilidade, e é o mais forte da página.
+
+O layout reaproveita as classes da home (`head`, `svc`, `figures`,
+`stack`, `btn`), então um segundo estudo de caso é só marcação nova.
+
+## Conteúdo que falta
+
+Itens identificados na análise que dependem de dado real e por isso não
+foram inventados:
+
+- **Números do Didata.** O Kyber CRM tem oito figuras em display; o
+  Didata não tem nenhuma. Professores ativos, materiais gerados ou
+  escolas. Ainda não existem, e o próprio `PRODUCT.md` do Didata proíbe
+  prova social fabricada, então o card fica sem figuras até haver dado.
+## Screenshot do CRM
+
+`uploads/kyber-crm.png` é a Central do dia com os dados sensíveis
+destruídos por mosaico, não por desfoque: o desfoque leve deixava texto
+grande e em negrito ainda legível.
+
+O que foi coberto, e por quê:
+
+| Região | Expunha |
+|---|---|
+| Valores dos 5 indicadores | MRR, caixa, a receber, a pagar |
+| Fila do dia, duas faixas | Nomes de cliente, CNPJ, telefone, um CPF citado |
+| Leitura do dia | Nomes de cliente e valores |
+
+O que ficou legível de propósito: a navegação com os treze módulos, os
+títulos dos painéis e a estrutura da tela. É o que comunica a amplitude
+do sistema sem entregar nada de cliente.
+
+A base cortada ao meio foi removida no recorte (944px para 790px), então
+o quadro fecha numa borda limpa.
+
+O script está em `scripts/blur-crm.ps1` caso precise refazer com uma
+captura nova.
+## A carteira de clientes
+
+Quatro sites de negócio local listados soltos leriam como bico. O que os
+torna dignos de aparecer é que saem todos de um padrão escrito, então o
+padrão ganha peso igual ao registro, lado a lado.
+
+O padrão foi extraído dos READMEs dos próprios repositórios: HTML
+estático sem build, fontes self-hospedadas, WebP otimizado, SEO completo
+(canonical, Open Graph, JSON-LD, sitemap), contraste AA, foco visível,
+teste a 375px, e o domínio registrado no nome do cliente. Esse último é
+o item que quase nenhuma agência pequena faz.
+
+Os quatro domínios foram conferidos e respondem 200:
+
+| Cliente | Domínio |
+|---|---|
+| Ela Bela | elabelaestetica.com.br |
+| Infinita Saúde | infinitafisio.com.br |
+| Jordanna Santos | jordannasantostecnica.com.br |
+| Encanto Gourmet | encantogourmetbuffet.com.br |
+
+O README do `infinitasaude` ainda diz que o site vive em
+`infinitasaude.vercel.app`. Ele já migrou para `infinitafisio.com.br`,
+vale corrigir lá.
+
+## Números verificados
+
+As figuras do estudo de caso não são estimativa:
+
+- **70 ferramentas MCP**: contadas no servidor MCP do Kyber CRM ao vivo.
+- **32 migrations**: `supabase/migrations`, de `0001_schema.sql` a
+  `0032_prospeccao_instagram.sql`.
+
+O texto do card do Didata vem do `PRODUCT.md` do próprio repositório
+(currículo BR verificável, correção por foto, memória da turma, e a
+regra de que a IA sugere e o professor confirma), não de paráfrase.
+
+## Pendências
+
+- `didata.png` tem 1,4 MB e `hero.jpeg` 760 KB. O hero não é lazy, então
+  pesa no primeiro carregamento. Converter para WebP ou AVIF cortaria a
+  maior parte disso sem diferença visível.
+- As fontes vêm do Google Fonts por `<link>`. Auto-hospedar com
+  `font-display: swap` tiraria uma conexão do caminho crítico.
