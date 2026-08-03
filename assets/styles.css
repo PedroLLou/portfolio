@@ -428,14 +428,18 @@ html[lang="en"] [data-i18n="pt"] { display: none; }
 }
 .pillnav a { color: var(--meta); }
 .pillnav a:hover { color: var(--blue-deep); }
-.pillnav__home { font-weight: 600; color: var(--blue-deep); }
-.pillnav__cta {
+
+/* `.pillnav a` is class + element, so a bare `.pillnav__cta` loses to it
+   and the label falls back to grey on the dark pill. Both variants carry
+   the element selector to outrank the base rule. */
+.pillnav a.pillnav__home { font-weight: 600; color: var(--blue-deep); }
+.pillnav a.pillnav__cta {
   padding: var(--s-2) var(--s-4);
   background: var(--blue-deep);
   color: var(--paper);
   transition: background 220ms ease;
 }
-.pillnav__cta:hover { background: var(--blue-dark); color: var(--paper); }
+.pillnav a.pillnav__cta:hover { background: var(--blue-dark); color: var(--paper); }
 
 @media (prefers-reduced-transparency: reduce) {
   .pillnav { background: var(--paper); backdrop-filter: none; }
