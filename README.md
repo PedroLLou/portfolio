@@ -312,14 +312,35 @@ todos os outros títulos. A largura renderizada do título não mudou.
 
 Duas, cada uma bloqueada por um motivo verificado, não suposto:
 
-- **Perfil do GitHub.** Bio, localização, link do site, e fixar ou
-  arquivar repositório. O MCP do GitHub não expõe endpoint de perfil,
-  de `PATCH /repos` nem a mutation de pinned items, e o `gh` desta
-  máquina não está autenticado.
-- **Capturas do Didata por dentro.** A tela de correção e a de
-  divergência resolveriam o case sozinhas. Só existem em produção, e as
-  imagens de prova têm nome de aluno, que é dado de menor de idade: a
-  captura precisa ser de prova sintética, escrita para isso.
+**Perfil do GitHub.** Bio, localização, link do site, e fixar ou arquivar
+repositório. O MCP do GitHub não expõe endpoint de perfil, `PATCH /repos`
+nem a mutation de pinned items; o `gh` desta máquina não está autenticado
+e não há `GH_TOKEN` no ambiente. Depois de `gh auth login`:
+
+```bash
+gh api -X PATCH /user -f bio='Desenvolvedor full stack. Dois produtos próprios em produção.' -f location='Goiânia, Brasil' -f blog='https://www.pedrolou.dev'
+```
+
+E para arquivar o que a auditoria apontou como ruído na vitrine:
+
+```bash
+for r in rep1 CRUD-Agenda lab-git-colaborativo-cmp2304; do gh repo edit PedroLLou/$r --visibility private; done
+```
+
+Fixar `portfolio`, `gerador-curriculo` e `tcc20261` é na interface do
+GitHub, em Customize your pins.
+
+**Capturas do Didata por dentro.** A tela de correção e a de divergência
+resolveriam o case sozinhas. Existem imagens em
+`E:\Didata\docs\visual\telas\`, e elas **não servem**: o README do próprio
+Didata diz que são *mockups* das telas previstas e que "a interface real em
+produção segue o design system Didata". Publicá-las como captura de produto
+seria prova fabricada, que é o que o `PRODUCT.md` do Didata proíbe e o que
+este site inteiro se recusa a fazer. Nenhuma delas mostra correção ou
+divergência, que são justamente as duas que o case pede.
+
+A captura tem que sair da produção, e a prova fotografada precisa ser
+sintética: prova real tem nome de aluno, que é dado de menor de idade.
 
 ## Currículo em PDF
 
