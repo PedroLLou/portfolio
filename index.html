@@ -52,24 +52,27 @@
     <div class="hero__body">
       <h1 class="hero__name">Pedro Lourençoni Lima</h1>
       <p class="hero__tagline">
-        <span data-i18n="pt">Desenvolvedor full stack e fundador da Kyber Tech. Do problema ao produto em produção.</span>
-        <span data-i18n="en" lang="en">Full-stack developer and founder of Kyber Tech. From the problem to a product in production.</span>
+        <span data-i18n="pt">Desenvolvedor Full Stack especializado em SaaS e IA aplicada. Construo produtos web de ponta a ponta, do banco e das APIs ao deploy e à operação.</span>
+        <span data-i18n="en" lang="en">Full-Stack developer specialised in SaaS and applied AI. I build web products end to end, from the database and APIs to deploy and operation.</span>
       </p>
-      <span class="hero__stack">React · Node.js · TypeScript · IA</span>
+      <span class="hero__stack">React · Next.js · Node.js · TypeScript · PostgreSQL · IA</span>
+
+      <p class="hero__open">
+        <span class="hero__open-mark" aria-hidden="true"></span>
+        <span data-i18n="pt">Aberto a oportunidades full stack</span>
+        <span data-i18n="en" lang="en">Open to full-stack opportunities</span>
+      </p>
 
       <div class="hero__actions">
         <div class="hero__cta">
           <a class="btn btn--solid" href="#projetos">
-            <span data-i18n="pt">Ver projetos</span><span data-i18n="en" lang="en">View projects</span>
+            <span data-i18n="pt">Ver projetos em produção</span><span data-i18n="en" lang="en">See projects in production</span>
           </a>
-          <a class="btn btn--ghost" href="#contato">
-            <span data-i18n="pt">Vamos conversar</span><span data-i18n="en" lang="en">Let's talk</span>
+          <a class="btn btn--ghost" id="cv-link" href="uploads/curriculo-pt.pdf" download>
+            <span data-i18n="pt">Baixar currículo</span><span data-i18n="en" lang="en">Download resume</span>
           </a>
         </div>
         <div class="hero__mini">
-          <a class="chip" id="cv-link" href="uploads/curriculo-pt.pdf" download>
-            <span data-i18n="pt">Currículo PDF</span><span data-i18n="en" lang="en">Resume PDF</span>
-          </a>
           <a class="chip" href="https://www.linkedin.com/in/pedrolourenconilima" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
           <a class="chip" href="https://github.com/PedroLLou" target="_blank" rel="noreferrer" aria-label="GitHub">gh</a>
         </div>
@@ -89,6 +92,14 @@
   </nav>
 
   <main>
+
+  <!-- ======================= BARRA DE EVIDÊNCIAS ======================= -->
+  <ul class="evidence">
+    <li><span data-i18n="pt">Produtos próprios em produção</span><span data-i18n="en" lang="en">Own products in production</span></li>
+    <li><span data-i18n="pt">Cinco clientes atendidos</span><span data-i18n="en" lang="en">Five clients served</span></li>
+    <li><span data-i18n="pt">Escrevendo software desde 2023</span><span data-i18n="en" lang="en">Shipping software since 2023</span></li>
+    <li><span data-i18n="pt">Inglês avançado</span><span data-i18n="en" lang="en">Advanced English</span></li>
+  </ul>
 
   <!-- ========================= I · SOBRE ========================= -->
   <section id="sobre" class="section shell">
@@ -165,74 +176,10 @@
     </div>
   </section>
 
-  <!-- ======================== II · SERVIÇOS ======================== -->
-  <section class="services">
-    <div class="section section--tight shell">
-      <div class="head">
-        <span class="head__folio" aria-hidden="true">II</span>
-        <h2 class="head__title">
-          <span data-i18n="pt">O que eu construo para empresas</span>
-          <span data-i18n="en" lang="en">What I build for companies</span>
-        </h2>
-      </div>
-
-      <ol class="svc reveal">
-        <li class="svc__row">
-          <span class="svc__num">01</span>
-          <span class="svc__name"><span data-i18n="pt">Desenvolvimento de SaaS</span><span data-i18n="en" lang="en">SaaS development</span></span>
-          <span class="svc__note"><span data-i18n="pt">Produto do zero ao deploy, com contas, cobrança e multiusuário.</span><span data-i18n="en" lang="en">Product from zero to deploy, with accounts, billing and multi-tenancy.</span></span>
-        </li>
-        <li class="svc__row">
-          <span class="svc__num">02</span>
-          <span class="svc__name"><span data-i18n="pt">Desenvolvimento web</span><span data-i18n="en" lang="en">Web development</span></span>
-          <span class="svc__note"><span data-i18n="pt">Sites e sistemas sob medida, rápidos e indexáveis.</span><span data-i18n="en" lang="en">Bespoke sites and systems, fast and indexable.</span></span>
-        </li>
-        <li class="svc__row">
-          <span class="svc__num">03</span>
-          <span class="svc__name"><span data-i18n="pt">Aplicações com IA e automação</span><span data-i18n="en" lang="en">AI and automation apps</span></span>
-          <span class="svc__note"><span data-i18n="pt">LLMs, RAG e integrações que tiram horas repetidas da semana.</span><span data-i18n="en" lang="en">LLMs, RAG and integrations that remove repeated hours from the week.</span></span>
-        </li>
-        <li class="svc__row">
-          <span class="svc__num">04</span>
-          <span class="svc__name"><span data-i18n="pt">Dashboards e sistemas internos</span><span data-i18n="en" lang="en">Dashboards and internal systems</span></span>
-          <span class="svc__note"><span data-i18n="pt">Painéis que substituem a planilha, com dados em tempo real.</span><span data-i18n="en" lang="en">Panels that replace the spreadsheet, with realtime data.</span></span>
-        </li>
-        <li class="svc__row">
-          <span class="svc__num">05</span>
-          <span class="svc__name"><span data-i18n="pt">UX/UI e design de interface</span><span data-i18n="en" lang="en">UX/UI and interface design</span></span>
-          <span class="svc__note"><span data-i18n="pt">Interface desenhada e implementada pela mesma pessoa.</span><span data-i18n="en" lang="en">Interface designed and implemented by the same person.</span></span>
-        </li>
-      </ol>
-
-      <ol class="process">
-        <li class="process__step">
-          <span class="process__num">01</span>
-          <span class="process__name"><span data-i18n="pt">Conversa</span><span data-i18n="en" lang="en">Conversation</span></span>
-          <span class="process__note"><span data-i18n="pt">Entender o problema antes de falar de tecnologia. Sai daqui o escopo, não uma lista de recursos.</span><span data-i18n="en" lang="en">Understand the problem before talking about technology. What comes out is a scope, not a feature list.</span></span>
-        </li>
-        <li class="process__step">
-          <span class="process__num">02</span>
-          <span class="process__name"><span data-i18n="pt">Proposta</span><span data-i18n="en" lang="en">Proposal</span></span>
-          <span class="process__note"><span data-i18n="pt">Escopo, prazo e preço num link, sem login e sem anexo. O que está fora fica escrito também.</span><span data-i18n="en" lang="en">Scope, timeline and price in a link, no login and no attachment. What is out of scope is written down too.</span></span>
-        </li>
-        <li class="process__step">
-          <span class="process__num">03</span>
-          <span class="process__name"><span data-i18n="pt">Produção</span><span data-i18n="en" lang="en">Build</span></span>
-          <span class="process__note"><span data-i18n="pt">Etapas acompanháveis por link de status, e uma prévia no ar bem antes do lançamento.</span><span data-i18n="en" lang="en">Stages you can follow through a status link, and a preview online well before launch.</span></span>
-        </li>
-        <li class="process__step">
-          <span class="process__num">04</span>
-          <span class="process__name"><span data-i18n="pt">Lançamento</span><span data-i18n="en" lang="en">Launch</span></span>
-          <span class="process__note"><span data-i18n="pt">Vai para o domínio próprio, e o canal continua aberto depois que entra no ar.</span><span data-i18n="en" lang="en">It moves to your own domain, and the channel stays open after it goes live.</span></span>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- ======================== III · PROJETOS ======================== -->
+  <!-- ======================== II · PROJETOS ======================== -->
   <section id="projetos" class="section section--loose shell projects">
     <div class="head">
-      <span class="head__folio" aria-hidden="true">III</span>
+      <span class="head__folio" aria-hidden="true">II</span>
       <h2 class="head__title">
         <span data-i18n="pt">Produtos em produção, não protótipos</span>
         <span data-i18n="en" lang="en">Products in production, not prototypes</span>
@@ -303,8 +250,8 @@
           <dd class="figure__value">29</dd>
         </div>
         <div class="figure">
-          <dt class="figure__label"><span data-i18n="pt">Linhas de TypeScript</span><span data-i18n="en" lang="en">Lines of TypeScript</span></dt>
-          <dd class="figure__value">21.133</dd>
+          <dt class="figure__label"><span data-i18n="pt">Toques por dia, teto por canal</span><span data-i18n="en" lang="en">Daily touches, capped per channel</span></dt>
+          <dd class="figure__value">55</dd>
         </div>
       </dl>
       <img class="band__shot" src="uploads/kyber-crm.webp" alt="Central do dia do Kyber CRM, com dados de cliente borrados" width="1901" height="790" loading="lazy" />
@@ -429,11 +376,11 @@
     </div>
   </section>
 
-  <!-- ======================= IV · EXPERIÊNCIA ======================= -->
+  <!-- ======================= III · EXPERIÊNCIA ======================= -->
   <section id="experiencia" class="experience">
     <div class="section section--tight shell">
       <div class="head">
-        <span class="head__folio" aria-hidden="true">IV</span>
+        <span class="head__folio" aria-hidden="true">III</span>
         <h2 class="head__title">
           <span data-i18n="pt">Por onde passei</span>
           <span data-i18n="en" lang="en">Where I have worked</span>
@@ -497,11 +444,11 @@
     </div>
   </section>
 
-  <!-- ========================= V · CONTATO ========================= -->
+  <!-- ========================= IV · CONTATO ========================= -->
   <section id="contato" class="contact">
     <div class="shell">
       <div class="head">
-        <span class="head__folio" aria-hidden="true">V</span>
+        <span class="head__folio" aria-hidden="true">IV</span>
         <h2 class="head__title">
           <span data-i18n="pt">Tem uma vaga ou um projeto?</span>
           <span data-i18n="en" lang="en">Got a role or a project?</span>
@@ -534,6 +481,11 @@
         <a class="btn btn--outline" href="uploads/curriculo-pt.pdf" download>Currículo PT (PDF)</a>
         <a class="btn btn--outline" href="uploads/curriculo-en.pdf" download>Resume EN (PDF)</a>
       </div>
+
+      <p class="contact__aside">
+        <span data-i18n="pt">Precisa contratar um projeto? Conheça a <a href="https://somoskyber.com.br" target="_blank" rel="noreferrer">Kyber Tech</a>.</span>
+        <span data-i18n="en" lang="en">Need a project built? Take a look at <a href="https://somoskyber.com.br" target="_blank" rel="noreferrer">Kyber Tech</a>.</span>
+      </p>
     </div>
   </section>
   </main>
