@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Brava Dashboard · Case study · Pedro Lourençoni Lima</title>
+<meta name="description" content="Admin dashboard for a FiveM roleplay server: a Vercel SPA talking to a game server on a home machine with no public IP, and the decision to show a dash instead of an invented number." />
+<meta name="theme-color" content="#F2EADC" />
+<link rel="canonical" href="https://www.pedrolou.dev/en/projetos/brava" />
+<link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/projetos/brava" />
+<link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/projetos/brava" />
+<link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/projetos/brava" />
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.pedrolou.dev/en/projetos/brava" />
+<meta property="og:title" content="Brava Dashboard · Case study · Pedro Lourençoni Lima" />
+<meta property="og:description" content="Admin dashboard for a FiveM roleplay server: a Vercel SPA talking to a game server on a home machine with no public IP, and the decision to show a dash instead of an invented number." />
+<meta property="og:image" content="https://www.pedrolou.dev/uploads/og-card.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Brava Dashboard case study" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="pt_BR" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/ibm-plex-mono-400-normal-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/ibm-plex-sans-400+500-normal-latin.woff2" crossorigin />
+<link rel="stylesheet" href="../../assets/fonts.css" />
+<link rel="stylesheet" href="../../assets/styles.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Brava Dashboard, estudo de caso",
+      "description": "Painel administrativo de um servidor de roleplay FiveM: um adapter HTTP em Lua, três tentativas de autenticação, e a decisão de mostrar um traço em vez de um número inventado.",
+      "url": "https://www.pedrolou.dev/en/projetos/brava",
+      "image": "https://www.pedrolou.dev/uploads/og-card.jpg",
+      "inLanguage": "en",
+      "datePublished": "2026-08-05",
+      "dateModified": "2026-08-05",
+      "author": {
+        "@type": "Person",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/en/"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Brava Dashboard",
+        "applicationCategory": "BusinessApplication"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Portfólio", "item": "https://www.pedrolou.dev/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Projetos", "item": "https://www.pedrolou.dev/en/#projetos" },
+        { "@type": "ListItem", "position": 3, "name": "Brava Dashboard" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#problema">
+  Skip to content
+</a>
+
+<div class="page page--doc">
+
+  <header class="doc__top shell">
+    <div class="doc__nav">
+      <a class="doc__back" href="/en/#projetos">
+        <span aria-hidden="true">←</span>
+        Portfolio
+      </a>
+      <div class="langswitch" role="group" aria-label="Idioma / Language">
+        <a class="langswitch__btn" href="/projetos/brava">PT</a>
+        <a class="langswitch__btn" href="/en/projetos/brava" aria-current="true">EN</a>
+      </div>
+    </div>
+
+    <h1 class="doc__title">Brava Dashboard</h1>
+
+    <p class="doc__lede">
+
+      Admin panel for Cidade Brava, a FiveM roleplay server. Thirteen screens for four people. The part worth telling is not the interface: it is what sits between a page on Vercel and a game server running on a home machine, with no public IP, in Lua.
+    </p>
+
+    <dl class="doc__meta">
+      <div>
+        <dt>Role</dt>
+        <dd>Panel, API and integration</dd>
+      </div>
+      <div>
+        <dt>Context</dt>
+        <dd>Client, server built by a team of three</dd>
+      </div>
+      <div>
+        <dt>Status</dt>
+        <dd>In internal use, with known limits</dd>
+      </div>
+      <div>
+        <dt>Access</dt>
+        <dd>Private, behind a login</dd>
+      </div>
+    </dl>
+  </header>
+
+  <main>
+
+  <!-- ===================== I · O PROBLEMA ===================== -->
+  <section id="problema" class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">I</span>
+      <h2 class="head__title">
+
+        Four users, and that changes everything
+      </h2>
+    </div>
+    <div class="doc__body">
+      <p>
+
+        Cidade Brava is a GTA roleplay server. Whoever runs it needs to know who is online, how much money circulates in the in-game economy, which organisations are active, and what the moderation team has been doing. All of that already existed inside the game, scattered across console commands, an in-game tablet and the F8 console. None of it can be checked from a phone, or from anywhere other than the server's own PC.
+      </p>
+      <p>
+
+        The audience is four administrators. That number is the project's most important premise, and the plan records it as something not to revisit. It rules out, in one stroke, roles, granular permissions, e-mail invitations, onboarding, legacy browser support and mobile optimisation. A panel for four known people, on desktop, is a different problem from a panel for a thousand strangers, and pretending otherwise would cost weeks.
+      </p>
+      <p>
+
+        Half the plan is a list of what would not be built: staff chat, heatmap, live spectating, command catalogue, tickets, jobs, global search, moderation notes on players. All of it either already works better inside the game, or is support work nobody there asked for. The list of vetoes is longer than the list of screens.
+      </p>
+      <p class="doc__caveat">
+
+        The server was built by a team of three. This case covers the web panel, the API that feeds it and the integration between them, which were mine. The in-game Lua scripts that already existed on the server are not mine and are not counted here, with one exception in section IV, where I had to touch someone else's code for the integration to work.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== II · A DECISÃO ===================== -->
+  <section class="decision">
+    <div class="shell">
+      <div class="head">
+        <span class="head__folio" aria-hidden="true">II</span>
+        <h2 class="head__title">
+
+          A dash is worth more than a pretty number
+        </h2>
+      </div>
+
+      <div class="decision__body">
+        <p class="decision__lede">
+
+          When a value does not exist, the screen shows a dash. Not a zero, not a fallback to sample data, not an estimate. And three indicators on the home screen still look like that today, in plain sight.
+        </p>
+        <p>
+
+          The panel started as a visual mockup: thirteen screens with hand-written sample data, to validate layout and navigation before touching the server. That worked well, and left a trap. When the real data arrived, the home screen still had seven blocks of numbers hard-coded from the mockup. The screen looked live and was not.
+        </p>
+        <p>
+
+          The easy way out would be to keep the sample data as a fallback: if the API does not answer, show what the mockup showed. The screen is never empty and nobody complains. That is exactly why it is bad. A panel that always has a number cannot be used to decide anything, because whoever looks at it cannot tell the data from the decoration.
+        </p>
+        <p>
+
+          So the seven blocks came out and the dash went in. Weekly sessions, weekly active players and revenue in local currency still show a dash today: the first two depend on session tracking the server does not keep, the third on a payment provider that does not exist yet. The panel says it does not know, instead of inventing. It is the same rule the rest of this portfolio follows, and here it lives inside the product.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== III · A ARQUITETURA ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">III</span>
+      <h2 class="head__title">
+
+        A thin adapter, on purpose
+      </h2>
+      <p class="head__note">
+
+        The game server already had around seventy admin functions written in Lua, with the database queries done. The question was how to reach them from outside.
+      </p>
+    </div>
+
+    <ol class="svc">
+      <li class="svc__row">
+        <span class="svc__num">01</span>
+        <span class="svc__name">No business logic in the API</span>
+        <span class="svc__note">The Lua resource I wrote only does authentication, routing and the matching function call. It duplicates not one line of SQL. If the server's admin side evolves, the panel inherits it for free, and there is no second copy of the same query silently drifting.</span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">02</span>
+        <span class="svc__name">A tunnel instead of an IP</span>
+        <span class="svc__note">The game server runs on a home machine behind NAT, with no public IP and no TLS, because FiveM's HTTP is plain text. A Cloudflare tunnel solves all three at once: DNS, certificate and NAT traversal, without opening a port on anyone's router.</span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">03</span>
+        <span class="svc__name">One hook per endpoint, with a fallback</span>
+        <span class="svc__note">Every screen reads through its own hook, and the hook knows three paths: demo mode, real data, and an in-memory cache when the API fails. It made it possible to migrate one screen at a time instead of switching everything at once, and to keep working with the server turned off.</span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">04</span>
+        <span class="svc__name">Charts written by hand</span>
+        <span class="svc__note">Six chart types in inline SVG, no library. It is not bravado: these are small series with a very specific style, and the smallest of the usual libraries would weigh more than all six together.</span>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===================== IV · O QUE QUEBROU ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">IV</span>
+      <h2 class="head__title">
+
+        Three bugs that only exist at the seam
+      </h2>
+      <p class="head__note">
+
+        On the day of connecting the panel to production, nothing showed up. The three causes were chained, and none of them appears when you test either side on its own.
+      </p>
+    </div>
+
+    <div class="doc__body">
+      <p>
+
+        Requests hung forever. The server's RPC framework has two independent transports: one for the game to talk to the server, another for one resource to talk to another. The admin resource had only registered the first, because it was written with in-game use in mind. My API called through the second, the event went out and nobody was listening. No error, no timeout: the call waited for a reply that would never come. The fix was one line, registering the same function table on both transports, and the cost was touching code that was not mine.
+      </p>
+      <p>
+
+        With the transport fixed, everything answered access denied. Each admin function starts by identifying the caller and checking their rank. In a resource-to-resource call there is no player on the other end, so that identifier comes back empty, and all of them left through the unauthorised door. The pattern I applied to the seventeen functions the panel uses leaves the player path booleanly identical to the original and only lets through the zero-origin case, which is the internal call. That one had already been authenticated earlier, at the HTTP edge.
+      </p>
+      <p>
+
+        Then the front end started breaking when iterating over lists. The admin functions already return an object with the list inside, and my handlers wrapped that again in an object with the same field name. The front end received the list two levels below where it expected and tried to iterate over an object. Only three endpoints had the problem: in the others the nesting was intentional and the front end already relied on it. Fixing it wholesale would have broken the ones that were right.
+      </p>
+      <p class="doc__caveat">
+
+        The lesson written into the repository: when a resource is going to be consumed by another resource, register both transports from the start, because it costs two lines and the failure shows up as an infinite wait, which is the most expensive symptom to diagnose. And what I would do differently: a smoke test crossing the whole stack, from HTTP down to the database, before migrating thirteen screens. All three bugs were at the seam, and I had tested each side on its own.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== V · AUTENTICAÇÃO ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">V</span>
+      <h2 class="head__title">
+
+        Three authentications, two thrown away
+      </h2>
+      <p class="head__note">
+
+        The part of the project where I wrote the most code that did not survive, and the one most worth telling.
+      </p>
+    </div>
+
+    <div class="notes">
+      <article class="note">
+        <h3 class="note__title">
+
+          First: the in-game identifier
+        </h3>
+        <p>
+
+          Login with the internal number the game uses for a player, plus a password. It worked, and it was bad for humans: an opaque number is not memorable, cannot be recovered, and ties the admin account to having a character in the game. Replaced by e-mail and password.
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+
+          Second: our own panel, in Lua
+        </h3>
+        <p>
+
+          Our own admin table, salted hashing computed in the database, token sessions, and a console command to register, reset passwords and revoke access. Zero external dependencies. Fully implemented and documented.
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+
+          The question that knocked it down
+        </h3>
+        <p>
+
+          Right after it was done, one question: why the console, when a managed service exists? Forgot my password becomes walking to the server machine and running a command. Inviting someone becomes building a sign-up screen. The cost was in daily use, not in the implementation, and the implementation was the only part that was finished.
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+
+          Third: managed identity
+        </h3>
+        <p>
+
+          The custom table, the console command and the whole file were deleted the next day. Password recovery, sign-up and access logging became someone else's problem. The front end had been sending e-mail and password since the previous step, so it needed not one line of change.
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+
+          Verifying without a shared key
+        </h3>
+        <p>
+
+          The Lua side validates the token by asking the provider, caching the answer for five minutes, instead of verifying the signature locally. Local verification would be a day of work, would require a key in the server's config file and a hand-written HMAC. The cached call is simpler and has less surface to get wrong.
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+
+          The price, named before it is charged
+        </h3>
+        <p>
+
+          An external dependency now exists: if the provider goes down, nobody logs in. The five-minute cache limits the damage to new logins and token refresh; whoever is already inside stays in. It is written down as a conscious decision, not discovered afterwards.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== VI · O QUE EXISTE ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">VI</span>
+      <h2 class="head__title">
+        What exists today
+      </h2>
+    </div>
+
+    <dl class="figures figures--paper">
+      <div class="figure">
+        <dt class="figure__label">Screens</dt>
+        <dd class="figure__value">13</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">On real data</dt>
+        <dd class="figure__value">9</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Recorded decisions</dt>
+        <dd class="figure__value">30</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Users</dt>
+        <dd class="figure__value">4</dd>
+      </div>
+    </dl>
+
+    <div class="doc__body doc__body--tight">
+      <p>
+
+        Also: fourteen server processes monitored live, six chart types written in SVG, and a 186 KB compressed bundle. The thirty decisions live in a file in the repository, each with its reasoning and, where it applies, the condition to undo it.
+      </p>
+      <p class="doc__caveat">
+
+        What is not finished, and why. The tunnel comes up in a terminal window left open on the server machine: installing it as a service needs local administrative privilege I do not have there. Two storage endpoints are still served from sample data, waiting on the server side. Three indicators show the dash from section II. None of this has been audited for accessibility and the responsive layout was never tested on a physical device: these are accepted limits for a four-person desktop panel, and they are written here for the same reason they are written in the repository.
+      </p>
+      <ul class="stack stack--lg">
+        <li>React 19</li><li>TypeScript</li><li>Vite 6</li><li>Tailwind CSS 4</li>
+        <li>Lua</li><li>FiveM</li><li>MariaDB</li><li>Supabase Auth</li><li>Cloudflare Tunnel</li><li>Vercel</li>
+      </ul>
+    </div>
+  </section>
+
+  </main>
+
+  <section class="doc__end shell">
+    <div class="doc__endrule" aria-hidden="true"><span></span><i></i><span></span></div>
+    <p class="doc__endnote">
+
+      Private panel, no public link. Want to see the rest of the work, or talk about a role?
+    </p>
+    <div class="doc__endcta">
+      <a class="btn btn--solid" href="/en/#projetos">
+        See the other projects
+      </a>
+      <a class="btn btn--ghost" href="/en/#contato">
+        Get in touch
+      </a>
+    </div>
+    <p class="doc__date">
+
+      Updated 5 August 2026
+    </p>
+  </section>
+
+</div>
+
+<script src="../../assets/main.js" defer></script>
+</body>
+</html>

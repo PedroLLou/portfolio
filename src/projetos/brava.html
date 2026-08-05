@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt" data-desc-pt="Painel administrativo de um servidor de roleplay FiveM: SPA na Vercel falando com um servidor de jogo numa máquina doméstica sem IP público, e a decisão de mostrar um traço em vez de um número inventado." data-desc-en="Admin dashboard for a FiveM roleplay server: a Vercel SPA talking to a game server on a home machine with no public IP, and the decision to show a dash instead of an invented number." data-ogalt-pt="Estudo de caso do Brava Dashboard" data-ogalt-en="Brava Dashboard case study" data-title-pt="Brava Dashboard · Estudo de caso · Pedro Lourençoni Lima" data-title-en="Brava Dashboard · Case study · Pedro Lourençoni Lima">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Brava Dashboard · Estudo de caso · Pedro Lourençoni Lima</title>
+<meta name="description" content="Painel administrativo de um servidor de roleplay FiveM: SPA na Vercel falando com um servidor de jogo numa máquina doméstica sem IP público, e a decisão de mostrar um traço em vez de um número inventado." />
+<meta name="theme-color" content="#F2EADC" />
+<link rel="canonical" href="https://www.pedrolou.dev/projetos/brava" />
+<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.pedrolou.dev/projetos/brava" />
+<meta property="og:title" content="Brava Dashboard · Estudo de caso" />
+<meta property="og:description" content="Um adapter HTTP em Lua sobre um servidor de jogo, três tentativas de autenticação até a certa, e a escolha de renderizar um traço onde o dado ainda não existe." />
+<meta property="og:image" content="https://www.pedrolou.dev/uploads/og-card.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Estudo de caso do Brava Dashboard" />
+<meta property="og:locale" content="pt_BR" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/ibm-plex-mono-400-normal-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/ibm-plex-sans-400+500-normal-latin.woff2" crossorigin />
+<link rel="stylesheet" href="../assets/fonts.css" />
+<link rel="stylesheet" href="../assets/styles.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Brava Dashboard, estudo de caso",
+      "description": "Painel administrativo de um servidor de roleplay FiveM: um adapter HTTP em Lua, três tentativas de autenticação, e a decisão de mostrar um traço em vez de um número inventado.",
+      "url": "https://www.pedrolou.dev/projetos/brava",
+      "image": "https://www.pedrolou.dev/uploads/og-card.jpg",
+      "inLanguage": "pt-BR",
+      "datePublished": "2026-08-05",
+      "dateModified": "2026-08-05",
+      "author": {
+        "@type": "Person",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Brava Dashboard",
+        "applicationCategory": "BusinessApplication"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Portfólio", "item": "https://www.pedrolou.dev/" },
+        { "@type": "ListItem", "position": 2, "name": "Projetos", "item": "https://www.pedrolou.dev/#projetos" },
+        { "@type": "ListItem", "position": 3, "name": "Brava Dashboard" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#problema">
+  <span data-i18n="pt">Pular para o conteúdo</span><span data-i18n="en" lang="en">Skip to content</span>
+</a>
+
+<div class="page page--doc">
+
+  <header class="doc__top shell">
+    <div class="doc__nav">
+      <a class="doc__back" href="/#projetos">
+        <span aria-hidden="true">←</span>
+        <span data-i18n="pt">Portfólio</span><span data-i18n="en" lang="en">Portfolio</span>
+      </a>
+      <div class="langswitch" role="group" aria-label="Idioma / Language">
+        <button type="button" class="langswitch__btn" data-setlang="pt" title="Português" aria-pressed="true">PT</button>
+        <button type="button" class="langswitch__btn" data-setlang="en" title="English" aria-pressed="false">EN</button>
+      </div>
+    </div>
+
+    <h1 class="doc__title">Brava Dashboard</h1>
+
+    <p class="doc__lede">
+      <span data-i18n="pt">Painel administrativo da Cidade Brava, um servidor de roleplay em FiveM. Treze telas para quatro pessoas. A parte que vale contar não é a interface: é o que ficou entre uma página na Vercel e um servidor de jogo que roda numa máquina doméstica, sem IP público, em Lua.</span>
+      <span data-i18n="en" lang="en">Admin panel for Cidade Brava, a FiveM roleplay server. Thirteen screens for four people. The part worth telling is not the interface: it is what sits between a page on Vercel and a game server running on a home machine, with no public IP, in Lua.</span>
+    </p>
+
+    <dl class="doc__meta">
+      <div>
+        <dt><span data-i18n="pt">Papel</span><span data-i18n="en" lang="en">Role</span></dt>
+        <dd><span data-i18n="pt">Painel, API e integração</span><span data-i18n="en" lang="en">Panel, API and integration</span></dd>
+      </div>
+      <div>
+        <dt><span data-i18n="pt">Contexto</span><span data-i18n="en" lang="en">Context</span></dt>
+        <dd><span data-i18n="pt">Cliente, servidor de um time de três</span><span data-i18n="en" lang="en">Client, server built by a team of three</span></dd>
+      </div>
+      <div>
+        <dt><span data-i18n="pt">Situação</span><span data-i18n="en" lang="en">Status</span></dt>
+        <dd><span data-i18n="pt">Em uso interno, com limites conhecidos</span><span data-i18n="en" lang="en">In internal use, with known limits</span></dd>
+      </div>
+      <div>
+        <dt><span data-i18n="pt">Acesso</span><span data-i18n="en" lang="en">Access</span></dt>
+        <dd><span data-i18n="pt">Privado, atrás de login</span><span data-i18n="en" lang="en">Private, behind a login</span></dd>
+      </div>
+    </dl>
+  </header>
+
+  <main>
+
+  <!-- ===================== I · O PROBLEMA ===================== -->
+  <section id="problema" class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">I</span>
+      <h2 class="head__title">
+        <span data-i18n="pt">Quatro usuários, e isso muda tudo</span>
+        <span data-i18n="en" lang="en">Four users, and that changes everything</span>
+      </h2>
+    </div>
+    <div class="doc__body">
+      <p>
+        <span data-i18n="pt">A Cidade Brava é um servidor de GTA roleplay. Quem administra precisa saber quem está online, quanto dinheiro circula na economia do jogo, quais organizações estão ativas, e o que a equipe de moderação andou fazendo. Tudo isso já existia dentro do jogo, espalhado por comandos de console, um tablet in-game e o F8. Nada disso se consulta do celular, nem de fora do PC do servidor.</span>
+        <span data-i18n="en" lang="en">Cidade Brava is a GTA roleplay server. Whoever runs it needs to know who is online, how much money circulates in the in-game economy, which organisations are active, and what the moderation team has been doing. All of that already existed inside the game, scattered across console commands, an in-game tablet and the F8 console. None of it can be checked from a phone, or from anywhere other than the server's own PC.</span>
+      </p>
+      <p>
+        <span data-i18n="pt">O público é de quatro administradores. Esse número é a premissa mais importante do projeto, e está escrita no plano como coisa a não revisitar. Ele derruba de uma vez cargos, permissões granulares, convite por e-mail, onboarding, suporte a navegador antigo e otimização mobile. Um painel para quatro pessoas conhecidas, em desktop, é um problema diferente de um painel para mil desconhecidos, e fingir o contrário custaria semanas.</span>
+        <span data-i18n="en" lang="en">The audience is four administrators. That number is the project's most important premise, and the plan records it as something not to revisit. It rules out, in one stroke, roles, granular permissions, e-mail invitations, onboarding, legacy browser support and mobile optimisation. A panel for four known people, on desktop, is a different problem from a panel for a thousand strangers, and pretending otherwise would cost weeks.</span>
+      </p>
+      <p>
+        <span data-i18n="pt">Metade do plano é uma lista do que não seria feito: chat da equipe, mapa de calor, assistir jogador ao vivo, catálogo de comandos, chamados, empregos, busca global, notas de moderação sobre jogador. Tudo isso ou já funciona melhor dentro do jogo, ou é operação de suporte que ninguém ali pediu. A lista de vetos é mais longa que a de telas.</span>
+        <span data-i18n="en" lang="en">Half the plan is a list of what would not be built: staff chat, heatmap, live spectating, command catalogue, tickets, jobs, global search, moderation notes on players. All of it either already works better inside the game, or is support work nobody there asked for. The list of vetoes is longer than the list of screens.</span>
+      </p>
+      <p class="doc__caveat">
+        <span data-i18n="pt">O servidor é de um time de três. Este case cobre o painel web, a API que o alimenta e a integração entre os dois, que foram meus. Os scripts de jogo em Lua que já existiam no servidor não são meus e não estão contados aqui, com uma exceção que aparece na seção IV, onde precisei mexer em código de outra pessoa para a integração funcionar.</span>
+        <span data-i18n="en" lang="en">The server was built by a team of three. This case covers the web panel, the API that feeds it and the integration between them, which were mine. The in-game Lua scripts that already existed on the server are not mine and are not counted here, with one exception in section IV, where I had to touch someone else's code for the integration to work.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== II · A DECISÃO ===================== -->
+  <section class="decision">
+    <div class="shell">
+      <div class="head">
+        <span class="head__folio" aria-hidden="true">II</span>
+        <h2 class="head__title">
+          <span data-i18n="pt">Um traço vale mais que um número bonito</span>
+          <span data-i18n="en" lang="en">A dash is worth more than a pretty number</span>
+        </h2>
+      </div>
+
+      <div class="decision__body">
+        <p class="decision__lede">
+          <span data-i18n="pt">Quando um dado não existe, a tela mostra um traço. Não mostra zero, não cai no dado de exemplo, não estima. E três indicadores da home continuam assim hoje, à vista de todo mundo.</span>
+          <span data-i18n="en" lang="en">When a value does not exist, the screen shows a dash. Not a zero, not a fallback to sample data, not an estimate. And three indicators on the home screen still look like that today, in plain sight.</span>
+        </p>
+        <p>
+          <span data-i18n="pt">O painel nasceu como maquete visual: treze telas com dados de exemplo escritos à mão, para validar layout e navegação antes de tocar no servidor. Isso funcionou bem, e deixou uma armadilha. Quando os dados reais chegaram, a home continuava com sete blocos de números fixos no código, herdados da maquete. A tela parecia ligada e não estava.</span>
+          <span data-i18n="en" lang="en">The panel started as a visual mockup: thirteen screens with hand-written sample data, to validate layout and navigation before touching the server. That worked well, and left a trap. When the real data arrived, the home screen still had seven blocks of numbers hard-coded from the mockup. The screen looked live and was not.</span>
+        </p>
+        <p>
+          <span data-i18n="pt">A saída fácil seria manter o dado de exemplo como reserva: se a API não responder, mostra o que a maquete mostrava. A tela nunca fica vazia e ninguém reclama. É exatamente por isso que é ruim. Um painel que sempre tem número não pode ser usado para decidir nada, porque quem olha não distingue o dado do enfeite.</span>
+          <span data-i18n="en" lang="en">The easy way out would be to keep the sample data as a fallback: if the API does not answer, show what the mockup showed. The screen is never empty and nobody complains. That is exactly why it is bad. A panel that always has a number cannot be used to decide anything, because whoever looks at it cannot tell the data from the decoration.</span>
+        </p>
+        <p>
+          <span data-i18n="pt">Então os sete blocos saíram e o traço entrou. Sessões da semana, jogadores ativos na semana e receita em real aparecem como traço até hoje: os dois primeiros dependem de um registro de sessão que o servidor não guarda, o terceiro depende de um meio de pagamento que ainda não existe. O painel diz que não sabe, em vez de inventar. É a mesma regra que o resto deste portfólio segue, e aqui ela está dentro do produto.</span>
+          <span data-i18n="en" lang="en">So the seven blocks came out and the dash went in. Weekly sessions, weekly active players and revenue in local currency still show a dash today: the first two depend on session tracking the server does not keep, the third on a payment provider that does not exist yet. The panel says it does not know, instead of inventing. It is the same rule the rest of this portfolio follows, and here it lives inside the product.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== III · A ARQUITETURA ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">III</span>
+      <h2 class="head__title">
+        <span data-i18n="pt">Um adapter fino, de propósito</span>
+        <span data-i18n="en" lang="en">A thin adapter, on purpose</span>
+      </h2>
+      <p class="head__note">
+        <span data-i18n="pt">O servidor de jogo já tinha cerca de setenta funções administrativas escritas em Lua, com as consultas ao banco prontas. A questão era como alcançá-las de fora.</span>
+        <span data-i18n="en" lang="en">The game server already had around seventy admin functions written in Lua, with the database queries done. The question was how to reach them from outside.</span>
+      </p>
+    </div>
+
+    <ol class="svc">
+      <li class="svc__row">
+        <span class="svc__num">01</span>
+        <span class="svc__name"><span data-i18n="pt">Nada de regra de negócio na API</span><span data-i18n="en" lang="en">No business logic in the API</span></span>
+        <span class="svc__note"><span data-i18n="pt">O recurso Lua que criei só faz autenticação, roteamento e a chamada da função correspondente. Não duplica uma linha de SQL. Se o administrativo do servidor evoluir, o painel herda de graça, e não existe uma segunda versão da mesma consulta divergindo em silêncio.</span><span data-i18n="en" lang="en">The Lua resource I wrote only does authentication, routing and the matching function call. It duplicates not one line of SQL. If the server's admin side evolves, the panel inherits it for free, and there is no second copy of the same query silently drifting.</span></span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">02</span>
+        <span class="svc__name"><span data-i18n="pt">Um túnel no lugar de um IP</span><span data-i18n="en" lang="en">A tunnel instead of an IP</span></span>
+        <span class="svc__note"><span data-i18n="pt">O servidor de jogo roda numa máquina doméstica atrás de NAT, sem IP público e sem TLS, porque o HTTP do FiveM é texto puro. Um túnel da Cloudflare resolve os três de uma vez: DNS, certificado e travessia de NAT, sem abrir porta no roteador de ninguém.</span><span data-i18n="en" lang="en">The game server runs on a home machine behind NAT, with no public IP and no TLS, because FiveM's HTTP is plain text. A Cloudflare tunnel solves all three at once: DNS, certificate and NAT traversal, without opening a port on anyone's router.</span></span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">03</span>
+        <span class="svc__name"><span data-i18n="pt">Um hook por endpoint, com reserva</span><span data-i18n="en" lang="en">One hook per endpoint, with a fallback</span></span>
+        <span class="svc__note"><span data-i18n="pt">Toda tela lê por um hook próprio, e o hook conhece três caminhos: modo demonstração, dado real, e cache em memória quando a API falha. Permitiu migrar tela por tela em vez de trocar tudo de uma vez, e continuar desenvolvendo com o servidor desligado.</span><span data-i18n="en" lang="en">Every screen reads through its own hook, and the hook knows three paths: demo mode, real data, and an in-memory cache when the API fails. It made it possible to migrate one screen at a time instead of switching everything at once, and to keep working with the server turned off.</span></span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">04</span>
+        <span class="svc__name"><span data-i18n="pt">Gráficos escritos à mão</span><span data-i18n="en" lang="en">Charts written by hand</span></span>
+        <span class="svc__note"><span data-i18n="pt">Seis tipos de gráfico em SVG, sem biblioteca. Não é bravata: são séries pequenas com estilo muito específico, e a menor das bibliotecas conhecidas pesaria mais que os seis juntos.</span><span data-i18n="en" lang="en">Six chart types in inline SVG, no library. It is not bravado: these are small series with a very specific style, and the smallest of the usual libraries would weigh more than all six together.</span></span>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===================== IV · O QUE QUEBROU ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">IV</span>
+      <h2 class="head__title">
+        <span data-i18n="pt">Três bugs que só existem na junção</span>
+        <span data-i18n="en" lang="en">Three bugs that only exist at the seam</span>
+      </h2>
+      <p class="head__note">
+        <span data-i18n="pt">No dia de ligar o painel em produção, nada apareceu. As três causas estavam encadeadas, e nenhuma delas aparece testando os dois lados separados.</span>
+        <span data-i18n="en" lang="en">On the day of connecting the panel to production, nothing showed up. The three causes were chained, and none of them appears when you test either side on its own.</span>
+      </p>
+    </div>
+
+    <div class="doc__body">
+      <p>
+        <span data-i18n="pt">As requisições ficavam penduradas para sempre. O framework de RPC do servidor tem dois transportes independentes: um para o jogo falar com o servidor, outro para um recurso falar com outro recurso. O administrativo só tinha registrado o primeiro, porque foi escrito pensando só em uso dentro do jogo. Minha API chamava pelo segundo, o evento saía e ninguém escutava. Não dava erro, não dava timeout: a chamada esperava uma resposta que nunca viria. A correção foi uma linha, registrar a mesma tabela de funções nos dois transportes, e o custo foi mexer em código que não era meu.</span>
+        <span data-i18n="en" lang="en">Requests hung forever. The server's RPC framework has two independent transports: one for the game to talk to the server, another for one resource to talk to another. The admin resource had only registered the first, because it was written with in-game use in mind. My API called through the second, the event went out and nobody was listening. No error, no timeout: the call waited for a reply that would never come. The fix was one line, registering the same function table on both transports, and the cost was touching code that was not mine.</span>
+      </p>
+      <p>
+        <span data-i18n="pt">Resolvido o transporte, tudo respondia negando acesso. Cada função administrativa começa identificando quem chamou e conferindo o cargo. Numa chamada entre recursos não existe jogador do outro lado, então esse identificador vem zerado, e todas elas saíam pela porta do não autorizado. O padrão que apliquei nas dezessete funções usadas pelo painel deixa o caminho do jogador booleanamente idêntico ao original e libera só o caso da origem zero, que é a chamada interna. Ela já tinha sido autenticada antes, na borda HTTP.</span>
+        <span data-i18n="en" lang="en">With the transport fixed, everything answered access denied. Each admin function starts by identifying the caller and checking their rank. In a resource-to-resource call there is no player on the other end, so that identifier comes back empty, and all of them left through the unauthorised door. The pattern I applied to the seventeen functions the panel uses leaves the player path booleanly identical to the original and only lets through the zero-origin case, which is the internal call. That one had already been authenticated earlier, at the HTTP edge.</span>
+      </p>
+      <p>
+        <span data-i18n="pt">Aí o front começou a quebrar ao percorrer as listas. As funções do administrativo já devolvem um objeto com a lista dentro, e meus handlers embrulhavam isso outra vez num objeto com o mesmo nome de campo. O front recebia a lista dois níveis abaixo de onde esperava e tentava iterar sobre um objeto. Só três endpoints tinham o problema: nos outros, o aninhamento era intencional e o front já contava com ele. Corrigir por atacado teria quebrado os que estavam certos.</span>
+        <span data-i18n="en" lang="en">Then the front end started breaking when iterating over lists. The admin functions already return an object with the list inside, and my handlers wrapped that again in an object with the same field name. The front end received the list two levels below where it expected and tried to iterate over an object. Only three endpoints had the problem: in the others the nesting was intentional and the front end already relied on it. Fixing it wholesale would have broken the ones that were right.</span>
+      </p>
+      <p class="doc__caveat">
+        <span data-i18n="pt">A lição que ficou escrita no repositório: quando um recurso vai ser consumido por outro recurso, registrar os dois transportes desde o começo, porque custa duas linhas e a falha se manifesta como espera infinita, que é o sintoma mais caro de diagnosticar. E o que eu faria diferente: um teste de fumaça atravessando a pilha inteira, do HTTP até o banco, antes de migrar treze telas. Os três bugs eram de junção, e eu tinha testado os dois lados separados.</span>
+        <span data-i18n="en" lang="en">The lesson written into the repository: when a resource is going to be consumed by another resource, register both transports from the start, because it costs two lines and the failure shows up as an infinite wait, which is the most expensive symptom to diagnose. And what I would do differently: a smoke test crossing the whole stack, from HTTP down to the database, before migrating thirteen screens. All three bugs were at the seam, and I had tested each side on its own.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== V · AUTENTICAÇÃO ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">V</span>
+      <h2 class="head__title">
+        <span data-i18n="pt">Três autenticações, duas jogadas fora</span>
+        <span data-i18n="en" lang="en">Three authentications, two thrown away</span>
+      </h2>
+      <p class="head__note">
+        <span data-i18n="pt">A parte do projeto em que mais escrevi código que não sobreviveu, e a que mais vale contar.</span>
+        <span data-i18n="en" lang="en">The part of the project where I wrote the most code that did not survive, and the one most worth telling.</span>
+      </p>
+    </div>
+
+    <div class="notes">
+      <article class="note">
+        <h3 class="note__title">
+          <span data-i18n="pt">Primeira: o identificador do jogo</span>
+          <span data-i18n="en" lang="en">First: the in-game identifier</span>
+        </h3>
+        <p>
+          <span data-i18n="pt">Login com o número interno que o jogo usa para o jogador, mais senha. Funcionava, e era ruim para gente: um número opaco não se lembra, não se recupera, e amarra a conta de administrador à existência de um personagem no jogo. Trocado por e-mail e senha.</span>
+          <span data-i18n="en" lang="en">Login with the internal number the game uses for a player, plus a password. It worked, and it was bad for humans: an opaque number is not memorable, cannot be recovered, and ties the admin account to having a character in the game. Replaced by e-mail and password.</span>
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          <span data-i18n="pt">Segunda: painel próprio, em Lua</span>
+          <span data-i18n="en" lang="en">Second: our own panel, in Lua</span>
+        </h3>
+        <p>
+          <span data-i18n="pt">Tabela própria de administradores, hash com sal calculado no banco, sessões com token, e um comando de console para cadastrar, resetar senha e revogar. Zero dependência externa. Implementado inteiro e documentado.</span>
+          <span data-i18n="en" lang="en">Our own admin table, salted hashing computed in the database, token sessions, and a console command to register, reset passwords and revoke access. Zero external dependencies. Fully implemented and documented.</span>
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          <span data-i18n="pt">A pergunta que derrubou</span>
+          <span data-i18n="en" lang="en">The question that knocked it down</span>
+        </h3>
+        <p>
+          <span data-i18n="pt">Logo depois de pronto, uma pergunta: por que console, se existe serviço gerenciado? Esqueci minha senha vira ir até a máquina do servidor e rodar um comando. Convidar alguém vira construir uma tela de cadastro. O custo estava no dia a dia, não na implementação, e a implementação era a única parte que estava pronta.</span>
+          <span data-i18n="en" lang="en">Right after it was done, one question: why the console, when a managed service exists? Forgot my password becomes walking to the server machine and running a command. Inviting someone becomes building a sign-up screen. The cost was in daily use, not in the implementation, and the implementation was the only part that was finished.</span>
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          <span data-i18n="pt">Terceira: identidade gerenciada</span>
+          <span data-i18n="en" lang="en">Third: managed identity</span>
+        </h3>
+        <p>
+          <span data-i18n="pt">A tabela própria, o comando de console e o arquivo inteiro foram apagados no dia seguinte. Recuperação de senha, cadastro e registro de acesso passaram a ser problema de outra pessoa. O front já mandava e-mail e senha desde a etapa anterior, então não precisou de uma linha.</span>
+          <span data-i18n="en" lang="en">The custom table, the console command and the whole file were deleted the next day. Password recovery, sign-up and access logging became someone else's problem. The front end had been sending e-mail and password since the previous step, so it needed not one line of change.</span>
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          <span data-i18n="pt">Verificar sem chave compartilhada</span>
+          <span data-i18n="en" lang="en">Verifying without a shared key</span>
+        </h3>
+        <p>
+          <span data-i18n="pt">O Lua valida o token perguntando ao provedor, com resposta em cache por cinco minutos, em vez de verificar a assinatura localmente. Verificar local seria um dia de trabalho, exigiria uma chave no arquivo de configuração do servidor e um HMAC escrito à mão. A chamada em cache é mais simples e tem menos superfície para errar.</span>
+          <span data-i18n="en" lang="en">The Lua side validates the token by asking the provider, caching the answer for five minutes, instead of verifying the signature locally. Local verification would be a day of work, would require a key in the server's config file and a hand-written HMAC. The cached call is simpler and has less surface to get wrong.</span>
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          <span data-i18n="pt">O preço, dito antes de cobrar</span>
+          <span data-i18n="en" lang="en">The price, named before it is charged</span>
+        </h3>
+        <p>
+          <span data-i18n="pt">Passou a existir uma dependência externa: se o provedor cair, ninguém entra. O cache de cinco minutos limita o estrago a login novo e renovação de token, quem já está dentro continua. Está escrito como decisão consciente, não descoberto depois.</span>
+          <span data-i18n="en" lang="en">An external dependency now exists: if the provider goes down, nobody logs in. The five-minute cache limits the damage to new logins and token refresh; whoever is already inside stays in. It is written down as a conscious decision, not discovered afterwards.</span>
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== VI · O QUE EXISTE ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">VI</span>
+      <h2 class="head__title">
+        <span data-i18n="pt">O que existe hoje</span><span data-i18n="en" lang="en">What exists today</span>
+      </h2>
+    </div>
+
+    <dl class="figures figures--paper">
+      <div class="figure">
+        <dt class="figure__label"><span data-i18n="pt">Telas</span><span data-i18n="en" lang="en">Screens</span></dt>
+        <dd class="figure__value">13</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label"><span data-i18n="pt">Com dado real</span><span data-i18n="en" lang="en">On real data</span></dt>
+        <dd class="figure__value">9</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label"><span data-i18n="pt">Decisões registradas</span><span data-i18n="en" lang="en">Recorded decisions</span></dt>
+        <dd class="figure__value">30</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label"><span data-i18n="pt">Usuários</span><span data-i18n="en" lang="en">Users</span></dt>
+        <dd class="figure__value">4</dd>
+      </div>
+    </dl>
+
+    <div class="doc__body doc__body--tight">
+      <p>
+        <span data-i18n="pt">Também: catorze processos do servidor monitorados ao vivo, seis tipos de gráfico escritos em SVG, e um pacote de 186 KB comprimido. As trinta decisões estão num arquivo do repositório, cada uma com o motivo e, onde cabe, a condição para desfazer.</span>
+        <span data-i18n="en" lang="en">Also: fourteen server processes monitored live, six chart types written in SVG, and a 186 KB compressed bundle. The thirty decisions live in a file in the repository, each with its reasoning and, where it applies, the condition to undo it.</span>
+      </p>
+      <p class="doc__caveat">
+        <span data-i18n="pt">O que não está pronto, e por quê. O túnel sobe numa janela de terminal aberta na máquina do servidor: instalá-lo como serviço exige privilégio administrativo local que eu não tenho ali. Dois endpoints de baú continuam servidos por dado de exemplo, esperando o lado do servidor. Três indicadores mostram o traço da seção II. Nada disso foi auditado em acessibilidade e o layout responsivo nunca foi testado em aparelho físico: são limites aceitos para um painel de quatro pessoas em desktop, e ficam escritos aqui pelo mesmo motivo que ficam escritos no repositório.</span>
+        <span data-i18n="en" lang="en">What is not finished, and why. The tunnel comes up in a terminal window left open on the server machine: installing it as a service needs local administrative privilege I do not have there. Two storage endpoints are still served from sample data, waiting on the server side. Three indicators show the dash from section II. None of this has been audited for accessibility and the responsive layout was never tested on a physical device: these are accepted limits for a four-person desktop panel, and they are written here for the same reason they are written in the repository.</span>
+      </p>
+      <ul class="stack stack--lg">
+        <li>React 19</li><li>TypeScript</li><li>Vite 6</li><li>Tailwind CSS 4</li>
+        <li>Lua</li><li>FiveM</li><li>MariaDB</li><li>Supabase Auth</li><li>Cloudflare Tunnel</li><li>Vercel</li>
+      </ul>
+    </div>
+  </section>
+
+  </main>
+
+  <section class="doc__end shell">
+    <div class="doc__endrule" aria-hidden="true"><span></span><i></i><span></span></div>
+    <p class="doc__endnote">
+      <span data-i18n="pt">Painel privado, sem link público. Quer ver o resto do trabalho, ou conversar sobre uma vaga?</span>
+      <span data-i18n="en" lang="en">Private panel, no public link. Want to see the rest of the work, or talk about a role?</span>
+    </p>
+    <div class="doc__endcta">
+      <a class="btn btn--solid" href="/#projetos">
+        <span data-i18n="pt">Ver os outros projetos</span><span data-i18n="en" lang="en">See the other projects</span>
+      </a>
+      <a class="btn btn--ghost" href="/#contato">
+        <span data-i18n="pt">Falar comigo</span><span data-i18n="en" lang="en">Get in touch</span>
+      </a>
+    </div>
+    <p class="doc__date">
+      <span data-i18n="pt">Atualizado em 5 de agosto de 2026</span>
+      <span data-i18n="en" lang="en">Updated 5 August 2026</span>
+    </p>
+  </section>
+
+</div>
+
+<script src="../assets/main.js" defer></script>
+</body>
+</html>

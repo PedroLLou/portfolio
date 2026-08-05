@@ -49,4 +49,20 @@
     <lastmod>2026-08-05</lastmod>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://www.pedrolou.dev/projetos/brava</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/projetos/brava" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/projetos/brava" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/projetos/brava" />
+    <lastmod>2026-08-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.pedrolou.dev/en/projetos/brava</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/projetos/brava" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/projetos/brava" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/projetos/brava" />
+    <lastmod>2026-08-05</lastmod>
+    <priority>0.7</priority>
+  </url>
 </urlset>

@@ -11,6 +11,7 @@ src/                        FONTE bilíngue, é aqui que se edita
   index.html
   projetos/didata.html
   projetos/kyber-crm.html
+  projetos/brava.html
 
 index.html                  gerado, português
 projetos/*.html             gerado, português
@@ -117,6 +118,7 @@ Graph. `hreflang` cruzado entre os dois, com `x-default` no português.
 | home | `/` | `/en/` |
 | Didata | `/projetos/didata` | `/en/projetos/didata` |
 | Kyber CRM | `/projetos/kyber-crm` | `/en/projetos/kyber-crm` |
+| Brava | `/projetos/brava` | `/en/projetos/brava` |
 
 Antes os dois idiomas viviam na mesma URL, escondidos por CSS. O Google
 indexava texto misturado, o DOM tinha o dobro do necessário e não havia
@@ -163,6 +165,21 @@ mostra critério, não habilidade, e é o mais forte da página.
 
 O layout reaproveita as classes da home (`head`, `svc`, `figures`,
 `stack`, `btn`), então um segundo estudo de caso é só marcação nova.
+
+`projetos/brava.html` é o terceiro. O servidor Brava foi feito por um time
+de três, então o case declara o recorte logo na primeira seção: cobre o
+painel, a API e a integração, e diz explicitamente que os scripts de jogo
+em Lua não são meus. Sem esse recorte, o case leria como se o servidor
+inteiro fosse.
+
+A placa invertida dele é a decisão de renderizar `—` onde o dado não
+existe, em vez de cair no dado de exemplo. Três indicadores do produto
+continuam assim, e o case diz quais e por quê.
+
+Os três cases têm data de atualização no rodapé. Case sem data envelhece
+em silêncio: o status do Didata ficou meses dizendo "cobrança em
+implementação" com o produto já vendendo plano, e nada no site indicava
+que aquele texto era velho.
 
 ## Conteúdo que falta
 

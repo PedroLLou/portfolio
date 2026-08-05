@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Brava Dashboard · Estudo de caso · Pedro Lourençoni Lima</title>
+<meta name="description" content="Painel administrativo de um servidor de roleplay FiveM: SPA na Vercel falando com um servidor de jogo numa máquina doméstica sem IP público, e a decisão de mostrar um traço em vez de um número inventado." />
+<meta name="theme-color" content="#F2EADC" />
+<link rel="canonical" href="https://www.pedrolou.dev/projetos/brava" />
+<link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/projetos/brava" />
+<link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/projetos/brava" />
+<link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/projetos/brava" />
+<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.pedrolou.dev/projetos/brava" />
+<meta property="og:title" content="Brava Dashboard · Estudo de caso · Pedro Lourençoni Lima" />
+<meta property="og:description" content="Painel administrativo de um servidor de roleplay FiveM: SPA na Vercel falando com um servidor de jogo numa máquina doméstica sem IP público, e a decisão de mostrar um traço em vez de um número inventado." />
+<meta property="og:image" content="https://www.pedrolou.dev/uploads/og-card.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Estudo de caso do Brava Dashboard" />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:locale:alternate" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/ibm-plex-mono-400-normal-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/ibm-plex-sans-400+500-normal-latin.woff2" crossorigin />
+<link rel="stylesheet" href="../assets/fonts.css" />
+<link rel="stylesheet" href="../assets/styles.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Brava Dashboard, estudo de caso",
+      "description": "Painel administrativo de um servidor de roleplay FiveM: um adapter HTTP em Lua, três tentativas de autenticação, e a decisão de mostrar um traço em vez de um número inventado.",
+      "url": "https://www.pedrolou.dev/projetos/brava",
+      "image": "https://www.pedrolou.dev/uploads/og-card.jpg",
+      "inLanguage": "pt-BR",
+      "datePublished": "2026-08-05",
+      "dateModified": "2026-08-05",
+      "author": {
+        "@type": "Person",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Brava Dashboard",
+        "applicationCategory": "BusinessApplication"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Portfólio", "item": "https://www.pedrolou.dev/" },
+        { "@type": "ListItem", "position": 2, "name": "Projetos", "item": "https://www.pedrolou.dev/#projetos" },
+        { "@type": "ListItem", "position": 3, "name": "Brava Dashboard" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#problema">
+  Pular para o conteúdo
+</a>
+
+<div class="page page--doc">
+
+  <header class="doc__top shell">
+    <div class="doc__nav">
+      <a class="doc__back" href="/#projetos">
+        <span aria-hidden="true">←</span>
+        Portfólio
+      </a>
+      <div class="langswitch" role="group" aria-label="Idioma / Language">
+        <a class="langswitch__btn" href="/projetos/brava" aria-current="true">PT</a>
+        <a class="langswitch__btn" href="/en/projetos/brava">EN</a>
+      </div>
+    </div>
+
+    <h1 class="doc__title">Brava Dashboard</h1>
+
+    <p class="doc__lede">
+      Painel administrativo da Cidade Brava, um servidor de roleplay em FiveM. Treze telas para quatro pessoas. A parte que vale contar não é a interface: é o que ficou entre uma página na Vercel e um servidor de jogo que roda numa máquina doméstica, sem IP público, em Lua.
+
+    </p>
+
+    <dl class="doc__meta">
+      <div>
+        <dt>Papel</dt>
+        <dd>Painel, API e integração</dd>
+      </div>
+      <div>
+        <dt>Contexto</dt>
+        <dd>Cliente, servidor de um time de três</dd>
+      </div>
+      <div>
+        <dt>Situação</dt>
+        <dd>Em uso interno, com limites conhecidos</dd>
+      </div>
+      <div>
+        <dt>Acesso</dt>
+        <dd>Privado, atrás de login</dd>
+      </div>
+    </dl>
+  </header>
+
+  <main>
+
+  <!-- ===================== I · O PROBLEMA ===================== -->
+  <section id="problema" class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">I</span>
+      <h2 class="head__title">
+        Quatro usuários, e isso muda tudo
+
+      </h2>
+    </div>
+    <div class="doc__body">
+      <p>
+        A Cidade Brava é um servidor de GTA roleplay. Quem administra precisa saber quem está online, quanto dinheiro circula na economia do jogo, quais organizações estão ativas, e o que a equipe de moderação andou fazendo. Tudo isso já existia dentro do jogo, espalhado por comandos de console, um tablet in-game e o F8. Nada disso se consulta do celular, nem de fora do PC do servidor.
+
+      </p>
+      <p>
+        O público é de quatro administradores. Esse número é a premissa mais importante do projeto, e está escrita no plano como coisa a não revisitar. Ele derruba de uma vez cargos, permissões granulares, convite por e-mail, onboarding, suporte a navegador antigo e otimização mobile. Um painel para quatro pessoas conhecidas, em desktop, é um problema diferente de um painel para mil desconhecidos, e fingir o contrário custaria semanas.
+
+      </p>
+      <p>
+        Metade do plano é uma lista do que não seria feito: chat da equipe, mapa de calor, assistir jogador ao vivo, catálogo de comandos, chamados, empregos, busca global, notas de moderação sobre jogador. Tudo isso ou já funciona melhor dentro do jogo, ou é operação de suporte que ninguém ali pediu. A lista de vetos é mais longa que a de telas.
+
+      </p>
+      <p class="doc__caveat">
+        O servidor é de um time de três. Este case cobre o painel web, a API que o alimenta e a integração entre os dois, que foram meus. Os scripts de jogo em Lua que já existiam no servidor não são meus e não estão contados aqui, com uma exceção que aparece na seção IV, onde precisei mexer em código de outra pessoa para a integração funcionar.
+
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== II · A DECISÃO ===================== -->
+  <section class="decision">
+    <div class="shell">
+      <div class="head">
+        <span class="head__folio" aria-hidden="true">II</span>
+        <h2 class="head__title">
+          Um traço vale mais que um número bonito
+
+        </h2>
+      </div>
+
+      <div class="decision__body">
+        <p class="decision__lede">
+          Quando um dado não existe, a tela mostra um traço. Não mostra zero, não cai no dado de exemplo, não estima. E três indicadores da home continuam assim hoje, à vista de todo mundo.
+
+        </p>
+        <p>
+          O painel nasceu como maquete visual: treze telas com dados de exemplo escritos à mão, para validar layout e navegação antes de tocar no servidor. Isso funcionou bem, e deixou uma armadilha. Quando os dados reais chegaram, a home continuava com sete blocos de números fixos no código, herdados da maquete. A tela parecia ligada e não estava.
+
+        </p>
+        <p>
+          A saída fácil seria manter o dado de exemplo como reserva: se a API não responder, mostra o que a maquete mostrava. A tela nunca fica vazia e ninguém reclama. É exatamente por isso que é ruim. Um painel que sempre tem número não pode ser usado para decidir nada, porque quem olha não distingue o dado do enfeite.
+
+        </p>
+        <p>
+          Então os sete blocos saíram e o traço entrou. Sessões da semana, jogadores ativos na semana e receita em real aparecem como traço até hoje: os dois primeiros dependem de um registro de sessão que o servidor não guarda, o terceiro depende de um meio de pagamento que ainda não existe. O painel diz que não sabe, em vez de inventar. É a mesma regra que o resto deste portfólio segue, e aqui ela está dentro do produto.
+
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== III · A ARQUITETURA ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">III</span>
+      <h2 class="head__title">
+        Um adapter fino, de propósito
+
+      </h2>
+      <p class="head__note">
+        O servidor de jogo já tinha cerca de setenta funções administrativas escritas em Lua, com as consultas ao banco prontas. A questão era como alcançá-las de fora.
+
+      </p>
+    </div>
+
+    <ol class="svc">
+      <li class="svc__row">
+        <span class="svc__num">01</span>
+        <span class="svc__name">Nada de regra de negócio na API</span>
+        <span class="svc__note">O recurso Lua que criei só faz autenticação, roteamento e a chamada da função correspondente. Não duplica uma linha de SQL. Se o administrativo do servidor evoluir, o painel herda de graça, e não existe uma segunda versão da mesma consulta divergindo em silêncio.</span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">02</span>
+        <span class="svc__name">Um túnel no lugar de um IP</span>
+        <span class="svc__note">O servidor de jogo roda numa máquina doméstica atrás de NAT, sem IP público e sem TLS, porque o HTTP do FiveM é texto puro. Um túnel da Cloudflare resolve os três de uma vez: DNS, certificado e travessia de NAT, sem abrir porta no roteador de ninguém.</span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">03</span>
+        <span class="svc__name">Um hook por endpoint, com reserva</span>
+        <span class="svc__note">Toda tela lê por um hook próprio, e o hook conhece três caminhos: modo demonstração, dado real, e cache em memória quando a API falha. Permitiu migrar tela por tela em vez de trocar tudo de uma vez, e continuar desenvolvendo com o servidor desligado.</span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">04</span>
+        <span class="svc__name">Gráficos escritos à mão</span>
+        <span class="svc__note">Seis tipos de gráfico em SVG, sem biblioteca. Não é bravata: são séries pequenas com estilo muito específico, e a menor das bibliotecas conhecidas pesaria mais que os seis juntos.</span>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===================== IV · O QUE QUEBROU ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">IV</span>
+      <h2 class="head__title">
+        Três bugs que só existem na junção
+
+      </h2>
+      <p class="head__note">
+        No dia de ligar o painel em produção, nada apareceu. As três causas estavam encadeadas, e nenhuma delas aparece testando os dois lados separados.
+
+      </p>
+    </div>
+
+    <div class="doc__body">
+      <p>
+        As requisições ficavam penduradas para sempre. O framework de RPC do servidor tem dois transportes independentes: um para o jogo falar com o servidor, outro para um recurso falar com outro recurso. O administrativo só tinha registrado o primeiro, porque foi escrito pensando só em uso dentro do jogo. Minha API chamava pelo segundo, o evento saía e ninguém escutava. Não dava erro, não dava timeout: a chamada esperava uma resposta que nunca viria. A correção foi uma linha, registrar a mesma tabela de funções nos dois transportes, e o custo foi mexer em código que não era meu.
+
+      </p>
+      <p>
+        Resolvido o transporte, tudo respondia negando acesso. Cada função administrativa começa identificando quem chamou e conferindo o cargo. Numa chamada entre recursos não existe jogador do outro lado, então esse identificador vem zerado, e todas elas saíam pela porta do não autorizado. O padrão que apliquei nas dezessete funções usadas pelo painel deixa o caminho do jogador booleanamente idêntico ao original e libera só o caso da origem zero, que é a chamada interna. Ela já tinha sido autenticada antes, na borda HTTP.
+
+      </p>
+      <p>
+        Aí o front começou a quebrar ao percorrer as listas. As funções do administrativo já devolvem um objeto com a lista dentro, e meus handlers embrulhavam isso outra vez num objeto com o mesmo nome de campo. O front recebia a lista dois níveis abaixo de onde esperava e tentava iterar sobre um objeto. Só três endpoints tinham o problema: nos outros, o aninhamento era intencional e o front já contava com ele. Corrigir por atacado teria quebrado os que estavam certos.
+
+      </p>
+      <p class="doc__caveat">
+        A lição que ficou escrita no repositório: quando um recurso vai ser consumido por outro recurso, registrar os dois transportes desde o começo, porque custa duas linhas e a falha se manifesta como espera infinita, que é o sintoma mais caro de diagnosticar. E o que eu faria diferente: um teste de fumaça atravessando a pilha inteira, do HTTP até o banco, antes de migrar treze telas. Os três bugs eram de junção, e eu tinha testado os dois lados separados.
+
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== V · AUTENTICAÇÃO ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">V</span>
+      <h2 class="head__title">
+        Três autenticações, duas jogadas fora
+
+      </h2>
+      <p class="head__note">
+        A parte do projeto em que mais escrevi código que não sobreviveu, e a que mais vale contar.
+
+      </p>
+    </div>
+
+    <div class="notes">
+      <article class="note">
+        <h3 class="note__title">
+          Primeira: o identificador do jogo
+
+        </h3>
+        <p>
+          Login com o número interno que o jogo usa para o jogador, mais senha. Funcionava, e era ruim para gente: um número opaco não se lembra, não se recupera, e amarra a conta de administrador à existência de um personagem no jogo. Trocado por e-mail e senha.
+
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          Segunda: painel próprio, em Lua
+
+        </h3>
+        <p>
+          Tabela própria de administradores, hash com sal calculado no banco, sessões com token, e um comando de console para cadastrar, resetar senha e revogar. Zero dependência externa. Implementado inteiro e documentado.
+
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          A pergunta que derrubou
+
+        </h3>
+        <p>
+          Logo depois de pronto, uma pergunta: por que console, se existe serviço gerenciado? Esqueci minha senha vira ir até a máquina do servidor e rodar um comando. Convidar alguém vira construir uma tela de cadastro. O custo estava no dia a dia, não na implementação, e a implementação era a única parte que estava pronta.
+
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          Terceira: identidade gerenciada
+
+        </h3>
+        <p>
+          A tabela própria, o comando de console e o arquivo inteiro foram apagados no dia seguinte. Recuperação de senha, cadastro e registro de acesso passaram a ser problema de outra pessoa. O front já mandava e-mail e senha desde a etapa anterior, então não precisou de uma linha.
+
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          Verificar sem chave compartilhada
+
+        </h3>
+        <p>
+          O Lua valida o token perguntando ao provedor, com resposta em cache por cinco minutos, em vez de verificar a assinatura localmente. Verificar local seria um dia de trabalho, exigiria uma chave no arquivo de configuração do servidor e um HMAC escrito à mão. A chamada em cache é mais simples e tem menos superfície para errar.
+
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          O preço, dito antes de cobrar
+
+        </h3>
+        <p>
+          Passou a existir uma dependência externa: se o provedor cair, ninguém entra. O cache de cinco minutos limita o estrago a login novo e renovação de token, quem já está dentro continua. Está escrito como decisão consciente, não descoberto depois.
+
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== VI · O QUE EXISTE ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">VI</span>
+      <h2 class="head__title">
+        O que existe hoje
+      </h2>
+    </div>
+
+    <dl class="figures figures--paper">
+      <div class="figure">
+        <dt class="figure__label">Telas</dt>
+        <dd class="figure__value">13</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Com dado real</dt>
+        <dd class="figure__value">9</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Decisões registradas</dt>
+        <dd class="figure__value">30</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Usuários</dt>
+        <dd class="figure__value">4</dd>
+      </div>
+    </dl>
+
+    <div class="doc__body doc__body--tight">
+      <p>
+        Também: catorze processos do servidor monitorados ao vivo, seis tipos de gráfico escritos em SVG, e um pacote de 186 KB comprimido. As trinta decisões estão num arquivo do repositório, cada uma com o motivo e, onde cabe, a condição para desfazer.
+
+      </p>
+      <p class="doc__caveat">
+        O que não está pronto, e por quê. O túnel sobe numa janela de terminal aberta na máquina do servidor: instalá-lo como serviço exige privilégio administrativo local que eu não tenho ali. Dois endpoints de baú continuam servidos por dado de exemplo, esperando o lado do servidor. Três indicadores mostram o traço da seção II. Nada disso foi auditado em acessibilidade e o layout responsivo nunca foi testado em aparelho físico: são limites aceitos para um painel de quatro pessoas em desktop, e ficam escritos aqui pelo mesmo motivo que ficam escritos no repositório.
+
+      </p>
+      <ul class="stack stack--lg">
+        <li>React 19</li><li>TypeScript</li><li>Vite 6</li><li>Tailwind CSS 4</li>
+        <li>Lua</li><li>FiveM</li><li>MariaDB</li><li>Supabase Auth</li><li>Cloudflare Tunnel</li><li>Vercel</li>
+      </ul>
+    </div>
+  </section>
+
+  </main>
+
+  <section class="doc__end shell">
+    <div class="doc__endrule" aria-hidden="true"><span></span><i></i><span></span></div>
+    <p class="doc__endnote">
+      Painel privado, sem link público. Quer ver o resto do trabalho, ou conversar sobre uma vaga?
+
+    </p>
+    <div class="doc__endcta">
+      <a class="btn btn--solid" href="/#projetos">
+        Ver os outros projetos
+      </a>
+      <a class="btn btn--ghost" href="/#contato">
+        Falar comigo
+      </a>
+    </div>
+    <p class="doc__date">
+      Atualizado em 5 de agosto de 2026
+
+    </p>
+  </section>
+
+</div>
+
+<script src="../assets/main.js" defer></script>
+</body>
+</html>

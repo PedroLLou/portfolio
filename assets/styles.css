@@ -1296,6 +1296,17 @@ code {
 }
 .doc__endcta { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-2); }
 
+/* Case sem data envelhece em silencio: foi o que aconteceu com o status do
+   Didata, que ficou meses dizendo "cobranca em implementacao" com o produto
+   ja vendendo plano. */
+.doc__date {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.04em;
+  color: var(--meta);
+  text-align: center;
+}
+
 /* =========================================================
    13. FOOTER
    ========================================================= */
