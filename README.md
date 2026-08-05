@@ -298,9 +298,30 @@ carregada pela página.
 
 Para refazer com capturas novas: `scripts/otimizar-imagens.ps1`.
 
+## Fontes
+
+Sete arquivos woff2 auto-hospedados, com `font-display: swap` e
+`unicode-range` separando latin de latin-ext, então uma página sem
+acento fora do latin básico nunca baixa o segundo.
+
+Spectral 700 foi removido: era usado num lugar só, o nome do projeto em
+destaque, e custava 22,5 KB na home. Passou para 600, que é o peso de
+todos os outros títulos. A largura renderizada do título não mudou.
+
 ## Pendências
 
-- As fontes vêm do Google Fonts por `<link>`. Auto-hospedar com
-  `font-display: swap` tiraria uma conexão do caminho crítico.
-- O `og:image` é o retrato quadrado. Cartão social pede 1200x630, então
-  uma imagem própria renderizaria melhor no LinkedIn e no WhatsApp.
+Estas dependem de coisa que não é arquivo deste repositório:
+
+- **Os dois PDFs do currículo.** O texto está pronto em
+  [docs/curriculo-conteudo.md](docs/curriculo-conteudo.md); regenerar é
+  no `gerador-curriculo`. É a peça que mais contradiz o site: o PDF
+  publicado diz "Fundador, Didata", não cita a Kyber e afirma ter
+  validado o MVP com usuários, que o próprio estudo de caso desmente.
+- **Perfil do GitHub.** Bio, localização, link do site, e fixar ou
+  arquivar repositório são configuração de conta.
+- **Capturas do Didata por dentro.** A tela de correção e a de
+  divergência resolveriam o case sozinhas. Só existem em produção.
+- **README e `dashboard.md` do `brava-dashboard`** ainda dizem "MVP
+  visual, dados mockados, sem integração real". São de 14 e 15 de maio;
+  o `CHECKLIST.md` de 20 de maio fecha as fases em produção. O
+  repositório é privado, e o estudo de caso daqui segue o CHECKLIST.

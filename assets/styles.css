@@ -686,9 +686,12 @@ ol, ul { padding: 0; list-style: none; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
+/* era 700, unico lugar do site que usava esse peso: 22,5 KB de woff2
+   baixados na home por um titulo so. 600 e o peso de todos os outros
+   titulos, entao a escala fica com um degrau a menos, nao a mais. */
 .feature__name {
   font-family: var(--serif);
-  font-weight: 700;
+  font-weight: 600;
   /* deliberately below --t-h2 so the section heading still outranks it */
   font-size: clamp(1.75rem, 1.3rem + 1.5vw, 2.25rem);
   line-height: 1.05;
