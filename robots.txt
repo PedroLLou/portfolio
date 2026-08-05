@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pedrolou.vercel.app/sitemap.xml
+Sitemap: https://www.pedrolou.dev/sitemap.xml

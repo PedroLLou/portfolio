@@ -416,6 +416,20 @@ html[lang="en"] [data-i18n="pt"] { display: none; }
 }
 .chip:hover { background: #FFF; color: var(--blue-deep); }
 
+/* Marcas em traco, do Tabler, para casar com os fios de 1px do site.
+   Glifo solido brigaria com o resto. O rotulo acessivel vive no <a>,
+   entao o <svg> fica escondido para leitor de tela. */
+.chip--icon { padding-inline: 0; }
+.chip--icon svg {
+  width: 1.0625rem;
+  height: 1.0625rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* =========================================================
    6. STICKY NAV
    ========================================================= */
