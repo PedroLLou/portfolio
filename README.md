@@ -310,18 +310,22 @@ todos os outros títulos. A largura renderizada do título não mudou.
 
 ## Pendências
 
-Estas dependem de coisa que não é arquivo deste repositório:
+Três, e cada uma está bloqueada por um motivo verificado, não suposto:
 
 - **Os dois PDFs do currículo.** O texto está pronto em
-  [docs/curriculo-conteudo.md](docs/curriculo-conteudo.md); regenerar é
-  no `gerador-curriculo`. É a peça que mais contradiz o site: o PDF
-  publicado diz "Fundador, Didata", não cita a Kyber e afirma ter
-  validado o MVP com usuários, que o próprio estudo de caso desmente.
+  [docs/curriculo-conteudo.md](docs/curriculo-conteudo.md). Regenerar é
+  no `gerador-curriculo`, e **o repositório público é o kit em branco**:
+  `experiencia-profissional/README.md` ainda diz `<preencher>`, e o
+  `.gitignore` exclui `curriculos-gerados/*/`. Os dados reais só existem
+  na máquina, então o markdown de origem tem que ser preenchido aí.
+  É a peça que mais contradiz o site: o PDF publicado diz "Fundador,
+  Didata", não cita a Kyber e afirma ter validado o MVP com usuários,
+  que o próprio estudo de caso desmente.
 - **Perfil do GitHub.** Bio, localização, link do site, e fixar ou
-  arquivar repositório são configuração de conta.
+  arquivar repositório. O MCP do GitHub não expõe endpoint de perfil,
+  de `PATCH /repos` nem a mutation de pinned items, e o `gh` desta
+  máquina não está autenticado.
 - **Capturas do Didata por dentro.** A tela de correção e a de
-  divergência resolveriam o case sozinhas. Só existem em produção.
-- **README e `dashboard.md` do `brava-dashboard`** ainda dizem "MVP
-  visual, dados mockados, sem integração real". São de 14 e 15 de maio;
-  o `CHECKLIST.md` de 20 de maio fecha as fases em produção. O
-  repositório é privado, e o estudo de caso daqui segue o CHECKLIST.
+  divergência resolveriam o case sozinhas. Só existem em produção, e as
+  imagens de prova têm nome de aluno, que é dado de menor de idade: a
+  captura precisa ser de prova sintética, escrita para isso.
