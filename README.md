@@ -13,6 +13,7 @@ src/                        FONTE bilíngue, é aqui que se edita
   projetos/didata.html
   projetos/kyber-crm.html
   projetos/brava.html
+  notas/index.html
 
 index.html                  gerado, português
 projetos/*.html             gerado, português
@@ -99,6 +100,18 @@ tratamento, o texto tinta ficava refém de onde a viewport corta a foto.
 Um gradiente radial creme atrás do bloco do título resolve isso e deixa
 o nome legível em qualquer recorte.
 
+**`/notas` existe porque nada aqui mudava sem redesenhar o site.** Era o
+padrão que os cinco portfólios do benchmark tinham e este não: um lugar
+onde coisa nova aparece sozinha. As cinco primeiras notas não são texto
+novo, são texto desenterrado: estavam dentro dos estudos de caso, que
+alguém só lê se abrir a página inteira. Cada nota é uma coisa que quebrou
+e a regra que sobrou dela, em menos de trezentas palavras, com a origem
+citada. Se precisar de mais, vira estudo de caso, e a nota vira o resumo
+dele.
+
+As cinco são datadas do mesmo dia, e a página diz isso na abertura em vez
+de fingir publicação espaçada.
+
 **A home mostra quatro projetos, não todos.** Ela tinha doze telas de
 rolagem em mobile, e os dois blocos que menos pesavam na primeira
 impressão eram a carteira de clientes e o índice dos projetos menores.
@@ -126,6 +139,7 @@ Graph. `hreflang` cruzado entre os dois, com `x-default` no português.
 |---|---|---|
 | home | `/` | `/en/` |
 | projetos | `/projetos/` | `/en/projetos/` |
+| notas | `/notas/` | `/en/notas/` |
 | Didata | `/projetos/didata` | `/en/projetos/didata` |
 | Kyber CRM | `/projetos/kyber-crm` | `/en/projetos/kyber-crm` |
 | Brava | `/projetos/brava` | `/en/projetos/brava` |

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Notas · Pedro Lourençoni Lima</title>
+<meta name="description" content="Notas curtas e datadas sobre o que quebrou e o que a quebra ensinou: o pooler que trava em vez de falhar, o limite que virou regra de arquitetura, RLS contra autorização na aplicação, e por que a IA sugere sem confirmar." />
+<meta name="theme-color" content="#F2EADC" />
+<link rel="canonical" href="https://www.pedrolou.dev/notas/" />
+<link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/notas/" />
+<link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/notas/" />
+<link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/notas/" />
+<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.pedrolou.dev/notas/" />
+<meta property="og:title" content="Notas · Pedro Lourençoni Lima" />
+<meta property="og:description" content="Notas curtas e datadas sobre o que quebrou e o que a quebra ensinou: o pooler que trava em vez de falhar, o limite que virou regra de arquitetura, RLS contra autorização na aplicação, e por que a IA sugere sem confirmar." />
+<meta property="og:image" content="https://www.pedrolou.dev/uploads/og-card.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Notas de Pedro Lourençoni Lima" />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:locale:alternate" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/ibm-plex-mono-400-normal-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/ibm-plex-sans-400+500-normal-latin.woff2" crossorigin />
+<link rel="stylesheet" href="../assets/fonts.css" />
+<link rel="stylesheet" href="../assets/styles.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      "name": "Notas",
+      "description": "Notas curtas e datadas sobre o que quebrou e o que a quebra ensinou.",
+      "url": "https://www.pedrolou.dev/notas/",
+      "inLanguage": "pt-BR",
+      "author": {
+        "@type": "Person",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/"
+      },
+      "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "headline": "O pooler que trava em vez de falhar",
+          "url": "https://www.pedrolou.dev/notas/#pooler",
+          "datePublished": "2026-08-05",
+          "author": { "@type": "Person", "name": "Pedro Lourençoni Lima" }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Um limite de 1 MB que virou regra de arquitetura",
+          "url": "https://www.pedrolou.dev/notas/#server-action",
+          "datePublished": "2026-08-05",
+          "author": { "@type": "Person", "name": "Pedro Lourençoni Lima" }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "RLS no banco ou autorização na aplicação",
+          "url": "https://www.pedrolou.dev/notas/#rls",
+          "datePublished": "2026-08-05",
+          "author": { "@type": "Person", "name": "Pedro Lourençoni Lima" }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Por que a IA sugere e não confirma",
+          "url": "https://www.pedrolou.dev/notas/#sugerida",
+          "datePublished": "2026-08-05",
+          "author": { "@type": "Person", "name": "Pedro Lourençoni Lima" }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "A espera infinita é o sintoma mais caro",
+          "url": "https://www.pedrolou.dev/notas/#espera",
+          "datePublished": "2026-08-05",
+          "author": { "@type": "Person", "name": "Pedro Lourençoni Lima" }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Portfólio", "item": "https://www.pedrolou.dev/" },
+        { "@type": "ListItem", "position": 2, "name": "Notas" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#notas">
+  Pular para o conteúdo
+</a>
+
+<div class="page page--doc">
+
+  <header class="doc__top shell">
+    <div class="doc__nav">
+      <a class="doc__back" href="/#projetos">
+        <span aria-hidden="true">←</span>
+        Portfólio
+      </a>
+      <div class="langswitch" role="group" aria-label="Idioma / Language">
+        <a class="langswitch__btn" href="/notas/" aria-current="true">PT</a>
+        <a class="langswitch__btn" href="/en/notas/">EN</a>
+      </div>
+    </div>
+
+    <h1 class="doc__title">Notas</h1>
+
+    <p class="doc__lede">
+      Uma nota é uma coisa que quebrou e a regra que sobrou dela. Curta de propósito: se precisar de mais de trezentas palavras, vira estudo de caso.
+
+    </p>
+
+    <p class="doc__lede">
+      Abertas em agosto de 2026, todas de uma vez. As cinco primeiras já existiam enterradas dentro dos estudos de caso, onde ninguém que não abrisse a página inteira ia encontrar. Estão aqui em versão curta, com a origem citada. Daqui para frente é aqui que coisa nova aparece, sem precisar redesenhar nada.
+
+    </p>
+  </header>
+
+  <main>
+
+  <section id="notas" class="section shell">
+    <div class="log">
+
+      <!-- ===================== 01 ===================== -->
+      <article class="log__entry reveal" id="pooler">
+        <p class="log__meta">
+          <time datetime="2026-08-05">05.08.2026</time>
+          <span class="log__where">Didata</span>
+          Infraestrutura
+        </p>
+        <h2 class="log__title">
+          O pooler que trava em vez de falhar
+
+        </h2>
+        <p>
+          Sete deploys seguidos morreram no timeout de 45 minutos, sem mensagem de erro. A causa era o pooler de transação do Postgres, que é a conexão correta para runtime serverless e a errada para migration: ele não suporta as transações DDL longas do <code>migrate deploy</code>, e o comando trava em vez de recusar.
+
+        </p>
+        <p class="log__take">
+          A URL de runtime e a URL de linha de comando são duas variáveis, não uma. E a mesma variável precisa existir na plataforma e nos secrets da CI, porque a CI roda o mesmo build.
+
+        </p>
+        <p class="log__source">
+          <a class="link-out" href="/projetos/didata">
+            História inteira no case do Didata, seção VII →
+
+          </a>
+        </p>
+      </article>
+
+      <!-- ===================== 02 ===================== -->
+      <article class="log__entry reveal" id="server-action">
+        <p class="log__meta">
+          <time datetime="2026-08-05">05.08.2026</time>
+          <span class="log__where">Didata</span>
+          Arquitetura
+        </p>
+        <h2 class="log__title">
+          Um limite de 1 MB que virou regra de arquitetura
+
+        </h2>
+        <p>
+          Aumentar o limite de corpo das Server Actions quebrava o build com erro de tipo, e só na infraestrutura da plataforma: o build local não reproduzia. Foram cerca de seis horas de bisect até isolar, e o resultado foi não conseguir aumentar.
+
+        </p>
+        <p>
+          Então o limite ficou no default de 1 MB, nenhuma Server Action pode receber arquivo, e todo upload do produto é route handler. Uma regra de arquitetura inteira nasceu de um bug de terceiro que nunca foi resolvido.
+
+        </p>
+        <p class="log__take">
+          Contorno não é desenho. Vale escrever qual dos dois é, porque quem chegar depois não distingue, e um dia o bug some e a regra fica sem motivo.
+
+        </p>
+        <p class="log__source">
+          <a class="link-out" href="/projetos/didata">
+            História inteira no case do Didata, seção VII →
+
+          </a>
+        </p>
+      </article>
+
+      <!-- ===================== 03 ===================== -->
+      <article class="log__entry reveal" id="rls">
+        <p class="log__meta">
+          <time datetime="2026-08-05">05.08.2026</time>
+          <span class="log__where">Kyber CRM, Didata</span>
+          Segurança
+        </p>
+        <h2 class="log__title">
+          RLS no banco ou autorização na aplicação
+
+        </h2>
+        <p>
+          Dois produtos meus, sobre o mesmo Postgres, com escolhas opostas. O CRM tem 133 policies de row level security sobre 29 tabelas: o banco recusa a linha, aconteça o que acontecer na aplicação. O Didata autoriza na aplicação.
+
+        </p>
+        <p>
+          A diferença não é maturidade, é quantas portas existem. O CRM é alcançado por um painel, por um servidor MCP de 70 ferramentas, por páginas públicas com token e por rotinas agendadas. Quatro portas, e a regra escrita em cada uma seria a mesma regra escrita quatro vezes, divergindo na primeira pressa. O Didata tem uma porta.
+
+        </p>
+        <p class="log__take">
+          Conte as portas antes de escolher onde a regra mora. Uma porta, a aplicação basta e custa menos. Mais de uma, a regra desce para o banco, senão ela vira várias.
+
+        </p>
+        <p class="log__source">
+          <a class="link-out" href="/projetos/kyber-crm">
+            O caso das quatro portas, no case do Kyber CRM →
+
+          </a>
+        </p>
+      </article>
+
+      <!-- ===================== 04 ===================== -->
+      <article class="log__entry reveal" id="sugerida">
+        <p class="log__meta">
+          <time datetime="2026-08-05">05.08.2026</time>
+          <span class="log__where">Didata</span>
+          Produto
+        </p>
+        <h2 class="log__title">
+          Por que a IA sugere e não confirma
+
+        </h2>
+        <p>
+          O modelo devolve uma alternativa por questão e um número de confiança de 0 a 100. Gravar a nota direto acima de um limiar seria trivial, e o sistema não faz: sugerida e confirmada são estados distintos no banco, e o boletim só conta o que o professor confirmou. Inclusive as de confiança alta.
+
+        </p>
+        <p>
+          Custa caro em conveniência: uma prova de 30 alunos por 10 questões são 300 leituras para aceitar. A mitigação não foi afrouxar a regra, foi baratear o aceite, com confirmação em lote e uma fila que sobe o que pede atenção. O viés da fila é declarado e pró-cautela: questão sem leitura nenhuma conta como incerta.
+
+        </p>
+        <p class="log__take">
+          Quando a regra dói, a saída é baixar o custo de obedecer, não abrir exceção. A primeira exceção é a que ninguém consegue explicar seis meses depois.
+
+        </p>
+        <p class="log__source">
+          <a class="link-out" href="/projetos/didata">
+            A decisão inteira, no case do Didata, seção II →
+
+          </a>
+        </p>
+      </article>
+
+      <!-- ===================== 05 ===================== -->
+      <article class="log__entry reveal" id="espera">
+        <p class="log__meta">
+          <time datetime="2026-08-05">05.08.2026</time>
+          <span class="log__where">Brava</span>
+          Integração
+        </p>
+        <h2 class="log__title">
+          A espera infinita é o sintoma mais caro
+
+        </h2>
+        <p>
+          No dia de ligar o painel em produção, as requisições ficavam penduradas para sempre. O framework de RPC do servidor tem dois transportes independentes, e o recurso que eu chamava só tinha registrado um deles. O evento saía e ninguém escutava. Sem erro, sem timeout, sem log.
+
+        </p>
+        <p>
+          A correção foi uma linha. O diagnóstico não, porque falha silenciosa não te diz onde procurar, e eu tinha testado os dois lados separados: cada um passava.
+
+        </p>
+        <p class="log__take">
+          Bug de junção não aparece testando as pontas. Antes de migrar treze telas, um teste de fumaça atravessando a pilha inteira, do HTTP até o banco, e uma única vez.
+
+        </p>
+        <p class="log__source">
+          <a class="link-out" href="/projetos/brava">
+            Os três bugs de junção, no case do Brava, seção IV →
+
+          </a>
+        </p>
+      </article>
+
+    </div>
+  </section>
+
+  </main>
+
+  <section class="doc__end shell">
+    <div class="doc__endrule" aria-hidden="true"><span></span><i></i><span></span></div>
+    <p class="doc__endnote">
+      Quer ver o trabalho de onde estas notas saíram?
+
+    </p>
+    <div class="doc__endcta">
+      <a class="btn btn--solid" href="/projetos/">
+        Ver os projetos
+      </a>
+      <a class="btn btn--ghost" href="/#contato">
+        Falar comigo
+      </a>
+    </div>
+    <p class="doc__date">
+      Atualizado em 5 de agosto de 2026
+
+    </p>
+  </section>
+
+</div>
+
+<script src="../assets/main.js" defer></script>
+</body>
+</html>

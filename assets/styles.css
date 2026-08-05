@@ -1246,6 +1246,51 @@ code {
   overflow-wrap: anywhere;
 }
 
+/* =========================================================
+   12b. NOTAS
+   Uma coluna, nao a grade de duas de .notes: nota e leitura
+   corrida, e duas colunas convidam a varrer em vez de ler.
+   ========================================================= */
+.log { display: grid; gap: 0; max-width: 68ch; }
+.log__entry {
+  display: grid;
+  gap: var(--s-2);
+  padding-block: var(--s-7);
+  border-top: 1px solid var(--rule);
+}
+.log__entry:first-child { border-top: none; padding-top: var(--s-2); }
+.log__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-1) var(--s-3);
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.04em;
+  color: var(--meta);
+}
+.log__where { color: var(--blue); }
+.log__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.2;
+  color: var(--ink-strong);
+}
+.log__entry p { font-size: 1rem; line-height: 1.75; color: var(--body-2); }
+/* a regra em negrito e o que a nota deixa: fica destacada do corpo */
+.log__take {
+  padding-left: var(--s-4);
+  border-left: 2px solid var(--blue);
+  font-family: var(--serif);
+  font-style: italic;
+}
+.log__source { font-size: 0.9375rem; }
+
+@media (max-width: 767px) {
+  .log__title { font-size: 1.1875rem; }
+}
+
 /* the decision is the centrepiece, so it gets the plate */
 .decision {
   padding-block: var(--s-9);

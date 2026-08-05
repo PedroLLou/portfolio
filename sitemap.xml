@@ -18,6 +18,22 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.pedrolou.dev/notas/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/notas/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/notas/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/notas/" />
+    <lastmod>2026-08-05</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.pedrolou.dev/en/notas/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/notas/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/notas/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/notas/" />
+    <lastmod>2026-08-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.pedrolou.dev/projetos/</loc>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/projetos/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/projetos/" />

@@ -20,7 +20,8 @@ $paginas = @(
   @{ src = "src\projetos\index.html";      pt = "projetos\index.html";      en = "en\projetos\index.html";      rota = "projetos/";               prof = 1 },
   @{ src = "src\projetos\didata.html";     pt = "projetos\didata.html";     en = "en\projetos\didata.html";     rota = "projetos/didata";         prof = 1 },
   @{ src = "src\projetos\kyber-crm.html";  pt = "projetos\kyber-crm.html";  en = "en\projetos\kyber-crm.html";  rota = "projetos/kyber-crm";      prof = 1 },
-  @{ src = "src\projetos\brava.html";      pt = "projetos\brava.html";      en = "en\projetos\brava.html";      rota = "projetos/brava";          prof = 1 }
+  @{ src = "src\projetos\brava.html";      pt = "projetos\brava.html";      en = "en\projetos\brava.html";      rota = "projetos/brava";          prof = 1 },
+  @{ src = "src\notas\index.html";         pt = "notas\index.html";         en = "en\notas\index.html";         rota = "notas/";                  prof = 1 }
 )
 
 # rotulos acessiveis: o seletor de idioma nao trocava atributo, entao ficavam em portugues no ingles
@@ -87,6 +88,7 @@ function AjustarCaminhos($s, $lang, $prof) {
   # links internos entre paginas: raiz-relativos, com o /en na frente quando for o caso
   $base = if ($lang -eq 'en') { '/en' } else { '' }
   $s = $s.Replace('href="/projetos/', "href=""$base/projetos/")
+  $s = $s.Replace('href="/notas/', "href=""$base/notas/")
   $s = $s.Replace('href="/#', "href=""$base/#")
   return $s
 }
