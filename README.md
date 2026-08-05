@@ -9,6 +9,7 @@ e depois reconstruído sobre um sistema de design próprio.
 ```
 src/                        FONTE bilíngue, é aqui que se edita
   index.html
+  projetos/index.html
   projetos/didata.html
   projetos/kyber-crm.html
   projetos/brava.html
@@ -98,6 +99,14 @@ tratamento, o texto tinta ficava refém de onde a viewport corta a foto.
 Um gradiente radial creme atrás do bloco do título resolve isso e deixa
 o nome legível em qualquer recorte.
 
+**A home mostra quatro projetos, não todos.** Ela tinha doze telas de
+rolagem em mobile, e os dois blocos que menos pesavam na primeira
+impressão eram a carteira de clientes e o índice dos projetos menores.
+Os dois foram para `/projetos/`, que ainda ganha o que a home não
+comportava: as três chamadas de estudo de caso lado a lado, e o motivo
+de o `gerador-curriculo` e o TCC não estarem na home, que é não terem
+usuário além de mim. A home caiu para dez telas e sete.
+
 **Três famílias de layout em Projetos.** Antes eram três grades de
 células iguais em sequência (5 serviços, 3 cards, 3 minis), o que achata
 tudo. Agora: placa em destaque para o Didata, faixa invertida de largura
@@ -116,6 +125,7 @@ Graph. `hreflang` cruzado entre os dois, com `x-default` no português.
 | | português | inglês |
 |---|---|---|
 | home | `/` | `/en/` |
+| projetos | `/projetos/` | `/en/projetos/` |
 | Didata | `/projetos/didata` | `/en/projetos/didata` |
 | Kyber CRM | `/projetos/kyber-crm` | `/en/projetos/kyber-crm` |
 | Brava | `/projetos/brava` | `/en/projetos/brava` |

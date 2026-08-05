@@ -17,6 +17,7 @@ $enc  = New-Object System.Text.UTF8Encoding($false)
 
 $paginas = @(
   @{ src = "src\index.html";               pt = "index.html";               en = "en\index.html";               rota = "";                        prof = 0 },
+  @{ src = "src\projetos\index.html";      pt = "projetos\index.html";      en = "en\projetos\index.html";      rota = "projetos/";               prof = 1 },
   @{ src = "src\projetos\didata.html";     pt = "projetos\didata.html";     en = "en\projetos\didata.html";     rota = "projetos/didata";         prof = 1 },
   @{ src = "src\projetos\kyber-crm.html";  pt = "projetos\kyber-crm.html";  en = "en\projetos\kyber-crm.html";  rota = "projetos/kyber-crm";      prof = 1 },
   @{ src = "src\projetos\brava.html";      pt = "projetos\brava.html";      en = "en\projetos\brava.html";      rota = "projetos/brava";          prof = 1 }
