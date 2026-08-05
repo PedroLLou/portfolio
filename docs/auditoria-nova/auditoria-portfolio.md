@@ -1,27 +1,25 @@
 # Auditoria — pedrolou.dev
-Data: 05/08/2026 | Nota geral: 7,5
+Data: 05/08/2026 | Nota geral: 6,5
 
 ## Veredito
 
-O conteúdo é o ponto forte e está muito acima da média: os dois estudos de caso (Didata e Kyber CRM) mostram problema, decisão, trade-off e o que **não** funciona, com números de sistema reais e uma seção de falhas em três atos. Isso é raro e é o seu maior ativo.
+Os dois estudos de caso são melhores que os de qualquer portfólio da lista de benchmark: eles admitem o que não sabem ("números de acurácia não existem", "não há validação determinística do código citado", "o contorno continua sendo dívida, não desenho"). Isso é raro e é o ativo central do site.
 
-O que está segurando o site é a camada de distribuição e coerência, não o texto: todas as páginas do domínio próprio declaram `canonical` e `og:url` apontando para `pedrolou.vercel.app`, e esse espelho continua no ar servindo uma **versão antiga e diferente** do site. Some a isso um currículo em PDF que contradiz o próprio site, o inglês sem URL própria e um status desatualizado no case do Didata.
+O que segura o site é que **duas peças que ele mesmo serve contradizem o que ele afirma**: o currículo em PDF, que é o destino do CTA principal do hero, diz que você fundou o *Didata* e nunca cita a Kyber; e o case do Didata diz "cobrança em implementação, sem lançamento divulgado" enquanto o produto está com três planos públicos e botão de assinar. Quando o diferencial do site é honestidade verificável, contradição custa mais do que custaria em outro portfólio.
 
-Nota 7,5: escrita e profundidade técnica de 9; execução de SEO, coerência entre peças e conversão de 6.
+Nota 6,5: conteúdo e profundidade técnica valem 9; execução técnica (CLS zero, contraste AA, semântica limpa) vale 8; coerência entre as peças vale 4, e é ela que puxa a média.
 
 ---
 
-## O que eu não consegui medir (declarado)
+## O que eu não consegui medir
 
-Trabalhei por fetch de HTML. O ambiente bloqueia requisições diretas ao domínio (`x-deny-reason: host_not_allowed`), então **não** consegui:
+Sou obrigado a declarar isto porque metade das auditorias de performance por aí reporta número que não mediu.
 
-- Medir Core Web Vitals reais (LCP, CLS, INP) nem TTFB. Nenhum número de performance abaixo é medido — onde comento performance, é leitura estrutural, não medição.
-- Pesar imagens (`pedro.webp`, `didata.webp`, `kyber-crm.webp`, `brava-dashboard.webp`) ou ver se há `width`/`height`/`loading`/`fetchpriority` nas tags.
-- Ler `robots.txt`, `sitemap.xml`, favicon, JSON-LD ou o CSS/JS — o extrator devolve o texto renderizado, não o HTML bruto.
-- Renderizar em mobile, testar navegação por teclado, foco visível, contraste real ou fluidez de animação.
-- Verificar dois dos cinco links de cliente: `premiumconstrutora.com.br` e `encantogourmetbuffet.com.br`.
+- **LCP, FCP e INP: não medi.** O painel de navegador desta sessão não compõe frames, então as métricas de pintura nunca disparam. `first-contentful-paint` e `largest-contentful-paint` voltaram `0`. Todo número de performance abaixo é de rede e de layout, que são medíveis sem pintura.
+- **Não vi o site renderizado.** Screenshot falha pelo mesmo motivo. Julguei layout por geometria medida (posição, largura, sobreposição, contraste calculado), não a olho.
+- **LinkedIn:** o link retornou `0` na verificação porque o LinkedIn bloqueia requisição fora de navegador. O formato da URL está correto, mas não confirmei que o perfil abre.
 
-**O que eu verifiquei de fato:** home e as duas páginas de case em `www.pedrolou.dev`; o espelho `pedrolou.vercel.app`; os dois PDFs de currículo (PT e EN); `usedidata.com.br`; o repositório `github.com/PedroLLou/tcc20261`; e três dos cinco sites de cliente (`elabelaestetica.com.br`, `infinitafisio.com.br`, `jordannasantostecnica.com.br` — os três respondem e estão bem-feitos).
+**O que eu verifiquei de fato:** as três páginas em `www.pedrolou.dev` em 1425px e 390px, nos dois idiomas; `robots.txt`, `sitemap.xml`, os dois PDFs de currículo (extraí o texto), `usedidata.com.br`, os cinco sites de cliente, os três repositórios linkados, o espelho `pedrolou.vercel.app`, e cinco portfólios de referência.
 
 ---
 
@@ -29,206 +27,178 @@ Trabalhei por fetch de HTML. O ambiente bloqueia requisições diretas ao domín
 
 | # | Problema | Onde | Por que importa | Impacto | Esforço |
 |---|----------|------|-----------------|---------|---------|
-| 1 | `canonical` e `og:url` apontam para `https://pedrolou.vercel.app/` em todas as páginas servidas no domínio próprio | `/`, `/projetos/didata`, `/projetos/kyber-crm` | Você está dizendo ao Google que a versão oficial é a do Vercel. Quem compartilha o link vê o preview com URL de subdomínio grátis — em um portfólio de dev, isso lê como descuido | Alto | 15 min |
-| 2 | `pedrolou.vercel.app` está no ar, público, com uma versão **antiga** do site (hero diferente, seções "O que eu construo para empresas" e processo em 4 etapas, sem case do Didata, link para `/projetos/kyber-crm.html`) | Deploy Vercel | Duas versões suas concorrendo. O canonical do espelho aponta para `.dev` e o do `.dev` aponta para o espelho: os dois se anulam e o Google escolhe sozinho | Alto | 20 min |
-| 3 | `og:image` do espelho aponta para `/uploads/pedro.jpg` enquanto a imagem real do site é `pedro.webp` | `pedrolou.vercel.app` | Preview quebrado em quem compartilhar o espelho | Médio | junto com #2 |
-| 4 | PT e EN convivem no mesmo texto, sem URL própria, sem `hreflang`, com `og:locale: pt_BR` e meta description só em português | Site inteiro | Um recrutador de fora não tem link em inglês para receber, e o Google indexa a página com o texto duplicado nos dois idiomas | Alto | 2-4 h |
-| 5 | Currículo PDF contradiz o site: no PDF a experiência é "Fundador e Desenvolvedor Full Stack, **Didata**"; no site é "Fundador e Desenvolvedor Full Stack, **Kyber Tech**". Kyber Tech não aparece no PDF | `/uploads/curriculo-pt.pdf` e `-en.pdf` | É o documento que vai para o RH. Duas histórias diferentes sobre a mesma empresa é a coisa mais fácil de um recrutador notar | Alto | 40 min |
-| 6 | O PDF lista EduPlay como projeto; o site não. O site tem Kyber CRM e Brava.gg; o PDF não | PDFs vs site | O melhor trabalho (Kyber CRM) fica de fora justo da peça que circula sozinha | Alto | junto com #5 |
-| 7 | PDF diz "Validei o MVP com os primeiros usuários"; o case do Didata diz que não há pesquisa de campo, entrevista nem questionário, e que o beta foi desativado | PDF vs `/projetos/didata` | A honestidade é o diferencial do case. Uma linha inflada no PDF derruba a credibilidade das outras 40 | Alto | 10 min |
-| 8 | Case do Didata diz "em produção, cobrança em implementação" e "ainda sem lançamento divulgado"; `usedidata.com.br` está com planos públicos (Grátis, Pro R$ 29,90/mês, Escolas a partir de R$ 19,90/professor), 49 exemplos, páginas de ferramentas e CTA de assinatura | `/projetos/didata` | Quem clica em "Ver o Didata ao vivo" vê um produto lançado logo depois de ler que ele não foi lançado | Alto | 20 min |
-| 9 | Brava.gg não tem estudo de caso, link, nem números — só descrição e uma imagem | Home, seção Projetos | É o único projeto com trabalho em equipe (três pessoas) e o único com escopo de jogo + 13 telas. Hoje é o item mais fraco entre os quatro "em produção" | Médio | 3-4 h |
-| 10 | O README do `tcc20261` é só "como rodar": estrutura de pastas e comandos npm. Sem problema, sem print, sem demo, 28 commits, 0 stars | `github.com/PedroLLou/tcc20261` | Está linkado como projeto no site e no currículo. Recrutador clica, e o que vê não sustenta o que o site promete | Médio | 45 min |
-| 11 | O CTA principal do contato é `mailto:` ("Vamos conversar") | Seção IV | Em desktop com webmail, `mailto:` costuma não abrir nada. O caminho que funciona (WhatsApp) está como link secundário de texto | Médio | 15 min |
-| 12 | Contato só existe no fim da página e no menu. Não há CTA persistente nem convite ao fim dos cases além de dois links de texto | Site inteiro | Quem lê 4.000 palavras do case do Didata está no pico de interesse e recebe o menor empurrão | Médio | 1 h |
-| 13 | O caminho de cliente é uma linha no rodapé ("Precisa contratar um projeto? Conheça a Kyber Tech"). As seções de serviço e processo, que existiam no espelho, sumiram no `.dev` | Rodapé | Você pediu que o site sirva a duas audiências. Hoje ele serve bem a uma | Médio | 2 h |
-| 14 | Os cinco clientes aparecem como lista de texto, sem thumbnail e sem resultado | Home, "Clientes atendidos" | Os três sites que abri são bons (nota do Google, seguidores, agendamento por WhatsApp na dobra). O portfólio vende esse trabalho pior do que o trabalho se vende sozinho | Médio | 2 h |
-| 15 | `og:image` do case do Didata usa o card genérico (`og-card.jpg`), sem `og:image:alt`; o do Kyber CRM usa imagem própria e tem alt | `/projetos/didata` | Os dois cases são a peça mais compartilhável do site, e um deles compartilha errado | Baixo | 30 min |
-| 16 | Nos números do card do Kyber CRM na home aparece "Toques por dia, teto por canal: 55" | Home | Fora do contexto do case, esse número não significa nada para quem está lendo 8 segundos | Baixo | 5 min |
-| 17 | A barra de credenciais diz "Escrevendo software desde 2023" | Home, faixa de destaques | É honesto, mas é a única métrica de tempo visível e trabalha contra você. Os números fortes (1.595 testes, 70 ferramentas MCP, 133 policies) estão enterrados | Médio | 20 min |
-| 18 | O site não menciona nenhuma experiência com sistemas corporativos, que é o que você descreveu como o seu trabalho principal | Seção III, "Por onde passei" | Se existe um emprego CLT/corporativo em curso, o site apresenta um perfil de fundador solo — e some justo a experiência que responde "ele aguenta um time e um legado?" | Alto | 30 min |
-| 19 | Alt das imagens é irregular: "Central do dia do Kyber CRM: navegação com treze módulos, cinco indicadores..." (ótimo) convive com "Interface do Didata" (genérico) | Home e cases | Detalhe barato, e o site inteiro é vendido no detalhe | Baixo | 15 min |
-| 20 | O site declara o padrão da Kyber ("Contraste AA, foco visível, testado a 375px, JSON-LD e sitemap") para os sites de cliente, mas não afirma nada sobre o próprio | Home | Se o padrão vale, ele deveria estar provado no seu site — e dito | Baixo | 30 min |
+| 1 | O currículo em PDF diz "Fundador e Desenvolvedor Full Stack, **Didata**". A palavra "Kyber" aparece **zero vezes** no PDF; o site diz "Fundador, Kyber Tech" | `uploads/curriculo-pt.pdf`, destino do CTA principal do hero | O recrutador baixa o PDF pelo botão mais destacado da página e lê outra história sobre a mesma empresa. É a contradição mais fácil de notar e a mais cara | Alto | 40 min |
+| 2 | O PDF diz "**Validei o MVP com os primeiros usuários e priorizei o roadmap pelo feedback**". O seu case do Didata diz que não há pesquisa de campo, entrevista nem questionário, e que o beta foi desativado | PDF vs `/projetos/didata` seção I | O site inteiro é vendido na honestidade. Uma linha inflada no PDF derruba a credibilidade das outras quarenta | Alto | 10 min |
+| 3 | O case do Didata diz "cobrança em implementação" e "nunca foi divulgado". O `usedidata.com.br` está com **Explorar (grátis), Didata Pro R$ 29,90/mês e Institucional a partir de R$ 19,90/professor**, com botão "Assinar por R$ 29,90/mês" | `/projetos/didata`, cabeçalho e seção VI | Quem clica em "Ver o Didata ao vivo" logo depois de ler que o produto não foi lançado encontra um produto vendendo | Alto | 20 min |
+| 4 | O PDF lista **EduPlay** (que você tirou do site) e **não** lista Kyber CRM nem Brava. "CRM" e "Brava" aparecem zero vezes | PDF vs site | O seu trabalho mais forte fica de fora justo da peça que circula sozinha por e-mail | Alto | junto com #1 |
+| 5 | Os **dois depoimentos ficam em português** na versão em inglês. Nenhum dos dois tem par `data-i18n` | Home, seção II, blocos `.quote` | Um recrutador de fora lê a página em inglês e encontra dois parágrafos em português. É o tipo de descuido que anula o esforço de ser bilíngue | Alto | 20 min |
+| 6 | O site não menciona **nenhuma experiência com sistemas corporativos**, que é como você descreve o seu trabalho principal. A seção III tem Kyber (fundador), Premium (PJ), freelance de FiveM e voluntariado | `/#experiencia` | Para uma vaga pleno, essa é a experiência que mais pesa e é a única ausente. Hoje o site apresenta um perfil de fundador solo | Alto | 30 min |
+| 7 | A `hero.webp` pesa **319 KB de um total de 542 KB**: 59% do peso da página em uma única imagem decorativa de fundo | Home | É o maior arquivo do site e não carrega informação nenhuma. Provavelmente é o seu elemento de LCP | Médio | 30 min |
+| 8 | As **oito fontes** baixam na primeira visita, cerca de 190 KB | Todas as páginas | Auto-hospedar tirou duas conexões do caminho crítico, mas trouxe o peso para a origem. Nove faces é muita variação para um site de quatro seções | Médio | 1 h |
+| 9 | **11,4 telas de rolagem** em 390px na home | Home, mobile | A carteira de clientes, os depoimentos e o índice ficam depois da oitava tela. Quase ninguém chega lá | Médio | 2 h |
+| 10 | **Brava.gg não tem case, link nem número.** É o único dos quatro projetos "em produção" sem nenhuma verificação externa | Home, seção II | Ocupa espaço de projeto principal com conteúdo de item secundário. E é o único com trabalho em equipe, que é justo o que falta provar | Médio | 3 h |
+| 11 | O card do Kyber CRM mostra "**Toques por dia, teto por canal: 55**" | Home, faixa do CRM | Fora do contexto do case, o número não significa nada para quem lê oito segundos. Perde para "213 leads geridos", que eu tinha recomendado | Baixo | 5 min |
+| 12 | A barra de evidências diz "**Escrevendo software desde 2023**" | Home, abaixo do hero | É o único indicador de tempo visível e trabalha contra um posicionamento pleno. Três anos lido isoladamente sugere júnior | Médio | 15 min |
+| 13 | O **case do Didata não tem nenhuma captura**. O único visual do produto na home é a landing page | `/projetos/didata` | Landing prova que você sabe fazer landing. O que prova o SaaS é a tela de correção com os chips de confiança | Alto | depende de você |
+| 14 | O botão "**Currículo PT (PDF)**" continua em português na versão em inglês | Home, seção IV | Detalhe, mas está ao lado de "Resume EN (PDF)", que foi traduzido. A inconsistência fica óbvia | Baixo | 5 min |
+| 15 | `alt` irregular: "Central do dia do Kyber CRM: navegação com treze módulos, cinco indicadores no topo..." convive com "**Interface do Didata**" | Home | O site é vendido no detalhe. Esse é barato de acertar | Baixo | 10 min |
+| 16 | **Nenhum projeto tem data.** Não há como saber se o Brava é de 2024 ou de ontem | Home, seção II | Recrutador calcula ritmo por data. Sem elas, o portfólio parece uma foto sem eixo do tempo | Baixo | 30 min |
+| 17 | O caminho de cliente é **uma linha no fim da seção de contato** | `/#contato` | Você pediu que o site sirva duas audiências. Hoje ele serve bem a uma e menciona a outra | Médio | 2 h |
+| 18 | **Não há publicação contínua.** Nenhuma data, nenhum feed, nada que mude sem redesenhar o site | Site inteiro | Os cinco portfólios do benchmark têm. É o que separa portfólio de página estática | Médio | 4 h |
+| 19 | O `og:image` do case do Didata usa o **card genérico**, sem `og:image:alt`; o do Kyber CRM tem imagem própria e alt | `/projetos/didata` | Os cases são a peça mais compartilhável do site e um deles compartilha genérico | Baixo | 20 min |
+
+**Verificado e correto, para não gerar retrabalho:** `canonical`, `og:url` e sitemap apontam para `www.pedrolou.dev` nas três páginas. O espelho `pedrolou.vercel.app` **já redireciona** para o domínio. `robots.txt` e `sitemap.xml` respondem 200. **CLS medido: 0,0000.** Todas as imagens têm `width`, `height` e `alt`. Hierarquia de headings sem salto nas três páginas. `:focus-visible` com outline de 2px. Skip link presente. Um `h1` por página. JSON-LD válido nas três. Nenhum link quebrado entre os 16 externos testados. Zero overflow horizontal em 390px e 1425px, nos dois idiomas.
 
 ---
 
 ## Top 5 — correções prontas
 
-### 1. Domínio único: canonical, OG e o espelho do Vercel
+### 1. Currículo em PDF alinhado ao site
 
-**O que mudar:** todas as ocorrências de `pedrolou.vercel.app` no `<head>` viram `www.pedrolou.dev`, e o espelho passa a redirecionar 301.
+O PDF é o destino do botão mais destacado do hero e conta outra história. Reescreva o bloco de experiência.
 
-No `<head>` de cada página (home, `/projetos/didata`, `/projetos/kyber-crm`):
+**Substitua o bloco atual** ("Fundador e Desenvolvedor Full Stack, Didata · mar/2026 a atual") **por:**
 
-```html
-<link rel="canonical" href="https://www.pedrolou.dev/">
-<meta property="og:url" content="https://www.pedrolou.dev/">
-<meta property="og:image" content="https://www.pedrolou.dev/uploads/og-card.jpg">
-<meta property="og:site_name" content="Pedro Lourençoni Lima">
-```
+> **Fundador e Desenvolvedor Full Stack, Kyber Tech** · mar/2026 a atual · remoto
+> Empresa própria de software. Produtos próprios e entrega para cliente.
+> • **Didata** (usedidata.com.br), SaaS com IA para professores, em produção com plano pago. Next.js, TypeScript, PostgreSQL/Prisma e Vision para correção de prova por foto. 1.595 testes unitários e CI que barra rota de IA sem reserva de cota.
+> • **Kyber CRM**, sistema interno em uso diário. Um app Next.js servindo painel, servidor MCP de 70 ferramentas, páginas públicas por token e rotinas em cron, com 133 policies de RLS sobre 29 tabelas.
+> • Cinco sites de cliente entregues em padrão próprio: HTML estático, WebP, canonical, Open Graph, JSON-LD e sitemap, com o domínio no nome do cliente.
 
-Nos cases, o mesmo com o caminho da página e a imagem própria:
+**E troque esta linha, que o seu próprio case desmente:**
 
-```html
-<!-- /projetos/didata -->
-<link rel="canonical" href="https://www.pedrolou.dev/projetos/didata">
-<meta property="og:url" content="https://www.pedrolou.dev/projetos/didata">
-<meta property="og:image" content="https://www.pedrolou.dev/uploads/og-didata.jpg">
-<meta property="og:image:alt" content="Tela do Didata com uma prova corrigida por foto e a leitura marcada como sugerida">
-```
+> ~~Validei o MVP com os primeiros usuários e priorizei o roadmap pelo feedback.~~
 
-E, no `vercel.json`, o 301 do espelho para o domínio (confira o comportamento depois do deploy, porque redirect por host depende da configuração de domínios do projeto):
+> Instrumentei a divergência entre professor e IA por questão e por faixa de confiança, para medir acerto em uso, em vez de publicar acurácia sem conjunto de teste rotulado.
 
-```json
-{
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "pedrolou.vercel.app" }],
-      "destination": "https://www.pedrolou.dev/:path*",
-      "permanent": true
-    }
-  ]
-}
-```
-
-Decida também qual é o host oficial, `pedrolou.dev` ou `www.pedrolou.dev`, e mantenha um só nos links internos — hoje o `canonical` do espelho aponta para a versão sem `www` e o conteúdo do site usa `www`.
+**Troque EduPlay por Kyber CRM** na seção de projetos, e inclua as certificações da Anthropic ao lado da Microsoft.
 
 ---
 
-### 2. Hero: trocar adjetivo por evidência
+### 2. Status do Didata: parar de contradizer o produto no ar
 
-**O que mudar:** hoje o hero diz "especializado em SaaS e IA aplicada... do banco e das APIs ao deploy e à operação". É melhor que a média, mas é uma descrição de categoria — qualquer pessoa pode escrever. O que só você pode escrever são os dois produtos rodando.
+O cabeçalho do case diz que a cobrança está em implementação. O produto tem três planos e botão de assinar.
 
-**Texto reescrito (PT):**
+**No `<dd>` de Situação, em `projetos/didata.html`:**
 
-> # Pedro Lourençoni Lima
->
-> Desenvolvedor full stack. Construo e **opero** SaaS com IA em produção, sozinho, do modelo de dados ao deploy.
->
-> **Didata** — plataforma de IA para professores, no ar com plano pago e correção de prova por foto.
-> **Kyber CRM** — 4 superfícies sobre um modelo só, 70 ferramentas MCP e 133 policies de RLS, usado todo dia.
->
-> Next.js · TypeScript · Node.js · PostgreSQL · LLMs em produção
->
-> Aberto a vagas full stack · Goiânia ou remoto
+```html
+<dd>
+  <span data-i18n="pt">Em produção, com plano pago</span>
+  <span data-i18n="en" lang="en">In production, with a paid plan</span>
+</dd>
+```
 
-**Texto reescrito (EN):**
+**E na seção VI, substitua a ressalva atual por:**
 
-> Full-stack developer. I build **and run** AI SaaS in production, on my own, from the data model to deploy.
->
-> **Didata** — AI platform for Brazilian teachers, live with a paid plan and photo-based exam grading.
-> **Kyber CRM** — 4 surfaces over one model, 70 MCP tools and 133 RLS policies, used every day.
->
-> Open to full-stack roles · Goiânia, Brazil, or remote
+> Números de uso não existem, e este case não publica nenhum. O produto está no ar com plano gratuito e pago, mas não teve lançamento divulgado, e não há no repositório contagem de professores ativos, materiais gerados ou receita. O documento de produto do Didata proíbe prova social fabricada, e a mesma regra vale aqui.
 
-E troque, na faixa de credenciais, "Escrevendo software desde 2023" por algo que some em vez de subtrair:
+Coloque **data de atualização** no rodapé dos dois cases. Case sem data envelhece em silêncio, e foi exatamente isso que aconteceu aqui.
+
+---
+
+### 3. Depoimentos em inglês
+
+Os dois blocos `.quote` não têm par de idioma. Envolva o texto e acrescente a tradução:
+
+```html
+<blockquote>
+  <p>
+    <span data-i18n="pt">“O Pedro, da Kyber Tech, entendeu na primeira conversa o que a gente precisava passar, seriedade e confiança, e entregou um site limpo, rápido e profissional, que hoje é nossa referência ao falar com órgãos públicos e parceiros. O melhor foi tratar tudo direto com quem desenvolve, sem intermediário e dentro do prazo.”</span>
+    <span data-i18n="en" lang="en">“Pedro, from Kyber Tech, understood in the first conversation what we needed to convey, seriousness and trust, and delivered a clean, fast, professional site that is now our reference when talking to public bodies and partners. The best part was dealing directly with the person who builds it, with no middleman and on schedule.”</span>
+  </p>
+</blockquote>
+```
+
+O mesmo para o do Brava. Mantenha o original em português visível na versão PT: traduzir depoimento é normal, apagar o original não.
+
+E o botão do currículo:
+
+```html
+<a class="btn btn--outline" href="uploads/curriculo-pt.pdf" download>
+  <span data-i18n="pt">Currículo PT (PDF)</span><span data-i18n="en" lang="en">Resume PT (PDF)</span>
+</a>
+```
+
+---
+
+### 4. Barra de evidências: trocar tempo por volume
+
+"Escrevendo software desde 2023" é o único número de tempo visível e é o que menos ajuda num posicionamento pleno.
+
+**Substitua os quatro itens por:**
 
 > Dois produtos próprios em produção · Cinco clientes entregues · 1.595 testes unitários no Didata · Inglês avançado
 
----
-
-### 3. Inglês com URL própria
-
-**O que mudar:** hoje os dois idiomas dividem a mesma URL, então não existe link em inglês para mandar. Sirva o inglês em `/en/` (e `/en/projetos/didata`, `/en/projetos/kyber-crm`), mantendo o toggle — só que navegando em vez de alternar classe.
-
-No `<head>` da versão PT:
+E no card do Kyber CRM, troque a quarta figura:
 
 ```html
-<link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/">
-<link rel="alternate" hreflang="en"    href="https://www.pedrolou.dev/en/">
-<link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/">
+<div class="figure">
+  <dt class="figure__label"><span data-i18n="pt">Leads geridos</span><span data-i18n="en" lang="en">Leads managed</span></dt>
+  <dd class="figure__value">213</dd>
+</div>
 ```
 
-Na versão EN, o mesmo bloco mais o `<html lang="en">`, `og:locale` e a descrição traduzida:
-
-```html
-<html lang="en">
-<meta name="description" content="Full-stack developer and founder of Kyber Tech. React, Node.js, TypeScript and applied AI. From the problem to a product in production.">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="pt_BR">
-```
-
-Se der para gerar as duas páginas no build, melhor: some o texto duplicado do HTML, cai o peso da página e o Google passa a indexar duas páginas limpas em vez de uma bilíngue.
+"213 leads geridos" comunica escala em oito segundos. "55 toques por dia, teto por canal" precisa de um parágrafo para fazer sentido, e esse parágrafo só existe dentro do case.
 
 ---
 
-### 4. Currículo PDF alinhado ao site
+### 5. Peso do hero
 
-**O que mudar:** o PDF fala em "Fundador, Didata" e omite Kyber Tech e Kyber CRM; o site fala em "Fundador, Kyber Tech" e não cita EduPlay. Escolha a versão do site (empresa como guarda-chuva, produto como entrega) e reescreva o bloco de experiência dos dois PDFs.
+`hero.webp` são 319 KB de 542 KB da página, para uma imagem de fundo decorativa. Provavelmente é o seu LCP.
 
-**Bloco reescrito (PT):**
+Três opções, da mais barata para a melhor:
 
-> **Fundador e Desenvolvedor Full Stack, Kyber Tech** · mar/2026 a atual · remoto
-> Empresa própria de software: produtos, sistemas e automação com IA.
-> • **Didata** (usedidata.com.br), SaaS com IA para professores, em produção com plano pago: Next.js, TypeScript, PostgreSQL/Prisma e Vision para correção de prova por foto. 1.595 testes unitários e CI que barra rota de IA sem reserva de cota.
-> • **Kyber CRM**, sistema interno em uso diário: um app Next.js servindo painel, servidor MCP de 70 ferramentas, páginas públicas por token e crons, com 133 policies de RLS sobre 29 tabelas.
-> • Cinco sites de cliente entregues em padrão próprio (HTML estático, WebP, canonical, OG, JSON-LD e sitemap).
+1. **Baixar a qualidade.** Fundo desfocado atrás de texto tolera q=60 sem diferença perceptível. Deve cair para uns 120 KB.
+2. **Gerar uma variante de 1280px** e servir a de 1536px só acima disso. Hoje só existe o corte em 900px para mobile.
+3. **Trocar por gradiente ou textura em CSS.** O véu de papel já cobre o centro; a foto contribui pouco e custa 59% do peso.
 
-**E corrija esta linha:** "Validei o MVP com os primeiros usuários e priorizei o roadmap pelo feedback" → o seu próprio case diz o contrário. Troque por algo verificável:
+```powershell
+# opção 1, com o ffmpeg que você já tem
+ffmpeg -i imagens\hero.jpeg -vf "scale=1536:-2:flags=lanczos" `
+  -c:v libwebp -quality 60 -compression_level 6 uploads\hero.webp
+```
 
-> Instrumentei divergência professor × IA por questão e por faixa de confiança para medir acerto em uso, em vez de publicar acurácia sem conjunto de teste rotulado.
-
-Se existe emprego atual com sistemas corporativos, ele entra aqui como primeiro item da lista, no site e no PDF. Hoje o site não tem uma linha sobre isso — para uma vaga pleno, essa é a experiência que mais pesa, e é a única que está faltando.
-
----
-
-### 5. Status do Didata: parar de contradizer o produto no ar
-
-**O que mudar:** o case diz "cobrança em implementação" e "ainda sem lançamento divulgado". O site do Didata está com três planos, preço, FAQ, 49 exemplos e botão de assinatura.
-
-**Cabeçalho do case, reescrito:**
-
-> **Situação** — Em produção em usedidata.com.br, com plano gratuito e Didata Pro a R$ 29,90/mês. Sem números de tração publicados: o produto não teve lançamento divulgado e este case não publica métrica de uso que eu não meça.
-
-E na seção VI, ajuste a frase "O produto está em produção mas nunca foi divulgado, e a cobrança ainda não fecha" para o estado real. A regra que você escreveu no case ("prefiro escrever isso do que apresentar posicionamento como pesquisa") é ótima — mas ela só funciona enquanto o texto acompanha o produto. Coloque uma data no rodapé de cada case ("Atualizado em ago/2026") e revise a cada release.
+Meça antes e depois com o PageSpeed Insights em mobile. Eu não consegui medir LCP nesta sessão, então não afirmo o ganho, só o peso.
 
 ---
 
 ## Benchmark
 
-Inspecionei ao vivo o de Brittany Chiang; os outros quatro eu confirmei por busca e conheço o formato, mas não abri página por página nesta sessão — trate as observações deles como referência de padrão, não como auditoria.
+Abri e li os cinco. Onde a observação vem de leitura de página, está afirmada; onde não abri em profundidade, não afirmei.
 
-| Portfólio | Link | O que ele faz melhor que o seu |
+| Portfólio | Link | O que faz melhor que o seu |
 |---|---|---|
-| Brittany Chiang | https://brittanychiang.com | Âncora de credibilidade explícita: <cite index="36-1">apresenta-se como engenheira frontend sênior na Klaviyo, trabalhando em design system e acessibilidade, e lista Apple, Starry e Upstatement como passagens anteriores</cite>, cada empresa com link. Cada projeto carrega prova externa (curso publicado, tema de VS Code com mais de 100 mil instalações, versão antiga do próprio site com 6 mil stars). Tem `/archive` e seção de escrita. Um idioma só, um `og`, zero ambiguidade de domínio. Você tem casos mais profundos e provas mais fracas: nenhum número seu é auditável por terceiro |
-| Lee Robinson | https://leerob.com | Uma linha de posicionamento que resolve o teste dos 5 segundos: <cite index="45-1">engenheiro e escritor, trabalhando com ML na Cursor, antes na Vercel, 15 anos programando e metade deles ensinando</cite>. Site escrito-primeiro: o corpo é o arquivo de posts, não a grade de projetos. Você tem material de escrita melhor que a maioria (os dois cases), mas ele está escondido atrás do rótulo "Projetos" |
-| Josh W. Comeau | https://www.joshwcomeau.com | <cite index="40-1">Artigos e tutoriais para devs front-end</cite> com demonstração interativa dentro do texto: o leitor mexe no exemplo. Os seus cases explicam mecanismos que pedem isso — a fila de correção por confiança, a resolução da faixa BNCC — e hoje são só prosa |
-| Emil Kowalski | https://emilkowal.ski | Foco estreito e defensável (animação e craft de interface) mais um produto próprio, o curso. <cite index="34-1">Ele publica os bastidores da própria plataforma: stack, processo de design e por que trocou de provedor de vídeo</cite>. É exatamente o que você já faz nos cases — mas ele transforma isso em audiência recorrente, e você não tem lista, RSS nem newsletter |
-| Rauno Freiberg | https://rauno.me | Seção de "craft": notas curtas sobre detalhes de interação, publicadas continuamente. Baixa fricção para publicar e vira prova de gosto. O seu site só tem duas peças longas: publicar não custa 4.000 palavras toda vez |
+| **Brittany Chiang** | https://brittanychiang.com | Prova externa em cada projeto. O tema Halcyon exibe "100k+ Installs" do marketplace do VS Code: número que um terceiro pode conferir. Todos os seus números (70 ferramentas, 133 policies, 1.595 testes) são auditáveis só por você. Ela também separa **Writing** de **Projects**, e você mistura os dois sob "Projetos" |
+| **Lee Robinson** | https://leerob.com | Resolve o teste dos cinco segundos numa frase: *"I'm an engineer and writer. I work on ML at Cursor, helping improve model behavior."* Empresa, função e especialidade em quinze palavras. O seu hero leva duas frases e não cita empresa nenhuma além da sua. E a home dele abre com **escrita**, não com grade de projetos |
+| **Josh W. Comeau** | https://www.joshwcomeau.com | Demonstração interativa dentro do artigo ("An Interactive Guide to Flexbox"). Os seus cases explicam mecanismos que pedem exatamente isso, a fila de correção por faixa de confiança e a resolução da faixa BNCC, e hoje são prosa. Ele também vende três cursos próprios a partir do mesmo conteúdo |
+| **Emil Kowalski** | https://emilkowal.ski | Escopo estreito e defensável ("Design Engineer", time Web da Linear) mais produtos próprios que servem de prova: Sonner e Vaul são componentes que outras pessoas instalam. Tem newsletter. Você tem dois produtos e nenhum canal de retorno |
+| **Rauno Freiberg** | https://rauno.me | Seção **Craft** e **Field Notes**, com arquivo por ano (2023, 2022). Publicar não custa quatro mil palavras: são notas curtas e contínuas. O seu site tem duas peças longas e nada entre elas |
 
-**O padrão que os cinco compartilham e o seu não tem:** publicação contínua com data. Todos têm um lugar onde algo novo aparece sem redesenhar o site. O seu conteúdo é bom demais para viver em duas páginas estáticas.
+**O padrão que os cinco compartilham e o seu não tem:** um lugar onde algo novo aparece sem redesenhar o site. Quatro dos cinco têm produto próprio ou conteúdo monetizado; você tem dois produtos e não capitaliza nenhum em audiência.
 
-**O que você faz melhor que os cinco:** os seus cases assumem o que não sabe. "Números de acurácia não existem", "não há validação determinística do código citado", "o contorno continua sendo dívida, não desenho". Nenhum dos cinco escreve isso. Para um tech lead lendo, esse é o sinal mais forte do site inteiro — e ele está na sexta seção de uma página que o visitante talvez nunca abra. Suba isso.
+**O que você faz melhor que os cinco, sem exceção:** admitir limite. "Números de acurácia não existem", "não há validação determinística do código citado contra base oficial", "o contorno continua sendo dívida, não desenho". Nenhum dos cinco escreve uma linha assim. Para um tech lead avaliando contratação, esse é o sinal mais forte do site inteiro. E ele está na seção VI de uma página que o visitante talvez nunca abra.
 
 ---
 
 ## Plano de ação
 
 ### Hoje (até 1h)
-1. Trocar `canonical`, `og:url` e `og:image` para `www.pedrolou.dev` nas três páginas (#1).
-2. Colocar o 301 de `pedrolou.vercel.app` para o domínio, ou tirar o deploy antigo do ar (#2, #3).
-3. Corrigir a linha de status do case do Didata e a frase da seção VI (#8).
-4. Trocar "Escrevendo software desde 2023" por uma métrica que soma, e tirar "Toques por dia, teto por canal" do card da home (#16, #17).
-5. Trocar o CTA principal de `mailto:` para WhatsApp, mantendo o e-mail como secundário (#11):
-
-```html
-<a class="btn-primary" href="https://wa.me/5562999369087?text=Ol%C3%A1%20Pedro!%20Vim%20pelo%20seu%20site.">Falar no WhatsApp</a>
-<a class="btn-secondary" href="mailto:pedroloulima@gmail.com">Enviar e-mail</a>
-```
+1. Corrigir a linha do MVP no PDF (#2). É uma frase e é a que mais custa.
+2. Corrigir o status do Didata no case, cabeçalho e seção VI (#3).
+3. Traduzir os dois depoimentos e o botão do currículo (#5, #14).
+4. Trocar a barra de evidências e a quarta figura do CRM (#11, #12).
+5. Padronizar o `alt` do Didata no nível do que você já escreveu para o CRM (#15).
 
 ### Esta semana
-6. Reescrever o hero com os dois produtos e os números (#2 do Top 5).
-7. Alinhar os dois PDFs ao site: Kyber Tech como empresa, Kyber CRM na lista de projetos, corrigir a linha de validação do MVP (#5, #6, #7).
-8. Decidir sobre a experiência corporativa: se existe, ela entra na seção III e no topo do PDF (#18).
-9. Reescrever o README do `tcc20261` com problema, arquitetura, print e como rodar — nessa ordem (#10).
-10. Padronizar `alt` das imagens no nível do melhor que você já escreveu (#19).
-11. Rodar Lighthouse e PageSpeed Insights de verdade em mobile nas três páginas: eu não consegui medir, e você precisa dos números antes de mexer em imagem (o que dá para dizer sem medir é que a home carrega ao menos quatro `.webp` grandes e o texto dos dois idiomas de uma vez).
+6. Reescrever o bloco de experiência dos dois PDFs: Kyber Tech como empresa, Kyber CRM no lugar do EduPlay, certificações da Anthropic (#1, #4).
+7. Decidir sobre a experiência corporativa. Se ela existe, entra na seção III e no topo do PDF, e é a mudança de maior impacto para vaga pleno (#6).
+8. Capturas do Didata por dentro: a tela de correção e a de divergência resolvem o case sozinhas (#13).
+9. Recomprimir a `hero.webp` e medir no PageSpeed em mobile, antes e depois (#7).
+10. Datas em cada projeto (#16).
 
 ### Este mês
-12. Inglês em `/en/` com `hreflang` e metadados próprios (#4 e Top 5 #3).
-13. Case do Brava.gg, ou tirar da grade de destaque: hoje ele ocupa espaço de produto principal com conteúdo de item secundário (#9).
-14. Transformar a lista de clientes em cinco cards com thumbnail e uma linha de resultado cada — os sites são bons, mostre-os (#14).
-15. Abrir uma seção de publicação contínua (`/notas`) com posts curtos: o pooler do Supabase travando o `migrate deploy`, o limite de 1MB da Server Action, a escolha de RLS no CRM e app-layer no Didata. Cada um já está escrito dentro dos cases — é recortar, datar e publicar.
-16. Adicionar CTA ao fim de cada case, com destaque visual, e um botão de contato persistente no mobile (#12).
-17. Decidir a política de audiência dupla (#13): ou volta um bloco curto "Precisa contratar um projeto?" com três serviços e link para a Kyber logo depois dos projetos, ou o site assume que é só para contratação e o rodapé vira o único caminho de cliente. Hoje está no meio do caminho.
+11. Encurtar a home. Onze telas em mobile é demais. Mova a carteira e o índice para uma página `/projetos`, deixando três projetos na home (#9).
+12. Case do Brava, ou tirar da grade principal. Hoje ele é o único sem verificação externa (#10).
+13. Abrir `/notas`, publicação curta e datada. Quatro assuntos já estão escritos dentro dos cases: o pooler do Supabase travando o `migrate deploy`, o limite de 1 MB da Server Action, RLS no CRM contra autorização na aplicação no Didata, e por que a IA sugere mas não confirma (#18).
+14. Resolver a audiência dupla (#17): ou volta um bloco curto de serviços apontando para a Kyber, ou o site assume que é só para contratação. Hoje está no meio.
+15. Reduzir as nove faces de fonte. Spectral 700 aparece uma vez na página inteira (#8).

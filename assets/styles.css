@@ -803,6 +803,18 @@ html[lang="en"] [data-i18n="pt"] { display: none; }
   white-space: nowrap;
   color: var(--meta);
 }
+
+/* periodo do projeto: recrutador calcula ritmo por data, e o site nao tinha nenhuma */
+.period {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+  color: var(--meta);
+  white-space: nowrap;
+}
+.band .period { color: var(--plate-ink-meta); }
+.work__head .period,
+.band .work__head .period { margin-left: auto; }
 .link-out {
   font-family: var(--mono);
   font-size: var(--t-small);
