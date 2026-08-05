@@ -1391,6 +1391,9 @@ code {
   .head__folio { grid-row: auto; justify-self: start; font-size: 2.25rem; transform: none; }
   .head__note { grid-column: 1; }
 
+  /* 326 KB de fundo num celular nao se justifica: a variante de 900px cobre */
+  .hero { background-image: url('../uploads/hero-900.webp'); }
+
   /* absolute-right would collide with the links once they wrap */
   .hero__bar {
     flex-direction: column;

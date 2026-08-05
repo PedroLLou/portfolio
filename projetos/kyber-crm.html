@@ -20,10 +20,46 @@
 <meta property="og:locale" content="pt_BR" />
 <meta name="twitter:card" content="summary_large_image" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/ibm-plex-mono-400-normal-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/ibm-plex-sans-400+500-normal-latin.woff2" crossorigin />
+<link rel="stylesheet" href="../assets/fonts.css" />
 <link rel="stylesheet" href="../assets/styles.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Kyber CRM, estudo de caso",
+      "description": "Quatro superfícies sobre o mesmo modelo de dados, autorização no Postgres e uma decisão deliberada de não automatizar a última milha.",
+      "url": "https://pedrolou.vercel.app/projetos/kyber-crm",
+      "image": "https://pedrolou.vercel.app/uploads/og-kyber-crm.jpg",
+      "inLanguage": "pt-BR",
+      "datePublished": "2026-08-03",
+      "dateModified": "2026-08-05",
+      "author": {
+        "@type": "Person",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://pedrolou.vercel.app/"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Kyber CRM",
+        "applicationCategory": "BusinessApplication"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Portfólio", "item": "https://pedrolou.vercel.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Projetos", "item": "https://pedrolou.vercel.app/#projetos" },
+        { "@type": "ListItem", "position": 3, "name": "Kyber CRM" }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#problema">
@@ -72,7 +108,10 @@
   </header>
 
   <figure class="doc__shot shell">
-    <img src="../uploads/kyber-crm.webp" alt="Central do dia do Kyber CRM: navegação com treze módulos, cinco indicadores no topo, fila de tarefas do dia e o painel de leitura escrita por IA" width="1901" height="790" />
+    <img src="../uploads/kyber-crm.webp"
+         srcset="../uploads/kyber-crm-640.webp 640w, ../uploads/kyber-crm-1000.webp 1000w, ../uploads/kyber-crm.webp 1901w"
+         sizes="(max-width: 70rem) 92vw, 1040px"
+         alt="Central do dia do Kyber CRM: navegação com treze módulos, cinco indicadores no topo, fila de tarefas do dia e o painel de leitura escrita por IA" width="1901" height="790" />
     <figcaption>
       <span data-i18n="pt">Central do dia. Nomes de cliente e valores estão borrados de propósito.</span>
       <span data-i18n="en" lang="en">The daily hub. Client names and figures are deliberately redacted.</span>

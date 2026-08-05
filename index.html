@@ -21,11 +21,56 @@
 <meta property="og:locale" content="pt_BR" />
 <meta name="twitter:card" content="summary_large_image" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" as="image" href="uploads/hero.webp" />
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="uploads/hero-900.webp" media="(max-width: 48rem)" />
+<link rel="preload" as="image" href="uploads/hero.webp" media="(min-width: 48.0625rem)" />
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/ibm-plex-mono-400-normal-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/ibm-plex-sans-400+500-normal-latin.woff2" crossorigin />
+<link rel="stylesheet" href="assets/fonts.css" />
 <link rel="stylesheet" href="assets/styles.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "url": "https://pedrolou.vercel.app/",
+  "inLanguage": ["pt-BR", "en"],
+  "mainEntity": {
+    "@type": "Person",
+    "name": "Pedro Lourençoni Lima",
+    "url": "https://pedrolou.vercel.app/",
+    "image": "https://pedrolou.vercel.app/uploads/og-card.jpg",
+    "jobTitle": "Desenvolvedor Full Stack",
+    "description": "Desenvolvedor full stack especializado em SaaS e IA aplicada, fundador da Kyber Tech.",
+    "email": "mailto:pedroloulima@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Goiânia",
+      "addressRegion": "GO",
+      "addressCountry": "BR"
+    },
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Kyber Tech",
+      "url": "https://somoskyber.com.br"
+    },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Pontifícia Universidade Católica de Goiás"
+    },
+    "knowsLanguage": ["pt-BR", "en", "es"],
+    "knowsAbout": [
+      "React", "Next.js", "TypeScript", "Node.js", "PostgreSQL",
+      "Supabase", "Prisma", "Model Context Protocol", "RAG",
+      "Row Level Security", "SaaS", "IA aplicada"
+    ],
+    "sameAs": [
+      "https://github.com/PedroLLou",
+      "https://www.linkedin.com/in/pedrolourenconilima",
+      "https://somoskyber.com.br"
+    ]
+  }
+}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#sobre">
@@ -213,7 +258,10 @@
         </div>
       </div>
       <div class="feature__shot">
-        <img src="uploads/didata.webp" alt="Interface do Didata" width="1080" height="676" loading="lazy" />
+        <img src="uploads/didata.webp"
+             srcset="uploads/didata-560.webp 560w, uploads/didata.webp 1080w"
+             sizes="(max-width: 60rem) 92vw, 522px"
+             alt="Interface do Didata" width="1080" height="676" loading="lazy" />
       </div>
     </article>
 
@@ -254,7 +302,10 @@
           <dd class="figure__value">55</dd>
         </div>
       </dl>
-      <img class="band__shot" src="uploads/kyber-crm.webp" alt="Central do dia do Kyber CRM, com dados de cliente borrados" width="1901" height="790" loading="lazy" />
+      <img class="band__shot" src="uploads/kyber-crm.webp"
+           srcset="uploads/kyber-crm-640.webp 640w, uploads/kyber-crm-1000.webp 1000w, uploads/kyber-crm.webp 1901w"
+           sizes="(max-width: 60rem) 88vw, 944px"
+           alt="Central do dia do Kyber CRM, com dados de cliente borrados" width="1901" height="790" loading="lazy" />
     </article>
 
     <!-- (c) two-up -->
