@@ -1181,6 +1181,14 @@ html[lang="en"] [data-i18n="pt"] { display: none; }
 }
 
 .doc__body { display: grid; gap: var(--s-4); max-width: 64ch; }
+
+/* onde o case admite um limite: fica marcado, nao escondido no meio */
+.doc__caveat {
+  padding-left: var(--s-4);
+  border-left: 2px solid var(--blue);
+  color: var(--body-2);
+}
+.decision .doc__caveat { border-left-color: var(--plate-ink); color: var(--plate-ink-2); }
 .doc__body--tight { margin-top: var(--s-6); }
 .doc__body p { font-size: 1rem; line-height: 1.75; color: var(--body); text-wrap: pretty; }
 
