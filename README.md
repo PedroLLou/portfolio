@@ -312,23 +312,24 @@ todos os outros títulos. A largura renderizada do título não mudou.
 
 Duas, cada uma bloqueada por um motivo verificado, não suposto:
 
-**Perfil do GitHub.** Bio, localização, link do site, e fixar ou arquivar
-repositório. O MCP do GitHub não expõe endpoint de perfil, `PATCH /repos`
-nem a mutation de pinned items; o `gh` desta máquina não está autenticado
-e não há `GH_TOKEN` no ambiente. Depois de `gh auth login`:
+**Bio, localização e link no perfil do GitHub.** O token de `git push`
+guardado nesta máquina tem escopo `gist, repo, workflow`. **Falta `user`**,
+e sem ele `PATCH /user` responde 404. Não é falta de credencial, é falta
+de escopo. Com `gh auth login` (que pede navegador, e por isso não roda
+numa sessão não interativa):
 
 ```bash
 gh api -X PATCH /user -f bio='Desenvolvedor full stack. Dois produtos próprios em produção.' -f location='Goiânia, Brasil' -f blog='https://www.pedrolou.dev'
 ```
 
-E para arquivar o que a auditoria apontou como ruído na vitrine:
+Fixar `portfolio`, `gerador-curriculo` e `tcc20261` é só na interface, em
+*Customize your pins*: a API REST não expõe, e a mutation GraphQL de
+pinned items também precisa de escopo `user`.
 
-```bash
-for r in rep1 CRUD-Agenda lab-git-colaborativo-cmp2304; do gh repo edit PedroLLou/$r --visibility private; done
-```
-
-Fixar `portfolio`, `gerador-curriculo` e `tcc20261` é na interface do
-GitHub, em Customize your pins.
+O escopo `repo` cobriu o resto, e foi aplicado em 05/08/2026: `rep1`,
+`CRUD-Agenda` e `lab-git-colaborativo-cmp2304` saíram do perfil, e o
+`portfolio` ganhou descrição, link para `pedrolou.dev` e tópicos, que é
+onde a falta de `blog` no perfil doía mais.
 
 **Capturas do Didata por dentro.** A tela de correção e a de divergência
 resolveriam o case sozinhas. Existem imagens em
