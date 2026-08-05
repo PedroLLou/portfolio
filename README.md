@@ -310,17 +310,8 @@ todos os outros títulos. A largura renderizada do título não mudou.
 
 ## Pendências
 
-Três, e cada uma está bloqueada por um motivo verificado, não suposto:
+Duas, cada uma bloqueada por um motivo verificado, não suposto:
 
-- **Os dois PDFs do currículo.** O texto está pronto em
-  [docs/curriculo-conteudo.md](docs/curriculo-conteudo.md). Regenerar é
-  no `gerador-curriculo`, e **o repositório público é o kit em branco**:
-  `experiencia-profissional/README.md` ainda diz `<preencher>`, e o
-  `.gitignore` exclui `curriculos-gerados/*/`. Os dados reais só existem
-  na máquina, então o markdown de origem tem que ser preenchido aí.
-  É a peça que mais contradiz o site: o PDF publicado diz "Fundador,
-  Didata", não cita a Kyber e afirma ter validado o MVP com usuários,
-  que o próprio estudo de caso desmente.
 - **Perfil do GitHub.** Bio, localização, link do site, e fixar ou
   arquivar repositório. O MCP do GitHub não expõe endpoint de perfil,
   de `PATCH /repos` nem a mutation de pinned items, e o `gh` desta
@@ -329,3 +320,15 @@ Três, e cada uma está bloqueada por um motivo verificado, não suposto:
   divergência resolveriam o case sozinhas. Só existem em produção, e as
   imagens de prova têm nome de aluno, que é dado de menor de idade: a
   captura precisa ser de prova sintética, escrita para isso.
+
+## Currículo em PDF
+
+`uploads/curriculo-pt.pdf` e `uploads/curriculo-en.pdf` **não são fonte**:
+são cópia de `E:\curriculo\curriculos-gerados\_geral\`, que é onde os dados
+reais moram, fora de versionamento público. O que mudou e como regerar está
+em [docs/curriculo-conteudo.md](docs/curriculo-conteudo.md).
+
+Eles eram a peça que mais contradizia o site: diziam "Fundador, Didata",
+não citavam a Kyber, listavam o EduPlay e afirmavam ter validado o MVP com
+usuários, que o estudo de caso do Didata desmente por escrito. Corrigidos
+em 05/08/2026.

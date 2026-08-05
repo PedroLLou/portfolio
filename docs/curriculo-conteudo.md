@@ -1,83 +1,67 @@
-# Conteúdo do currículo, para regenerar com o `gerador-curriculo`
+# Currículo em PDF, o que mudou
 
-Este arquivo existe porque o PDF é a peça que mais contradiz o site, e é a
-única que eu não consigo corrigir sozinho: ele é gerado por outro
-repositório. O texto abaixo está pronto para entrar.
+Os dois PDFs em `uploads/` foram regenerados em 05/08/2026. Este arquivo
+registra o que mudou e por quê, porque um currículo sem histórico envelhece
+igual a um estudo de caso sem data.
 
 Origem das correções: `docs/auditoria-nova/auditoria-final.md`, itens 1, 2 e 6.
 
----
+## Onde a fonte mora
 
-## O que está errado hoje
+O `gerador-curriculo` público no GitHub é **o kit em branco**:
+`experiencia-profissional/README.md` diz `<preencher>` e o `.gitignore`
+exclui `curriculos-gerados/*/`. Os dados reais e os arquivos gerados ficam
+em `E:\curriculo`, fora de versionamento público.
 
-Extraí o texto do PDF publicado em `uploads/` e conferi contra o site:
+O pipeline é markdown → HTML → PDF, e o PDF sai de um Chromium headless:
 
-| Achado | Estado no PDF | Estado real |
+```powershell
+cd E:\curriculo
+python gerador-curriculo\scripts\gerar_pdf.py `
+  curriculos-gerados\_geral\curriculo-pt.html `
+  curriculos-gerados\_geral\curriculo-pt.pdf
+```
+
+Os PDFs publicados são cópia byte a byte de
+`E:\curriculo\curriculos-gerados\_geral\`. Para trocar, edite o HTML de lá,
+rode o script e copie para `uploads/`.
+
+## O que estava errado
+
+| Achado | Antes | Agora |
 |---|---|---|
-| Empresa | "Fundador, **Didata**" | A empresa é a **Kyber Tech**. O Didata é um produto dela |
-| Kyber | aparece **zero vezes** | É o segundo produto, com estudo de caso próprio no site |
-| EduPlay | citado **duas vezes** | Saiu do portfólio |
-| Brava | não aparece | Tem estudo de caso próprio desde agosto de 2026 |
-| Validação | "Validei o MVP com os primeiros usuários" | O case do Didata diz, por escrito, que **não há entrevista, questionário nem pesquisa de campo** |
+| Empresa | "Fundador, **Didata**" | Fundador, **Kyber Tech**. O Didata é um produto dela |
+| Kyber | aparecia **zero vezes** | 5 ocorrências |
+| EduPlay | citado **duas vezes** | 0. Saiu do portfólio, saiu do currículo |
+| Brava | não aparecia | 1, na experiência da Kyber |
+| Validação | "Validei o MVP com os primeiros usuários" | Removido |
+| Premium | "ago/2025 a **atual**" | ago/2025 a **jul/2026** |
+| Premium | "Automação de processos internos" | "Sistemas internos de uma construtora de obras públicas" |
+| Certificações | só Microsoft | Microsoft e Anthropic, nos dois idiomas |
+| Projetos | EduPlay e TCC | Kyber CRM e TCC |
 
-A última linha é a mais cara. Quando o diferencial do portfólio é
-honestidade verificável, uma afirmação que o próprio site desmente vale
-menos que não ter afirmação nenhuma.
+A linha do MVP era a mais cara. Quando o diferencial do portfólio é
+honestidade verificável, uma afirmação que o próprio estudo de caso desmente
+por escrito vale menos que não ter afirmação nenhuma. No lugar dela, a
+experiência agora cita a instrumentação de divergência, que é verdade
+conferível no repositório.
 
----
+A data da Premium era contradição entre as suas próprias fontes: o PDF dizia
+"atual", o seu `experiencia-profissional/README.md` dizia "agosto de 2025 a
+julho de 2026 (1 ano)". Você confirmou julho, e o site foi corrigido junto —
+ele também dizia "atual" na seção de experiência.
 
-## Bloco de experiência, para substituir
+## O que o currículo continua não dizendo
 
-Substitui a entrada atual "Fundador e Desenvolvedor Full Stack, Didata ·
-mar/2026 a atual".
+Coerente com o que o site não publica:
 
-> **Fundador e Desenvolvedor Full Stack, Kyber Tech** · mar/2026 a atual · remoto
->
-> Empresa própria de software: produtos próprios e entrega para cliente.
->
-> - **Didata** (usedidata.com.br), SaaS com IA para professores, em produção com plano gratuito e pago. Next.js, TypeScript, PostgreSQL/Prisma e Vision para correção de prova por foto. 1.595 testes unitários e CI que barra rota de IA sem reserva de cota.
-> - **Kyber CRM**, sistema interno em uso diário. Um app Next.js servindo painel, servidor MCP de 70 ferramentas, páginas públicas por token e rotinas em cron, com 133 policies de RLS sobre 29 tabelas.
-> - **Brava Dashboard**, painel administrativo para cliente: SPA em React sobre uma API HTTP em Lua dentro de um servidor de jogo, com autenticação gerenciada e túnel para uma máquina sem IP público.
-> - Cinco sites de cliente entregues em padrão próprio: HTML estático, WebP, canonical, Open Graph, JSON-LD e sitemap, com o domínio registrado no nome do cliente. Um deles do primeiro contato ao ar em quatro dias.
+- **Nenhum número de uso do Didata.** O seu README menciona "~5 professores"
+  em beta. Isso é dado de uso, e nem o site nem o case publicam número de
+  uso enquanto não houver medição.
+- **Nenhum dado comercial do CRM.** Sem MRR, sem ticket médio, sem conversão.
+- **Nenhum nível declarado.** Sua decisão, registrada na auditoria final.
 
----
+## Verificado nos dois PDFs
 
-## Entrada da Premium, para reescrever
-
-Hoje lê como site de construtora. É a única experiência de sistema interno
-de terceiro que existe no currículo, e é o que mais pesa para vaga.
-
-> **Desenvolvedor, Premium Construções e Serviços** · ago/2025 a atual · Goiânia, PJ
->
-> Sistemas internos de uma construtora de obras públicas.
->
-> - Dashboard administrativo usado pela equipe, em React e Node.js com TypeScript.
-> - Sistema com IA que lê notas fiscais e processa cerca de 120 por mês, integrando APIs.
-> - Bot de WhatsApp para processos internos, e o site institucional da concepção ao deploy.
-
----
-
-## A linha que o próprio case desmente
-
-Remover:
-
-> ~~Validei o MVP com os primeiros usuários e priorizei o roadmap pelo feedback.~~
-
-Colocar no lugar:
-
-> Instrumentei a divergência entre professor e IA por questão e por faixa de confiança, para medir acerto em uso, em vez de publicar acurácia sem conjunto de teste rotulado.
-
-Diz mais sobre critério de engenharia e é verdade verificável no repositório.
-
----
-
-## Ainda
-
-- Trocar **EduPlay por Kyber CRM** na seção de projetos.
-- Incluir as certificações da **Anthropic** (Claude Code e MCP) ao lado da Microsoft.
-- Os dois PDFs, `uploads/curriculo-pt.pdf` e `uploads/curriculo-en.pdf`, precisam ser regenerados. O site já aponta cada idioma para o seu, então basta substituir os arquivos com o mesmo nome.
-
-## O que eu não consigo fazer daqui
-
-- Regenerar os PDFs: são do `gerador-curriculo`, outro repositório.
-- Bio, localização e link do site no perfil do GitHub, e fixar ou arquivar repositório: não são arquivo, são configuração de conta.
+Uma página cada, como antes. `Kyber` 5×, `EduPlay` 0×, `Brava` 1×,
+`Anthropic` 2×, a afirmação sobre o MVP 0×, e o período da Premium correto.
