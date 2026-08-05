@@ -1,21 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.pedrolou.dev/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/" />
     <lastmod>2026-08-05</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.pedrolou.dev/projetos/didata</loc>
+    <loc>https://www.pedrolou.dev/en/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/" />
     <lastmod>2026-08-05</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.pedrolou.dev/projetos/kyber-crm</loc>
+    <loc>https://www.pedrolou.dev/projetos/didata</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/projetos/didata" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/projetos/didata" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/projetos/didata" />
     <lastmod>2026-08-05</lastmod>
-    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.pedrolou.dev/en/projetos/didata</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/projetos/didata" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/projetos/didata" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/projetos/didata" />
+    <lastmod>2026-08-05</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.pedrolou.dev/projetos/kyber-crm</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/projetos/kyber-crm" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/projetos/kyber-crm" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/projetos/kyber-crm" />
+    <lastmod>2026-08-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.pedrolou.dev/en/projetos/kyber-crm</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/projetos/kyber-crm" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/projetos/kyber-crm" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/projetos/kyber-crm" />
+    <lastmod>2026-08-05</lastmod>
+    <priority>0.7</priority>
   </url>
 </urlset>

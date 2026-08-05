@@ -7,18 +7,56 @@ e depois reconstruído sobre um sistema de design próprio.
 ## Estrutura
 
 ```
-index.html                  home, PT e EN lado a lado
-projetos/kyber-crm.html     estudo de caso
+src/                        FONTE bilíngue, é aqui que se edita
+  index.html
+  projetos/didata.html
+  projetos/kyber-crm.html
+
+index.html                  gerado, português
+projetos/*.html             gerado, português
+en/index.html               gerado, inglês
+en/projetos/*.html          gerado, inglês
+
 assets/styles.css           tokens, layout, motion, breakpoints
-assets/main.js              troca de idioma e nav fixa
-favicon.svg
+assets/main.js              nav fixa, e só
+assets/fonts/               woff2 auto-hospedados
 uploads/                    imagens e currículos em PDF
 imagens/                    originais em alta, fora do que é publicado
+scripts/                    geração de idiomas, imagens, fontes e card social
 ```
 
-Cada página declara os próprios títulos em
-`<html data-title-pt="..." data-title-en="...">`, então o `main.js` serve
-home e estudos de caso sem alteração.
+## Como editar
+
+**Edite `src/`, nunca os arquivos gerados.** Depois rode:
+
+```powershell
+.\scripts\gerar-idiomas.ps1
+```
+
+Ele produz as seis páginas. Um arquivo gerado que você editar à mão é
+sobrescrito na próxima execução.
+
+Cada fonte declara título, descrição e texto alternativo social nos dois
+idiomas, em atributos do `<html>`:
+
+```html
+<html lang="pt" data-title-pt="…" data-title-en="…"
+      data-desc-pt="…" data-desc-en="…"
+      data-ogalt-pt="…" data-ogalt-en="…">
+```
+
+E cada trecho bilíngue vive em pares:
+
+```html
+<span data-i18n="pt">Texto</span><span data-i18n="en" lang="en">Text</span>
+```
+
+O gerador mantém um e descarta o outro, ajusta a profundidade dos caminhos
+relativos (inclusive dentro de `srcset`), reescreve canonical, `hreflang`,
+Open Graph e o idioma do JSON-LD, troca o seletor de idioma por links entre
+as duas URLs e aponta o currículo para o PDF do idioma certo.
+
+`src/` está em `Disallow` no `robots.txt`: é fonte, não página.
 
 ## Rodar localmente
 
@@ -71,20 +109,22 @@ gerados em CSS. Uma linha com nove pontos do meio lê como ruído.
 
 ## Idioma
 
-Cada trecho bilíngue existe duas vezes na marcação, com `data-i18n="pt"`
-ou `data-i18n="en"`. A troca é só CSS, a partir do atributo `lang` do
-`<html>`:
+Cada idioma tem a própria URL, o próprio `canonical` e o próprio Open
+Graph. `hreflang` cruzado entre os dois, com `x-default` no português.
 
-```css
-html[lang="pt"] [data-i18n="en"] { display: none; }
-html[lang="en"] [data-i18n="pt"] { display: none; }
-```
+| | português | inglês |
+|---|---|---|
+| home | `/` | `/en/` |
+| Didata | `/projetos/didata` | `/en/projetos/didata` |
+| Kyber CRM | `/projetos/kyber-crm` | `/en/projetos/kyber-crm` |
 
-Os dois idiomas estão no HTML servido, o que é bom para SEO, e a página
-funciona em português mesmo sem JavaScript. O `main.js` cuida do resto:
-lê a escolha salva em `localStorage` (`pl.lang`), cai para
-`navigator.language` na primeira visita, e atualiza `<title>`, o link do
-currículo e o `aria-pressed` dos botões.
+Antes os dois idiomas viviam na mesma URL, escondidos por CSS. O Google
+indexava texto misturado, o DOM tinha o dobro do necessário e não havia
+link em inglês para mandar a um recrutador de fora. Cada página perdeu
+cerca de 30% do peso na separação.
+
+O seletor virou dois links, com `aria-current` no idioma ativo. Não
+depende de JavaScript.
 
 ## Motion
 

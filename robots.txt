@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Fonte bilingue da qual as paginas sao geradas. Nao e pagina, e conteudo
+# duplicado se for indexada.
+Disallow: /src/
+
 Sitemap: https://www.pedrolou.dev/sitemap.xml

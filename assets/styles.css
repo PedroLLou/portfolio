@@ -108,9 +108,8 @@ ol, ul { padding: 0; list-style: none; }
   border-radius: 1px;
 }
 
-/* bilingual: both languages ship in the HTML, CSS picks one */
-html[lang="pt"] [data-i18n="en"],
-html[lang="en"] [data-i18n="pt"] { display: none; }
+/* Os dois idiomas viviam aqui, escondidos por CSS. Agora cada um tem a
+   propria URL e a propria pagina, geradas por scripts/gerar-idiomas.ps1. */
 
 .skip-link {
   position: absolute;
@@ -365,7 +364,8 @@ html[lang="en"] [data-i18n="pt"] { display: none; }
 }
 .langswitch__btn + .langswitch__btn { border-left: 1px solid rgba(18,58,140,0.24); }
 .langswitch__btn:hover { color: var(--blue-deep); }
-.langswitch__btn[aria-pressed="true"] {
+/* virou link entre duas URLs, entao o estado ativo e aria-current, nao aria-pressed */
+.langswitch__btn[aria-current="true"] {
   background: rgba(15,46,110,0.14);
   color: var(--blue-deep);
 }

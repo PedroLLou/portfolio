@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt" data-desc-pt="SaaS com IA para professores brasileiros: geração de material ancorada na BNCC, correção de prova por foto com Vision, e a regra de que nenhuma nota é fechada pela máquina." data-desc-en="AI SaaS for Brazilian teachers: material generation anchored in the national curriculum, photo-based exam grading with Vision, and the rule that no grade is closed by the machine." data-ogalt-pt="Estudo de caso do Didata" data-ogalt-en="Didata case study" data-title-pt="Didata · Estudo de caso · Pedro Lourençoni Lima" data-title-en="Didata · Case study · Pedro Lourençoni Lima">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Didata · Estudo de caso · Pedro Lourençoni Lima</title>
+<meta name="description" content="SaaS com IA para professores brasileiros: geração de material ancorada na BNCC, correção de prova por foto com Vision, e a regra de que nenhuma nota é fechada pela máquina." />
+<meta name="theme-color" content="#F2EADC" />
+<link rel="canonical" href="https://www.pedrolou.dev/projetos/didata" />
+<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.pedrolou.dev/projetos/didata" />
+<meta property="og:title" content="Didata · Estudo de caso" />
+<meta property="og:description" content="Geração ancorada no currículo brasileiro, correção por foto com fallback entre providers, e uma decisão de produto que proíbe a máquina de fechar nota." />
+<meta property="og:image" content="https://www.pedrolou.dev/uploads/og-card.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="pt_BR" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/ibm-plex-mono-400-normal-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/ibm-plex-sans-400+500-normal-latin.woff2" crossorigin />
+<link rel="stylesheet" href="../assets/fonts.css" />
+<link rel="stylesheet" href="../assets/styles.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Didata, estudo de caso",
+      "description": "SaaS com IA para professores brasileiros: geração ancorada na BNCC, correção de prova por foto e a regra de que nenhuma nota é fechada pela máquina.",
+      "url": "https://www.pedrolou.dev/projetos/didata",
+      "image": "https://www.pedrolou.dev/uploads/og-card.jpg",
+      "inLanguage": "pt-BR",
+      "datePublished": "2026-08-05",
+      "dateModified": "2026-08-05",
+      "author": {
+        "@type": "Person",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Didata",
+        "applicationCategory": "EducationalApplication",
+        "url": "https://usedidata.com.br"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Portfólio", "item": "https://www.pedrolou.dev/" },
+        { "@type": "ListItem", "position": 2, "name": "Projetos", "item": "https://www.pedrolou.dev/#projetos" },
+        { "@type": "ListItem", "position": 3, "name": "Didata" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#problema">
+  <span data-i18n="pt">Pular para o conteúdo</span><span data-i18n="en" lang="en">Skip to content</span>
+</a>
+
+<div class="page page--doc">
+
+  <header class="doc__top shell">
+    <div class="doc__nav">
+      <a class="doc__back" href="/#projetos">
+        <span aria-hidden="true">←</span>
+        <span data-i18n="pt">Portfólio</span><span data-i18n="en" lang="en">Portfolio</span>
+      </a>
+      <div class="langswitch" role="group" aria-label="Idioma / Language">
+        <button type="button" class="langswitch__btn" data-setlang="pt" title="Português" aria-pressed="true">PT</button>
+        <button type="button" class="langswitch__btn" data-setlang="en" title="English" aria-pressed="false">EN</button>
+      </div>
+    </div>
+
+    <h1 class="doc__title">Didata</h1>
+
+    <p class="doc__lede">
+      <span data-i18n="pt">Plataforma onde professores brasileiros geram aula, atividade, prova e slides com IA, corrigem prova por foto e acompanham a turma. Está em produção em usedidata.com.br, com plano gratuito e pago, sem lançamento divulgado.</span>
+      <span data-i18n="en" lang="en">A platform where Brazilian teachers generate lessons, activities, exams and slides with AI, grade exams from a photo and follow each class. It is live at usedidata.com.br, with a free and a paid plan, and no public announcement.</span>
+    </p>
+
+    <dl class="doc__meta">
+      <div>
+        <dt><span data-i18n="pt">Papel</span><span data-i18n="en" lang="en">Role</span></dt>
+        <dd><span data-i18n="pt">Autor único, do produto ao deploy</span><span data-i18n="en" lang="en">Sole author, from product to deploy</span></dd>
+      </div>
+      <div>
+        <dt><span data-i18n="pt">Contexto</span><span data-i18n="en" lang="en">Context</span></dt>
+        <dd><span data-i18n="pt">Kyber Tech, carro-chefe</span><span data-i18n="en" lang="en">Kyber Tech, flagship</span></dd>
+      </div>
+      <div>
+        <dt><span data-i18n="pt">Situação</span><span data-i18n="en" lang="en">Status</span></dt>
+        <dd><span data-i18n="pt">Em produção, com plano gratuito e pago</span><span data-i18n="en" lang="en">In production, with a free and a paid plan</span></dd>
+      </div>
+      <div>
+        <dt><span data-i18n="pt">Acesso</span><span data-i18n="en" lang="en">Access</span></dt>
+        <dd><a href="https://usedidata.com.br" target="_blank" rel="noreferrer">usedidata.com.br ↗</a></dd>
+      </div>
+    </dl>
+  </header>
+
+  <main>
+
+  <!-- ===================== I · O PROBLEMA ===================== -->
+  <section id="problema" class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">I</span>
+      <h2 class="head__title">
+        <span data-i18n="pt">O problema</span><span data-i18n="en" lang="en">The problem</span>
+      </h2>
+    </div>
+    <div class="doc__body">
+      <p>
+        <span data-i18n="pt">O usuário é professor da Educação Infantil ao Superior, com peso no Fundamental e no Médio, mais professor particular, de cursinho e de idiomas. O contexto de uso é pouca familiaridade técnica e trabalho feito entre uma aula e outra, à noite, no fim de semana. O que ele precisa é transformar um tema em material pronto, corrigir prova e acompanhar a turma.</span>
+        <span data-i18n="en" lang="en">The user is a teacher, from early years to higher education, weighted toward middle and high school, plus private tutors and language and prep-course teachers. The usage context is low technical familiarity and work done between classes, at night, on weekends. What they need is to turn a topic into finished material, grade exams and follow the class.</span>
+      </p>
+      <p>
+        <span data-i18n="pt">Sobre onde exatamente o tempo do professor vai embora, não há pesquisa de campo no repositório. Não existe entrevista, questionário nem nota de conversa com professor real. O que existe é a descrição de usuário do documento de produto, que é posicionamento, não dado coletado. Prefiro escrever isso do que apresentar posicionamento como pesquisa.</span>
+        <span data-i18n="en" lang="en">On exactly where the teacher's time goes, there is no field research in the repository. No interviews, no surveys, no notes from talking to a real teacher. What exists is the user description in the product document, which is positioning, not collected data. I would rather write that down than present positioning as research.</span>
+      </p>
+      <p>
+        <span data-i18n="pt">O rastro verificável de contato com usuário é pequeno e está no código. Houve um programa beta, desativado em julho de 2026, e duas decisões carregam a data do feedback nos comentários: prova de várias folhas, com até cinco fotos por aluno numa correção, e o envio de todas as páginas numa chamada só, para montar o gabarito completo.</span>
+        <span data-i18n="en" lang="en">The verifiable trace of user contact is small and lives in the code. There was a beta programme, shut down in July 2026, and two decisions carry the feedback date in their comments: multi-page exams, up to five photos per student in one grading pass, and sending every page in a single call so the full answer sheet is assembled at once.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== II · A DECISÃO ===================== -->
+  <section class="decision">
+    <div class="shell">
+      <div class="head">
+        <span class="head__folio" aria-hidden="true">II</span>
+        <h2 class="head__title">
+          <span data-i18n="pt">A IA sugere, o professor confirma</span>
+          <span data-i18n="en" lang="en">The AI suggests, the teacher confirms</span>
+        </h2>
+      </div>
+
+      <div class="decision__body">
+        <p class="decision__lede">
+          <span data-i18n="pt">Nenhuma decisão pedagógica, nota, correção ou feedback é fechada pela máquina. Toda resposta lida pela IA nasce com status sugerida, sem exceção, inclusive as de confiança alta.</span>
+          <span data-i18n="en" lang="en">No pedagogical decision, grade, correction or feedback is closed by the machine. Every answer the AI reads is born with a suggested status, without exception, including the high-confidence ones.</span>
+        </p>
+        <p>
+          <span data-i18n="pt">É escolha, não limitação. O modelo devolve uma alternativa por questão e um número de confiança de 0 a 100. Seria trivial gravar a nota direto quando a confiança passasse de um limiar. O sistema não faz isso: sugerida e confirmada são estados distintos no banco, e a nota do boletim oficial só conta célula que o professor confirmou.</span>
+          <span data-i18n="en" lang="en">It is a choice, not a limitation. The model returns one alternative per question plus a confidence score from 0 to 100. Writing the grade straight through above a threshold would be trivial. The system does not: suggested and confirmed are distinct states in the database, and the official report card only counts cells the teacher confirmed.</span>
+        </p>
+        <p>
+          <span data-i18n="pt">O custo em conveniência é real e foi pago de propósito. Numa prova de 30 alunos por 10 questões são 300 leituras para aceitar. A mitigação não foi afrouxar a regra, foi reduzir o esforço de aceitar: confirmação em lote das de alta confiança, e uma fila que prioriza o que pede atenção. O viés da fila é declarado e pró-cautela, questão sem leitura nenhuma conta como incerta.</span>
+          <span data-i18n="en" lang="en">The cost in convenience is real and was paid deliberately. On an exam of 30 students by 10 questions that is 300 readings to accept. The mitigation was not to loosen the rule, it was to lower the cost of accepting: batch confirmation for the high-confidence ones, and a queue that surfaces what needs attention first. The queue's bias is declared and errs toward caution: a question with no reading at all counts as uncertain.</span>
+          </p>
+        <p>
+          <span data-i18n="pt">A mesma regra amarra a geração de material. Todo prompt carrega a instrução de revisar e adaptar antes de aplicar em sala.</span>
+          <span data-i18n="en" lang="en">The same rule binds material generation. Every prompt carries the instruction to review and adapt before using it in class.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== III · CURRÍCULO ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">III</span>
+      <h2 class="head__title">
+        <span data-i18n="pt">Currículo brasileiro, e o limite do que ele garante</span>
+        <span data-i18n="en" lang="en">The Brazilian curriculum, and the limit of what it guarantees</span>
+      </h2>
+      <p class="head__note">
+        <span data-i18n="pt">É o ponto onde o case precisa ser honesto, porque o mecanismo é mais modesto do que a promessa deixaria supor.</span>
+        <span data-i18n="en" lang="en">This is where the case has to be honest, because the mechanism is more modest than the promise would suggest.</span>
+      </p>
+    </div>
+
+    <div class="notes">
+      <article class="note">
+        <h3 class="note__title">
+          <span data-i18n="pt">O contexto da turma resolve a faixa de códigos</span>
+          <span data-i18n="en" lang="en">Class context resolves the code range</span>
+        </h3>
+        <p>
+          <span data-i18n="pt">Série, disciplina e tipo de professor resolvem uma faixa BNCC. Para 9º ano de matemática, devolve EF09MA01 a EF09MA24, com os temas. Essa linha entra no prompt do usuário, nunca no sistema, porque o system é constante e serve ao cache dos providers.</span>
+          <span data-i18n="en" lang="en">Grade, subject and teacher type resolve a BNCC range. For 9th-grade maths it returns EF09MA01 to EF09MA24, with the topics. That line goes into the user prompt, never the system prompt, because the system prompt is constant and feeds provider caching.</span>
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          <span data-i18n="pt">Os casos que quebrariam uma regex ingênua</span>
+          <span data-i18n="en" lang="en">The cases a naive regex would break on</span>
+        </h3>
+        <p>
+          <span data-i18n="pt">Ensino Superior não recebe código nenhum, porque não segue BNCC. Educação Infantil recebe campos de experiência em vez de habilidades. E 3º ano só é tratado como Médio quando a série ou o tipo de professor dizem Médio, porque 3º ano do Fundamental também existe.</span>
+          <span data-i18n="en" lang="en">Higher education gets no codes at all, since it does not follow the BNCC. Early years get fields of experience instead of skills. And "3rd year" is only treated as high school when the grade or the teacher type says so, because a 3rd year of primary school exists too.</span>
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          <span data-i18n="pt">Seis currículos estaduais sobre uma espinha só</span>
+          <span data-i18n="en" lang="en">Six state curricula over one spine</span>
+        </h3>
+        <p>
+          <span data-i18n="pt">GO, SP, MG, RJ, RS e BA têm módulo próprio. O desenho parte de um fato jurídico: currículo estadual adota os códigos da BNCC, e o que muda é o eixo de contextualização regional. Então a espinha fica num arquivo só e cada estado contribui o cabeçalho e o eixo, como a Goianidade no documento de Goiás.</span>
+          <span data-i18n="en" lang="en">GO, SP, MG, RJ, RS and BA have their own module. The design rests on a legal fact: state curricula adopt BNCC codes, and what changes is the axis of regional contextualisation. So the spine lives in one file and each state contributes only the header and the axis, such as Goianidade in the Goiás document.</span>
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          <span data-i18n="pt">A fonte vai junto, para conferência</span>
+          <span data-i18n="en" lang="en">The source travels with it</span>
+        </h3>
+        <p>
+          <span data-i18n="pt">Cada módulo declara fonte e versão, e o bloco injetado no prompt carrega a linha citável: órgão, documento, ano, e a instrução de citar o código BNCC porque é o mesmo do documento estadual e permite conferência no PDF oficial.</span>
+          <span data-i18n="en" lang="en">Each module declares source and version, and the block injected into the prompt carries the citable line: authority, document, year, and the instruction to cite the BNCC code because it matches the state document and can be checked against the official PDF.</span>
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          <span data-i18n="pt">O que isso não garante</span>
+          <span data-i18n="en" lang="en">What this does not guarantee</span>
+        </h3>
+        <p>
+          <span data-i18n="pt">Não há validação determinística do código citado contra uma base oficial. Os dois validadores pós-geração checam marcador de gabarito, soma de pontos, contagem de questões e paleta de slides. Nenhum olha código BNCC. Uma validação por lista oficial é trabalho em aberto, e o repositório registra o motivo de não ter sido feito: falta corpus real.</span>
+          <span data-i18n="en" lang="en">There is no deterministic validation of the cited code against an official list. The two post-generation validators check the answer-key marker, the point total, the question count and the slide palette. None looks at BNCC codes. Validating against an official list is open work, and the repository records why it has not been done: no real corpus yet.</span>
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+          <span data-i18n="pt">Então o diferencial real é outro</span>
+          <span data-i18n="en" lang="en">So the real differentiator is elsewhere</span>
+        </h3>
+        <p>
+          <span data-i18n="pt">Série, disciplina, faixa de códigos, eixo regional e fonte citável entram no prompt sem o professor digitar nada, em toda geração daquela turma. Contra usar ChatGPT direto, o ganho é esse, e não verificação formal de citação. Vale dizer qual é.</span>
+          <span data-i18n="en" lang="en">Grade, subject, code range, regional axis and citable source enter the prompt without the teacher typing anything, on every generation for that class. Against using ChatGPT directly, that is the gain, not formal citation checking. It is worth saying which one it is.</span>
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== IV · CORREÇÃO POR FOTO ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">IV</span>
+      <h2 class="head__title">
+        <span data-i18n="pt">Da foto até a nota</span><span data-i18n="en" lang="en">From photo to grade</span>
+      </h2>
+    </div>
+
+    <ol class="svc">
+      <li class="svc__row">
+        <span class="svc__num">01</span>
+        <span class="svc__name"><span data-i18n="pt">Compressão no cliente</span><span data-i18n="en" lang="en">Client-side compression</span></span>
+        <span class="svc__note"><span data-i18n="pt">2048px no maior lado, JPEG 0.82, só acima de 1,5MB e nunca amplia. Câmera de celular gera de 4 a 12MB e o servidor rejeitava com erro genérico.</span><span data-i18n="en" lang="en">2048px on the long edge, JPEG 0.82, only above 1.5MB and never upscaling. Phone cameras produce 4 to 12MB and the server was rejecting them with a generic error.</span></span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">02</span>
+        <span class="svc__name"><span data-i18n="pt">Guardas no servidor</span><span data-i18n="en" lang="en">Server-side guards</span></span>
+        <span class="svc__note"><span data-i18n="pt">Teto de 8MB por foto, até 5 por aluno, MIME restrito e verificação de magic bytes antes de qualquer processamento.</span><span data-i18n="en" lang="en">8MB per photo, up to 5 per student, restricted MIME types and magic-byte verification before any processing.</span></span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">03</span>
+        <span class="svc__name"><span data-i18n="pt">Partição por status</span><span data-i18n="en" lang="en">Partition by status</span></span>
+        <span class="svc__note"><span data-i18n="pt">O que já está sugerido ou confirmado não é tocado. Reenviar foto não apaga trabalho feito, e se tudo já foi processado o Vision nem é chamado.</span><span data-i18n="en" lang="en">Anything already suggested or confirmed is left alone. Re-uploading does not erase work, and if everything is processed Vision is not called at all.</span></span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">04</span>
+        <span class="svc__name"><span data-i18n="pt">Vision com tool use forçada</span><span data-i18n="en" lang="en">Vision with forced tool use</span></span>
+        <span class="svc__note"><span data-i18n="pt">Claude Haiku 4.5, todas as páginas do aluno numa chamada. A saída sai por schema de ferramenta, não JSON em texto livre, porque prosa em volta derrubava a foto inteira no parse.</span><span data-i18n="en" lang="en">Claude Haiku 4.5, all of a student's pages in one call. Output comes through a tool schema, not free-text JSON, because prose around it was killing the whole photo at parse time.</span></span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">05</span>
+        <span class="svc__name"><span data-i18n="pt">Persistência conservadora</span><span data-i18n="en" lang="en">Conservative persistence</span></span>
+        <span class="svc__note"><span data-i18n="pt">Uma resposta por questão, com alternativa da IA e confiança. A nota final lê outro campo, o único que o professor escreve.</span><span data-i18n="en" lang="en">One answer per question, with the AI's alternative and its confidence. The final grade reads a different field, the only one the teacher writes.</span></span>
+      </li>
+    </ol>
+
+    <div class="doc__body doc__body--tight">
+      <p>
+        <span data-i18n="pt">Quando a leitura falha, três caminhos separados por tipo de falha. Erro passível de nova tentativa cai para GPT-4o com schema idêntico e registra alerta com as tags de primário e fallback; erro 4xx e schema inválido propagam sem tentar. Questão que voltou sem leitura vira status de erro e entra num contador de faltantes. E confiança ausente é tratada como baixa: ausência de sinal conta contra a IA, não a favor.</span>
+        <span data-i18n="en" lang="en">When reading fails there are three separate paths by failure type. A retryable error falls back to GPT-4o with an identical schema and logs a warning tagged with primary and fallback; 4xx errors and invalid schemas propagate without a retry. A question that came back unread becomes an error state and enters a missing-answers counter. And absent confidence is treated as low: no signal counts against the AI, not for it.</span>
+      </p>
+      <p>
+        <span data-i18n="pt">O acerto é medido pela discordância do professor, e só sobre respostas que ele confirmou, porque contar o não confirmado como concordância inflaria o resultado a favor da IA. Duas leituras: por questão, o percentual de leituras que o professor mudou, sinalizado acima de 20%; e por faixa de confiança, para responder se a IA erra mais onde disse ter menos confiança. Se a divergência for igual nas duas faixas, o sinal não discrimina e a fila de incertas dá falsa segurança. Isso só aparece a partir de 10 confirmações, para não mostrar percentual sobre amostra pequena.</span>
+        <span data-i18n="en" lang="en">Accuracy is measured by teacher disagreement, and only over answers the teacher confirmed, because counting unconfirmed ones as agreement would inflate the result in the AI's favour. Two readings: per question, the share of readings the teacher changed, flagged above 20%; and per confidence band, to answer whether the AI is wrong more often where it claimed less confidence. If divergence is equal across bands, the signal does not discriminate and the uncertainty queue gives false comfort. None of it shows before 10 confirmations, to avoid percentages over a tiny sample.</span>
+      </p>
+      <p class="doc__caveat">
+        <span data-i18n="pt">Números de acurácia não existem. Não há conjunto de teste com fotos rotuladas nem relatório de avaliação. O mock de Vision diz, no próprio cabeçalho, que exercita a máquina em volta da IA e não testa se ela lê manuscrito. A instrumentação de divergência é o que existe no lugar da métrica offline: ela mede em uso, não antes.</span>
+        <span data-i18n="en" lang="en">Accuracy numbers do not exist. There is no labelled test set and no evaluation report. The Vision mock states in its own header that it exercises the machinery around the AI and does not test whether it reads handwriting. The divergence instrumentation is what stands in for an offline metric: it measures in use, not before.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== V · ARQUITETURA ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">V</span>
+      <h2 class="head__title">
+        <span data-i18n="pt">Arquitetura</span><span data-i18n="en" lang="en">Architecture</span>
+      </h2>
+      <p class="head__note">
+        <span data-i18n="pt">Next.js 16 em rota única na Vercel, sem serviço separado, sem fila e sem worker. O trabalho longo é streaming dentro da request; o periódico são quatro crons.</span>
+        <span data-i18n="en" lang="en">Next.js 16 on a single Vercel deployment, no separate service, no queue and no worker. Long work is streamed inside the request; periodic work is four cron jobs.</span>
+      </p>
+    </div>
+
+    <div class="notes">
+      <article class="note">
+        <h3 class="note__title"><span data-i18n="pt">Autorização na aplicação, RLS como profundidade</span><span data-i18n="en" lang="en">Authorization in the app, RLS as depth</span></h3>
+        <p>
+          <span data-i18n="pt">O oposto do Kyber CRM, e de propósito. O Prisma conecta como role que ignora RLS, então a autorização é do aplicativo. O RLS existe para o caso de alguém falar com o Postgres pelo cliente Supabase, com force e deny all explícito nas tabelas sem policy.</span>
+          <span data-i18n="en" lang="en">The opposite of Kyber CRM, deliberately. Prisma connects as a role that bypasses RLS, so authorization is the application's job. RLS exists in case someone talks to Postgres through the Supabase client, with force enabled and an explicit deny all on tables without a policy.</span>
+        </p>
+      </article>
+      <article class="note">
+        <h3 class="note__title"><span data-i18n="pt">Isolamento por professor e por escola</span><span data-i18n="en" lang="en">Isolation by teacher and by school</span></h3>
+        <p>
+          <span data-i18n="pt">Toda query de professor filtra pelo dono. Escola é multi-tenant por organização, com contexto resolvido num lugar só e considerando apenas membro aprovado. A invariante que proíbe a superfície de escola de ler conteúdo alheio não publicado é teste, não parágrafo: quebra o CI.</span>
+          <span data-i18n="en" lang="en">Every teacher query filters by owner. Schools are multi-tenant by organisation, with context resolved in one place and only approved members counted. The invariant forbidding the school surface from reading unpublished third-party content is a test, not a paragraph: it fails CI.</span>
+        </p>
+      </article>
+      <article class="note">
+        <h3 class="note__title"><span data-i18n="pt">Quatro controles de custo de IA</span><span data-i18n="en" lang="en">Four layers of AI cost control</span></h3>
+        <p>
+          <span data-i18n="pt">Reserva de cota em transação serializable, que fecha a corrida entre contar e criar; throttle de rajada; roteamento por complexidade com classificador determinístico, sem chamar IA para decidir; e cache de prompt mais dedupe de fonte por hash. Cada chamada grava o modelo real da resposta, nunca fixo no código.</span>
+          <span data-i18n="en" lang="en">Quota reserved in a serializable transaction, closing the race between counting and creating; a burst throttle; complexity routing through a deterministic classifier that does not call an AI to decide; and prompt caching plus source dedupe by hash. Every call records the model the response actually came from, never hardcoded.</span>
+        </p>
+      </article>
+      <article class="note">
+        <h3 class="note__title"><span data-i18n="pt">Exportação que respeita o papel</span><span data-i18n="en" lang="en">Export that respects the paper</span></h3>
+        <p>
+          <span data-i18n="pt">PDF, DOCX, PPTX e CSV. Equação passa por KaTeX na web e por MathJax mais conversão SVG para PNG no PDF. Texto vindo da IA é limpo antes de imprimir, porque o renderizador não interpreta markdown e comentário HTML vazava para a folha do aluno.</span>
+          <span data-i18n="en" lang="en">PDF, DOCX, PPTX and CSV. Equations go through KaTeX on the web and MathJax plus SVG-to-PNG in the PDF. AI text is cleaned before printing, because the renderer does not parse markdown and HTML comments were leaking onto the student's sheet.</span>
+        </p>
+      </article>
+      <article class="note">
+        <h3 class="note__title"><span data-i18n="pt">Governança que custa CI</span><span data-i18n="en" lang="en">Governance that costs CI time</span></h3>
+        <p>
+          <span data-i18n="pt">Constituição com invariantes numeradas, ADRs imutáveis e specs com critérios de aceite. As invariantes caras são testes: o CI falha se uma rota nova de IA não reservar cota, ou se um builder de prompt não neutralizar injeção.</span>
+          <span data-i18n="en" lang="en">A constitution with numbered invariants, immutable ADRs and specs with acceptance criteria. The expensive invariants are tests: CI fails if a new AI route does not reserve quota, or if a prompt builder does not neutralise injection.</span>
+        </p>
+      </article>
+      <article class="note">
+        <h3 class="note__title"><span data-i18n="pt">Um MCP somente leitura para operar</span><span data-i18n="en" lang="en">A read-only MCP server to operate it</span></h3>
+        <p>
+          <span data-i18n="pt">Sete ferramentas de saúde, uso, custo, falhas, correção, negócio e feedback. Local, por stdio, fora do deploy. O cron do resumo semanal reusa as mesmas consultas em vez de ter query própria.</span>
+          <span data-i18n="en" lang="en">Seven tools for health, usage, cost, failures, grading, business and feedback. Local, over stdio, outside the deployment. The weekly summary cron reuses the same queries instead of having its own.</span>
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== VI · NÚMEROS ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">VI</span>
+      <h2 class="head__title">
+        <span data-i18n="pt">O que existe hoje</span><span data-i18n="en" lang="en">What exists today</span>
+      </h2>
+    </div>
+
+    <dl class="figures figures--paper">
+      <div class="figure">
+        <dt class="figure__label"><span data-i18n="pt">Testes unitários</span><span data-i18n="en" lang="en">Unit tests</span></dt>
+        <dd class="figure__value">1.595</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label"><span data-i18n="pt">Modelos de dados</span><span data-i18n="en" lang="en">Data models</span></dt>
+        <dd class="figure__value">34</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label"><span data-i18n="pt">Currículos estaduais</span><span data-i18n="en" lang="en">State curricula</span></dt>
+        <dd class="figure__value">6</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Migrations</dt>
+        <dd class="figure__value">86</dd>
+      </div>
+    </dl>
+
+    <div class="doc__body doc__body--tight">
+      <p>
+        <span data-i18n="pt">Também: 111 páginas, 32 route handlers, 60 arquivos de Server Action, 906 arquivos TypeScript, 33 blocos de teste end to end em 9 specs, 33 dependências de produção e 798 commits desde maio de 2026. Cobertura de testes não existe: nenhum script coleta, então citar percentual seria inventar.</span>
+        <span data-i18n="en" lang="en">Also: 111 pages, 32 route handlers, 60 Server Action files, 906 TypeScript files, 33 end-to-end test blocks across 9 specs, 33 production dependencies and 798 commits since May 2026. Test coverage does not exist: no script collects it, so quoting a percentage would be inventing one.</span>
+      </p>
+      <p class="doc__caveat">
+        <span data-i18n="pt">Números de uso não existem, e este case não publica nenhum. Não há contagem de professores ativos, materiais gerados, escolas ou receita. O produto está no ar com plano gratuito e pago, mas não teve lançamento divulgado. O medidor de custo de Vision e a instrumentação de divergência já estão implementados: a escolha é medir em uso, não publicar estimativa. O documento de produto do Didata proíbe prova social fabricada, e a mesma regra vale aqui.</span>
+        <span data-i18n="en" lang="en">Usage numbers do not exist, and this case publishes none. There is no count of active teachers, generated materials, schools or revenue. The product is live with a free and a paid plan, but was never announced. The Vision cost meter and the divergence instrumentation are already built: the choice is to measure in use, not to publish an estimate. Didata's own product document forbids fabricated social proof, and the same rule applies here.</span>
+      </p>
+      <ul class="stack stack--lg">
+        <li>Next.js 16</li><li>React</li><li>TypeScript</li><li>Prisma 7</li><li>PostgreSQL</li>
+        <li>Supabase</li><li>pgvector</li><li>Anthropic</li><li>OpenAI</li><li>Vision</li><li>RAG</li><li>Vercel</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== VII · O QUE QUEBROU ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">VII</span>
+      <h2 class="head__title">
+        <span data-i18n="pt">O que quebrou, em três atos</span><span data-i18n="en" lang="en">What broke, in three acts</span>
+      </h2>
+      <p class="head__note">
+        <span data-i18n="pt">O melhor caso documentado é de infraestrutura, não de produto, e os três atos são encadeados.</span>
+        <span data-i18n="en" lang="en">The best documented failure is infrastructure, not product, and the three acts are linked.</span>
+      </p>
+    </div>
+
+    <div class="doc__body">
+      <p>
+        <span data-i18n="pt">A migration que nunca rodou. O Prisma Client é reconstruído a cada deploy a partir do schema, então passou a esperar colunas que duas migrations criariam. As duas ficaram no disco, nunca aplicadas em produção, e o dashboard quebrou pedindo uma coluna inexistente. A parte que interessa não é o erro: a documentação afirmava que a Vercel rodava migrate deploy no build, e isso nunca tinha sido configurado. Um pressuposto escrito, nunca verificado, sustentado por dias de deploys que por acaso não tocavam nas colunas novas.</span>
+        <span data-i18n="en" lang="en">The migration that never ran. The Prisma Client is rebuilt on every deploy from the schema, so it started expecting columns that two migrations would create. Both sat on disk, never applied in production, and the dashboard broke asking for a column that did not exist. The interesting part is not the error: the project documentation claimed Vercel ran migrate deploy on build, and that had never been configured. A written assumption, never verified, held up by days of deploys that happened not to touch the new columns.</span>
+      </p>
+      <p>
+        <span data-i18n="pt">Sete deploys mortos aos 45 minutos. Com o migrate deploy no build, os deploys passaram a morrer no timeout sem mensagem de erro. O pooler de transação do Supabase, que é o correto para runtime serverless, não suporta as transações DDL longas do migrate deploy, e o comando trava em vez de falhar. A correção foi separar a URL de runtime da URL do CLI. O detalhe que só aparece quando dói: a mesma variável precisa existir na Vercel e nos secrets do CI, porque o CI roda o mesmo build.</span>
+        <span data-i18n="en" lang="en">Seven deploys dead at 45 minutes. With migrate deploy in the build, deploys started dying at the timeout with no error message. Supabase's transaction pooler, which is the right one for serverless runtime, does not support migrate deploy's long DDL transactions, and the command hangs instead of failing. The fix was separating the runtime URL from the CLI URL. The detail that only shows up when it hurts: the same variable has to exist on Vercel and in CI secrets, because CI runs the same build.</span>
+      </p>
+      <p>
+        <span data-i18n="pt">A config que quebra só na infra da plataforma. Depois disso, aumentar o limite de corpo das Server Actions passou a quebrar o build com um erro de tipo, logo após a plataforma aplicar a própria modificação de config. O build local não reproduzia. Foram cerca de seis horas de bisect até isolar. A consequência ficou: o limite segue no default de 1MB e nenhuma Server Action pode receber arquivo, então todo upload do produto é route handler.</span>
+        <span data-i18n="en" lang="en">The config that only breaks on the platform's own infrastructure. After that, raising the Server Action body limit started breaking the build with a type error, right after the platform applied its own config modification. The local build did not reproduce it. It took about six hours of bisecting to isolate. The consequence stuck: the limit stays at the 1MB default and no Server Action can take a file, so every upload in the product is a route handler.</span>
+      </p>
+      <p class="doc__caveat">
+        <span data-i18n="pt">O que eu faria diferente: migrate deploy no pipeline desde o primeiro deploy, porque aplicar migration como passo manual falha em silêncio; e tratar a diferença entre o build local e o da plataforma como fato conhecido, rodando o build da plataforma antes de mesclar mudanças de configuração. O contorno do terceiro ato continua sendo dívida, não desenho: a regra vale porque um bug de terceiro não foi resolvido.</span>
+        <span data-i18n="en" lang="en">What I would do differently: migrate deploy in the pipeline from the first deploy, because applying migrations as a manual step fails silently; and treating the gap between the local build and the platform build as a known fact, running the platform build before merging config changes. The third act's workaround is still debt, not design: the rule holds because someone else's bug was never fixed.</span>
+      </p>
+    </div>
+  </section>
+
+  </main>
+
+  <section class="doc__end shell">
+    <div class="doc__endrule" aria-hidden="true"><span></span><i></i><span></span></div>
+    <p class="doc__endnote">
+      <span data-i18n="pt">Quer ver o resto do trabalho, ou conversar sobre uma vaga?</span>
+      <span data-i18n="en" lang="en">Want to see the rest of the work, or talk about a role?</span>
+    </p>
+    <div class="doc__endcta">
+      <a class="btn btn--solid" href="https://usedidata.com.br" target="_blank" rel="noreferrer">
+        <span data-i18n="pt">Ver o Didata ao vivo</span><span data-i18n="en" lang="en">See Didata live</span>
+      </a>
+      <a class="btn btn--ghost" href="/#contato">
+        <span data-i18n="pt">Falar comigo</span><span data-i18n="en" lang="en">Get in touch</span>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<script src="../assets/main.js" defer></script>
+</body>
+</html>

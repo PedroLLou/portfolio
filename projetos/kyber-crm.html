@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt" data-title-pt="Kyber CRM · Estudo de caso · Pedro Lourençoni Lima" data-title-en="Kyber CRM · Case study · Pedro Lourençoni Lima">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,17 +7,21 @@
 <meta name="description" content="Sistema interno da Kyber Tech: um app Next.js servindo quatro superfícies sobre o mesmo modelo de dados, com servidor MCP de 70 ferramentas e autorização no Postgres." />
 <meta name="theme-color" content="#F2EADC" />
 <link rel="canonical" href="https://www.pedrolou.dev/projetos/kyber-crm" />
+<link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/projetos/kyber-crm" />
+<link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/projetos/kyber-crm" />
+<link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/projetos/kyber-crm" />
 <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
 
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.pedrolou.dev/projetos/kyber-crm" />
-<meta property="og:title" content="Kyber CRM · Estudo de caso" />
-<meta property="og:description" content="Quatro superfícies sobre o mesmo modelo de dados, autorização no banco e uma decisão deliberada de não automatizar a última milha." />
+<meta property="og:title" content="Kyber CRM · Estudo de caso · Pedro Lourençoni Lima" />
+<meta property="og:description" content="Sistema interno da Kyber Tech: um app Next.js servindo quatro superfícies sobre o mesmo modelo de dados, com servidor MCP de 70 ferramentas e autorização no Postgres." />
 <meta property="og:image" content="https://www.pedrolou.dev/uploads/og-kyber-crm.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="Central do dia do Kyber CRM, com dados de cliente borrados" />
 <meta property="og:locale" content="pt_BR" />
+<meta property="og:locale:alternate" content="en_US" />
 <meta name="twitter:card" content="summary_large_image" />
 
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/ibm-plex-mono-400-normal-latin.woff2" crossorigin />
@@ -63,7 +67,7 @@
 </head>
 <body>
 <a class="skip-link" href="#problema">
-  <span data-i18n="pt">Pular para o conteúdo</span><span data-i18n="en" lang="en">Skip to content</span>
+  Pular para o conteúdo
 </a>
 
 <div class="page page--doc">
@@ -72,37 +76,37 @@
     <div class="doc__nav">
       <a class="doc__back" href="/#projetos">
         <span aria-hidden="true">←</span>
-        <span data-i18n="pt">Portfólio</span><span data-i18n="en" lang="en">Portfolio</span>
+        Portfólio
       </a>
       <div class="langswitch" role="group" aria-label="Idioma / Language">
-        <button type="button" class="langswitch__btn" data-setlang="pt" title="Português" aria-pressed="true">PT</button>
-        <button type="button" class="langswitch__btn" data-setlang="en" title="English" aria-pressed="false">EN</button>
+        <a class="langswitch__btn" href="/projetos/kyber-crm" aria-current="true">PT</a>
+        <a class="langswitch__btn" href="/en/projetos/kyber-crm">EN</a>
       </div>
     </div>
 
     <h1 class="doc__title">Kyber CRM</h1>
 
     <p class="doc__lede">
-      <span data-i18n="pt">Sistema interno de um estúdio de tecnologia, construído para substituir planilha, agenda e memória por um lugar só. Está no ar em crm.somoskyber.com.br e é usado todo dia na operação real.</span>
-      <span data-i18n="en" lang="en">The internal system of a small software studio, built to replace a spreadsheet, a calendar and memory with a single place. It is live at crm.somoskyber.com.br and used every day in real operations.</span>
+      Sistema interno de um estúdio de tecnologia, construído para substituir planilha, agenda e memória por um lugar só. Está no ar em crm.somoskyber.com.br e é usado todo dia na operação real.
+
     </p>
 
     <dl class="doc__meta">
       <div>
-        <dt><span data-i18n="pt">Papel</span><span data-i18n="en" lang="en">Role</span></dt>
-        <dd><span data-i18n="pt">Autor único, do modelo de dados ao deploy</span><span data-i18n="en" lang="en">Sole author, from data model to deploy</span></dd>
+        <dt>Papel</dt>
+        <dd>Autor único, do modelo de dados ao deploy</dd>
       </div>
       <div>
-        <dt><span data-i18n="pt">Contexto</span><span data-i18n="en" lang="en">Context</span></dt>
+        <dt>Contexto</dt>
         <dd>Kyber Tech</dd>
       </div>
       <div>
-        <dt><span data-i18n="pt">Situação</span><span data-i18n="en" lang="en">Status</span></dt>
-        <dd><span data-i18n="pt">Em produção, uso diário</span><span data-i18n="en" lang="en">In production, daily use</span></dd>
+        <dt>Situação</dt>
+        <dd>Em produção, uso diário</dd>
       </div>
       <div>
-        <dt><span data-i18n="pt">Acesso</span><span data-i18n="en" lang="en">Access</span></dt>
-        <dd><span data-i18n="pt">Privado, sistema interno</span><span data-i18n="en" lang="en">Private, internal system</span></dd>
+        <dt>Acesso</dt>
+        <dd>Privado, sistema interno</dd>
       </div>
     </dl>
   </header>
@@ -113,8 +117,8 @@
          sizes="(max-width: 70rem) 92vw, 1040px"
          alt="Central do dia do Kyber CRM: navegação com treze módulos, cinco indicadores no topo, fila de tarefas do dia e o painel de leitura escrita por IA" width="1901" height="790" />
     <figcaption>
-      <span data-i18n="pt">Central do dia. Nomes de cliente e valores estão borrados de propósito.</span>
-      <span data-i18n="en" lang="en">The daily hub. Client names and figures are deliberately redacted.</span>
+      Central do dia. Nomes de cliente e valores estão borrados de propósito.
+
     </figcaption>
   </figure>
 
@@ -125,17 +129,17 @@
     <div class="head">
       <span class="head__folio" aria-hidden="true">I</span>
       <h2 class="head__title">
-        <span data-i18n="pt">O problema</span><span data-i18n="en" lang="en">The problem</span>
+        O problema
       </h2>
     </div>
     <div class="doc__body">
       <p>
-        <span data-i18n="pt">A operação de um estúdio pequeno cabe em planilha até deixar de caber. Proposta em um arquivo, cobrança em outro, o que foi combinado com cada cliente na memória de quem atendeu, e o próximo passo de cada negociação em lugar nenhum. O custo não aparece de uma vez: aparece como cobrança esquecida, follow-up que não saiu e pergunta de cliente que ninguém sabe responder sem procurar.</span>
-        <span data-i18n="en" lang="en">A small studio's operation fits in a spreadsheet until it stops fitting. The proposal in one file, the invoice in another, whatever was agreed with each client living in the memory of whoever took the call, and the next step of each deal nowhere at all. The cost does not show up at once: it shows up as a forgotten invoice, a follow-up that never went out, and a client question nobody can answer without digging.</span>
+        A operação de um estúdio pequeno cabe em planilha até deixar de caber. Proposta em um arquivo, cobrança em outro, o que foi combinado com cada cliente na memória de quem atendeu, e o próximo passo de cada negociação em lugar nenhum. O custo não aparece de uma vez: aparece como cobrança esquecida, follow-up que não saiu e pergunta de cliente que ninguém sabe responder sem procurar.
+
       </p>
       <p>
-        <span data-i18n="pt">O objetivo não era ter um CRM. Era ter um lugar onde vendas, produção, financeiro e suporte olhassem para os mesmos dados, com a mesma regra de quem pode ver o quê, e onde o trabalho do dia estivesse montado antes de alguém perguntar o que fazer.</span>
-        <span data-i18n="en" lang="en">The goal was not to have a CRM. It was to have one place where sales, delivery, finance and support look at the same data, under the same rules about who can see what, and where the day's work is already assembled before anyone asks what to do next.</span>
+        O objetivo não era ter um CRM. Era ter um lugar onde vendas, produção, financeiro e suporte olhassem para os mesmos dados, com a mesma regra de quem pode ver o quê, e onde o trabalho do dia estivesse montado antes de alguém perguntar o que fazer.
+
       </p>
     </div>
   </section>
@@ -145,41 +149,41 @@
     <div class="head">
       <span class="head__folio" aria-hidden="true">II</span>
       <h2 class="head__title">
-        <span data-i18n="pt">Quatro superfícies, um modelo</span><span data-i18n="en" lang="en">Four surfaces, one model</span>
+        Quatro superfícies, um modelo
       </h2>
       <p class="head__note">
-        <span data-i18n="pt">Uma aplicação Next.js serve quatro coisas bem diferentes sobre o mesmo modelo de dados e a mesma camada de autorização.</span>
-        <span data-i18n="en" lang="en">One Next.js application serves four very different things over the same data model and the same authorization layer.</span>
+        Uma aplicação Next.js serve quatro coisas bem diferentes sobre o mesmo modelo de dados e a mesma camada de autorização.
+
       </p>
     </div>
 
     <ol class="svc">
       <li class="svc__row">
         <span class="svc__num">01</span>
-        <span class="svc__name"><span data-i18n="pt">Painel web</span><span data-i18n="en" lang="en">Web dashboard</span></span>
-        <span class="svc__note"><span data-i18n="pt">Onde a operação acontece: funil kanban, fila do dia, financeiro e métricas.</span><span data-i18n="en" lang="en">Where the operation happens: kanban funnel, daily queue, finance and metrics.</span></span>
+        <span class="svc__name">Painel web</span>
+        <span class="svc__note">Onde a operação acontece: funil kanban, fila do dia, financeiro e métricas.</span>
       </li>
       <li class="svc__row">
         <span class="svc__num">02</span>
-        <span class="svc__name"><span data-i18n="pt">Servidor MCP</span><span data-i18n="en" lang="en">MCP server</span></span>
-        <span class="svc__note"><span data-i18n="pt">70 ferramentas que permitem a um agente de IA operar o sistema por conversa.</span><span data-i18n="en" lang="en">70 tools that let an AI agent run the system by conversation.</span></span>
+        <span class="svc__name">Servidor MCP</span>
+        <span class="svc__note">70 ferramentas que permitem a um agente de IA operar o sistema por conversa.</span>
       </li>
       <li class="svc__row">
         <span class="svc__num">03</span>
-        <span class="svc__name"><span data-i18n="pt">Páginas públicas por token</span><span data-i18n="en" lang="en">Token-based public pages</span></span>
-        <span class="svc__note"><span data-i18n="pt">Proposta comercial, portal do cliente e status de projeto, abertos por link, sem login.</span><span data-i18n="en" lang="en">Commercial proposal, client portal and project status, opened by link, no login.</span></span>
+        <span class="svc__name">Páginas públicas por token</span>
+        <span class="svc__note">Proposta comercial, portal do cliente e status de projeto, abertos por link, sem login.</span>
       </li>
       <li class="svc__row">
         <span class="svc__num">04</span>
-        <span class="svc__name"><span data-i18n="pt">Rotinas agendadas</span><span data-i18n="en" lang="en">Scheduled routines</span></span>
-        <span class="svc__note"><span data-i18n="pt">Cobranças, snapshot de receita e briefing diário, em cron.</span><span data-i18n="en" lang="en">Invoicing, revenue snapshots and a daily briefing, on cron.</span></span>
+        <span class="svc__name">Rotinas agendadas</span>
+        <span class="svc__note">Cobranças, snapshot de receita e briefing diário, em cron.</span>
       </li>
     </ol>
 
     <div class="doc__body doc__body--tight">
       <p>
-        <span data-i18n="pt">O ponto interessante não é a quantidade de superfícies, é que as quatro compartilham as mesmas regras de negócio e o mesmo isolamento por usuário, em vez de cada uma reimplementar a sua versão. Uma regra corrigida vale para o painel, para o agente, para a página pública e para o cron ao mesmo tempo.</span>
-        <span data-i18n="en" lang="en">The interesting part is not how many surfaces there are, it is that all four share the same business rules and the same per-user isolation instead of each reimplementing its own version. A rule fixed once holds for the dashboard, the agent, the public page and the cron job at the same time.</span>
+        O ponto interessante não é a quantidade de superfícies, é que as quatro compartilham as mesmas regras de negócio e o mesmo isolamento por usuário, em vez de cada uma reimplementar a sua versão. Uma regra corrigida vale para o painel, para o agente, para a página pública e para o cron ao mesmo tempo.
+
       </p>
     </div>
   </section>
@@ -189,63 +193,63 @@
     <div class="head">
       <span class="head__folio" aria-hidden="true">III</span>
       <h2 class="head__title">
-        <span data-i18n="pt">Como foi resolvido</span><span data-i18n="en" lang="en">How it was solved</span>
+        Como foi resolvido
       </h2>
     </div>
 
     <div class="notes">
       <article class="note">
         <h3 class="note__title">
-          <span data-i18n="pt">Identidade por token no servidor MCP</span>
-          <span data-i18n="en" lang="en">Per-token identity in the MCP server</span>
+          Identidade por token no servidor MCP
+
         </h3>
         <p>
-          <span data-i18n="pt">As 70 ferramentas rodam sob o mesmo endpoint, e quem está operando é resolvido a partir do token da requisição. A identidade é propagada por <code>AsyncLocalStorage</code>, para não vazar entre requisições concorrentes. Cada parceiro opera só os próprios dados, com as mesmas regras do painel.</span>
-          <span data-i18n="en" lang="en">All 70 tools run under one endpoint, and who is operating is resolved from the request token. Identity is propagated through <code>AsyncLocalStorage</code> so it cannot leak between concurrent requests. Each partner operates only their own data, under the same rules as the dashboard.</span>
+          As 70 ferramentas rodam sob o mesmo endpoint, e quem está operando é resolvido a partir do token da requisição. A identidade é propagada por <code>AsyncLocalStorage</code>, para não vazar entre requisições concorrentes. Cada parceiro opera só os próprios dados, com as mesmas regras do painel.
+
         </p>
       </article>
 
       <article class="note">
         <h3 class="note__title">
-          <span data-i18n="pt">Autorização no banco, não na aplicação</span>
-          <span data-i18n="en" lang="en">Authorization in the database, not the app</span>
+          Autorização no banco, não na aplicação
+
         </h3>
         <p>
-          <span data-i18n="pt">133 policies de RLS sobre 29 tabelas, com funções <code>SECURITY DEFINER</code> para as decisões compostas: quem pode ver qual lead, quem é admin. O front nunca é a fronteira de segurança. Mesmo com a chave pública em mãos, o Postgres recusa.</span>
-          <span data-i18n="en" lang="en">133 RLS policies across 29 tables, with <code>SECURITY DEFINER</code> functions for the composite decisions: who can see which lead, who is an admin. The front end is never the security boundary. Even holding the public key, Postgres refuses.</span>
+          133 policies de RLS sobre 29 tabelas, com funções <code>SECURITY DEFINER</code> para as decisões compostas: quem pode ver qual lead, quem é admin. O front nunca é a fronteira de segurança. Mesmo com a chave pública em mãos, o Postgres recusa.
+
         </p>
       </article>
 
       <article class="note">
         <h3 class="note__title">
-          <span data-i18n="pt">Motor de cadência de prospecção</span>
-          <span data-i18n="en" lang="en">Prospecting cadence engine</span>
+          Motor de cadência de prospecção
+
         </h3>
         <p>
-          <span data-i18n="pt">Sequência de quatro toques com ângulos distintos e intervalos crescentes. A priorização usa sinais do lead: nota pública, volume de avaliações, presença digital e nicho histórico. Há teto diário por pessoa e lista de descadastro global. Resposta do lead pausa a automação e devolve o caso para tratamento humano.</span>
-          <span data-i18n="en" lang="en">A sequence of four touches with distinct angles and growing intervals. Prioritisation uses signals from the lead: public rating, review volume, digital presence and historical niche. There is a daily cap per person and a global opt-out list. A reply from the lead pauses the automation and hands the case back to a human.</span>
+          Sequência de quatro toques com ângulos distintos e intervalos crescentes. A priorização usa sinais do lead: nota pública, volume de avaliações, presença digital e nicho histórico. Há teto diário por pessoa e lista de descadastro global. Resposta do lead pausa a automação e devolve o caso para tratamento humano.
+
         </p>
       </article>
 
       <article class="note">
         <h3 class="note__title">
-          <span data-i18n="pt">IA aplicada de forma estreita e com trava</span>
-          <span data-i18n="en" lang="en">AI applied narrowly, with a brake</span>
+          IA aplicada de forma estreita e com trava
+
         </h3>
         <p>
-          <span data-i18n="pt">Quatro usos específicos: gerar abordagem inicial, rascunhar proposta a partir do catálogo, escrever follow-up lendo o histórico da conversa e produzir a leitura diária dos números. Cada um com regras explícitas contra inventar preço, prazo ou entrega, mais uma camada de revisão que relê o texto gerado e sinaliza afirmações que o estado do sistema não sustenta.</span>
-          <span data-i18n="en" lang="en">Four specific uses: draft the opening approach, draft a proposal from the catalogue, write a follow-up by reading the conversation history, and produce the daily read of the numbers. Each with explicit rules against inventing a price, a deadline or a deliverable, plus a review layer that re-reads the generated text and flags claims the system state does not support.</span>
+          Quatro usos específicos: gerar abordagem inicial, rascunhar proposta a partir do catálogo, escrever follow-up lendo o histórico da conversa e produzir a leitura diária dos números. Cada um com regras explícitas contra inventar preço, prazo ou entrega, mais uma camada de revisão que relê o texto gerado e sinaliza afirmações que o estado do sistema não sustenta.
+
         </p>
       </article>
 
       <article class="note">
         <h3 class="note__title">
-          <span data-i18n="pt">Multiusuário com divisão de receita</span>
-          <span data-i18n="en" lang="en">Multi-user with revenue split</span>
+          Multiusuário com divisão de receita
+
         </h3>
         <p>
-          <span data-i18n="pt">Compartilhamento de lead entre parceiros, percentual por lead e apuração de repasse, com o financeiro respeitando a divisão. O isolamento por usuário e a divisão de receita são o mesmo problema visto de dois lados.</span>
-          <span data-i18n="en" lang="en">Lead sharing between partners, a percentage per lead and payout calculation, with finance respecting the split. Per-user isolation and revenue split are the same problem seen from two sides.</span>
+          Compartilhamento de lead entre parceiros, percentual por lead e apuração de repasse, com o financeiro respeitando a divisão. O isolamento por usuário e a divisão de receita são o mesmo problema visto de dois lados.
+
         </p>
       </article>
     </div>
@@ -257,23 +261,23 @@
       <div class="head">
         <span class="head__folio" aria-hidden="true">IV</span>
         <h2 class="head__title">
-          <span data-i18n="pt">Automatizar tudo, menos a última milha</span>
-          <span data-i18n="en" lang="en">Automate everything except the last mile</span>
+          Automatizar tudo, menos a última milha
+
         </h2>
       </div>
 
       <div class="decision__body">
         <p class="decision__lede">
-          <span data-i18n="pt">O sistema não envia mensagem automaticamente, em canal nenhum, e isso é intencional. Ele monta a fila, escreve o texto e registra o envio, mas o clique de enviar é sempre humano.</span>
-          <span data-i18n="en" lang="en">The system never sends a message automatically, on any channel, and that is deliberate. It builds the queue, writes the text and records the send, but the send click is always human.</span>
+          O sistema não envia mensagem automaticamente, em canal nenhum, e isso é intencional. Ele monta a fila, escreve o texto e registra o envio, mas o clique de enviar é sempre humano.
+
         </p>
         <p>
-          <span data-i18n="pt">O motivo é risco operacional e legal. A API oficial exige consentimento documentado que a base não tem. As alternativas não oficiais violam os termos e derrubam a conta. E o número usado na prospecção é o mesmo que atende os clientes que já pagam.</span>
-          <span data-i18n="en" lang="en">The reason is operational and legal risk. The official API requires documented consent the base does not have. The unofficial alternatives violate the terms and get the account banned. And the number used for prospecting is the same one that serves the clients who already pay.</span>
+          O motivo é risco operacional e legal. A API oficial exige consentimento documentado que a base não tem. As alternativas não oficiais violam os termos e derrubam a conta. E o número usado na prospecção é o mesmo que atende os clientes que já pagam.
+
         </p>
         <p>
-          <span data-i18n="pt">Automatizar o envio economizaria minutos e colocaria em risco o canal principal do negócio. A conta não fecha. O sistema é desenhado em torno dessa escolha, não apesar dela.</span>
-          <span data-i18n="en" lang="en">Automating the send would save minutes and put the main channel of the business at risk. The trade does not pay. The system is designed around that choice, not in spite of it.</span>
+          Automatizar o envio economizaria minutos e colocaria em risco o canal principal do negócio. A conta não fecha. O sistema é desenhado em torno dessa escolha, não apesar dela.
+
         </p>
       </div>
     </div>
@@ -284,29 +288,29 @@
     <div class="head">
       <span class="head__folio" aria-hidden="true">V</span>
       <h2 class="head__title">
-        <span data-i18n="pt">O que existe hoje</span><span data-i18n="en" lang="en">What exists today</span>
+        O que existe hoje
       </h2>
     </div>
 
     <dl class="figures figures--paper">
       <div class="figure">
-        <dt class="figure__label"><span data-i18n="pt">Linhas de TypeScript</span><span data-i18n="en" lang="en">Lines of TypeScript</span></dt>
+        <dt class="figure__label">Linhas de TypeScript</dt>
         <dd class="figure__value">21.133</dd>
       </div>
       <div class="figure">
-        <dt class="figure__label"><span data-i18n="pt">Arquivos</span><span data-i18n="en" lang="en">Files</span></dt>
+        <dt class="figure__label">Arquivos</dt>
         <dd class="figure__value">103</dd>
       </div>
       <div class="figure">
-        <dt class="figure__label"><span data-i18n="pt">Ferramentas MCP</span><span data-i18n="en" lang="en">MCP tools</span></dt>
+        <dt class="figure__label">Ferramentas MCP</dt>
         <dd class="figure__value">70</dd>
       </div>
       <div class="figure">
-        <dt class="figure__label"><span data-i18n="pt">Policies de RLS</span><span data-i18n="en" lang="en">RLS policies</span></dt>
+        <dt class="figure__label">Policies de RLS</dt>
         <dd class="figure__value">133</dd>
       </div>
       <div class="figure">
-        <dt class="figure__label"><span data-i18n="pt">Tabelas</span><span data-i18n="en" lang="en">Tables</span></dt>
+        <dt class="figure__label">Tabelas</dt>
         <dd class="figure__value">29</dd>
       </div>
       <div class="figure">
@@ -314,19 +318,19 @@
         <dd class="figure__value">32</dd>
       </div>
       <div class="figure">
-        <dt class="figure__label"><span data-i18n="pt">Rotas</span><span data-i18n="en" lang="en">Routes</span></dt>
+        <dt class="figure__label">Rotas</dt>
         <dd class="figure__value">21</dd>
       </div>
       <div class="figure">
-        <dt class="figure__label"><span data-i18n="pt">Rotinas em cron</span><span data-i18n="en" lang="en">Cron routines</span></dt>
+        <dt class="figure__label">Rotinas em cron</dt>
         <dd class="figure__value">3</dd>
       </div>
     </dl>
 
     <div class="doc__body doc__body--tight">
       <p>
-        <span data-i18n="pt">Das 21 rotas, 17 são protegidas e 4 são públicas por token. Dez dependências de produção no total: sem Tailwind e sem biblioteca de componentes, o estilo é inline sobre variáveis CSS, com tema claro e escuro.</span>
-        <span data-i18n="en" lang="en">Of the 21 routes, 17 are protected and 4 are public by token. Ten production dependencies in total: no Tailwind and no component library, styling is inline over CSS variables, with a light and a dark theme.</span>
+        Das 21 rotas, 17 são protegidas e 4 são públicas por token. Dez dependências de produção no total: sem Tailwind e sem biblioteca de componentes, o estilo é inline sobre variáveis CSS, com tema claro e escuro.
+
       </p>
       <ul class="stack stack--lg">
         <li>Next.js 15</li><li>React 19</li><li>TypeScript</li><li>Supabase</li>
@@ -342,15 +346,15 @@
   <section class="doc__end shell">
     <div class="doc__endrule" aria-hidden="true"><span></span><i></i><span></span></div>
     <p class="doc__endnote">
-      <span data-i18n="pt">Quer ver o resto do trabalho, ou conversar sobre um projeto?</span>
-      <span data-i18n="en" lang="en">Want to see the rest of the work, or talk about a project?</span>
+      Quer ver o resto do trabalho, ou conversar sobre um projeto?
+
     </p>
     <div class="doc__endcta">
       <a class="btn btn--solid" href="/#projetos">
-        <span data-i18n="pt">Ver todos os projetos</span><span data-i18n="en" lang="en">See all projects</span>
+        Ver todos os projetos
       </a>
       <a class="btn btn--ghost" href="/#contato">
-        <span data-i18n="pt">Vamos conversar</span><span data-i18n="en" lang="en">Let's talk</span>
+        Vamos conversar
       </a>
     </div>
   </section>

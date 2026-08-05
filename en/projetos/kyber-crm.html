@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kyber CRM · Case study · Pedro Lourençoni Lima</title>
+<meta name="description" content="Kyber Tech's internal system: one Next.js app serving four surfaces over the same data model, with a 70-tool MCP server and authorization enforced in Postgres." />
+<meta name="theme-color" content="#F2EADC" />
+<link rel="canonical" href="https://www.pedrolou.dev/en/projetos/kyber-crm" />
+<link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/projetos/kyber-crm" />
+<link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/projetos/kyber-crm" />
+<link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/projetos/kyber-crm" />
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.pedrolou.dev/en/projetos/kyber-crm" />
+<meta property="og:title" content="Kyber CRM · Case study · Pedro Lourençoni Lima" />
+<meta property="og:description" content="Kyber Tech's internal system: one Next.js app serving four surfaces over the same data model, with a 70-tool MCP server and authorization enforced in Postgres." />
+<meta property="og:image" content="https://www.pedrolou.dev/uploads/og-kyber-crm.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Kyber CRM's daily hub, with client data redacted" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="pt_BR" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/ibm-plex-mono-400-normal-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/ibm-plex-sans-400+500-normal-latin.woff2" crossorigin />
+<link rel="stylesheet" href="../../assets/fonts.css" />
+<link rel="stylesheet" href="../../assets/styles.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Kyber CRM, estudo de caso",
+      "description": "Quatro superfícies sobre o mesmo modelo de dados, autorização no Postgres e uma decisão deliberada de não automatizar a última milha.",
+      "url": "https://www.pedrolou.dev/en/projetos/kyber-crm",
+      "image": "https://www.pedrolou.dev/uploads/og-kyber-crm.jpg",
+      "inLanguage": "en",
+      "datePublished": "2026-08-03",
+      "dateModified": "2026-08-05",
+      "author": {
+        "@type": "Person",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/en/"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Kyber CRM",
+        "applicationCategory": "BusinessApplication"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Portfólio", "item": "https://www.pedrolou.dev/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Projetos", "item": "https://www.pedrolou.dev/en/#projetos" },
+        { "@type": "ListItem", "position": 3, "name": "Kyber CRM" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#problema">
+  Skip to content
+</a>
+
+<div class="page page--doc">
+
+  <header class="doc__top shell">
+    <div class="doc__nav">
+      <a class="doc__back" href="/en/#projetos">
+        <span aria-hidden="true">←</span>
+        Portfolio
+      </a>
+      <div class="langswitch" role="group" aria-label="Idioma / Language">
+        <a class="langswitch__btn" href="/projetos/kyber-crm">PT</a>
+        <a class="langswitch__btn" href="/en/projetos/kyber-crm" aria-current="true">EN</a>
+      </div>
+    </div>
+
+    <h1 class="doc__title">Kyber CRM</h1>
+
+    <p class="doc__lede">
+
+      The internal system of a small software studio, built to replace a spreadsheet, a calendar and memory with a single place. It is live at crm.somoskyber.com.br and used every day in real operations.
+    </p>
+
+    <dl class="doc__meta">
+      <div>
+        <dt>Role</dt>
+        <dd>Sole author, from data model to deploy</dd>
+      </div>
+      <div>
+        <dt>Context</dt>
+        <dd>Kyber Tech</dd>
+      </div>
+      <div>
+        <dt>Status</dt>
+        <dd>In production, daily use</dd>
+      </div>
+      <div>
+        <dt>Access</dt>
+        <dd>Private, internal system</dd>
+      </div>
+    </dl>
+  </header>
+
+  <figure class="doc__shot shell">
+    <img src="../../uploads/kyber-crm.webp"
+         srcset="../../uploads/kyber-crm-640.webp 640w, ../../uploads/kyber-crm-1000.webp 1000w, ../../uploads/kyber-crm.webp 1901w"
+         sizes="(max-width: 70rem) 92vw, 1040px"
+         alt="Central do dia do Kyber CRM: navegação com treze módulos, cinco indicadores no topo, fila de tarefas do dia e o painel de leitura escrita por IA" width="1901" height="790" />
+    <figcaption>
+
+      The daily hub. Client names and figures are deliberately redacted.
+    </figcaption>
+  </figure>
+
+  <main>
+
+  <!-- ===================== I · O PROBLEMA ===================== -->
+  <section id="problema" class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">I</span>
+      <h2 class="head__title">
+        The problem
+      </h2>
+    </div>
+    <div class="doc__body">
+      <p>
+
+        A small studio's operation fits in a spreadsheet until it stops fitting. The proposal in one file, the invoice in another, whatever was agreed with each client living in the memory of whoever took the call, and the next step of each deal nowhere at all. The cost does not show up at once: it shows up as a forgotten invoice, a follow-up that never went out, and a client question nobody can answer without digging.
+      </p>
+      <p>
+
+        The goal was not to have a CRM. It was to have one place where sales, delivery, finance and support look at the same data, under the same rules about who can see what, and where the day's work is already assembled before anyone asks what to do next.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== II · A ARQUITETURA ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">II</span>
+      <h2 class="head__title">
+        Four surfaces, one model
+      </h2>
+      <p class="head__note">
+
+        One Next.js application serves four very different things over the same data model and the same authorization layer.
+      </p>
+    </div>
+
+    <ol class="svc">
+      <li class="svc__row">
+        <span class="svc__num">01</span>
+        <span class="svc__name">Web dashboard</span>
+        <span class="svc__note">Where the operation happens: kanban funnel, daily queue, finance and metrics.</span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">02</span>
+        <span class="svc__name">MCP server</span>
+        <span class="svc__note">70 tools that let an AI agent run the system by conversation.</span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">03</span>
+        <span class="svc__name">Token-based public pages</span>
+        <span class="svc__note">Commercial proposal, client portal and project status, opened by link, no login.</span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">04</span>
+        <span class="svc__name">Scheduled routines</span>
+        <span class="svc__note">Invoicing, revenue snapshots and a daily briefing, on cron.</span>
+      </li>
+    </ol>
+
+    <div class="doc__body doc__body--tight">
+      <p>
+
+        The interesting part is not how many surfaces there are, it is that all four share the same business rules and the same per-user isolation instead of each reimplementing its own version. A rule fixed once holds for the dashboard, the agent, the public page and the cron job at the same time.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== III · DESTAQUES ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">III</span>
+      <h2 class="head__title">
+        How it was solved
+      </h2>
+    </div>
+
+    <div class="notes">
+      <article class="note">
+        <h3 class="note__title">
+
+          Per-token identity in the MCP server
+        </h3>
+        <p>
+
+          All 70 tools run under one endpoint, and who is operating is resolved from the request token. Identity is propagated through <code>AsyncLocalStorage</code> so it cannot leak between concurrent requests. Each partner operates only their own data, under the same rules as the dashboard.
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+
+          Authorization in the database, not the app
+        </h3>
+        <p>
+
+          133 RLS policies across 29 tables, with <code>SECURITY DEFINER</code> functions for the composite decisions: who can see which lead, who is an admin. The front end is never the security boundary. Even holding the public key, Postgres refuses.
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+
+          Prospecting cadence engine
+        </h3>
+        <p>
+
+          A sequence of four touches with distinct angles and growing intervals. Prioritisation uses signals from the lead: public rating, review volume, digital presence and historical niche. There is a daily cap per person and a global opt-out list. A reply from the lead pauses the automation and hands the case back to a human.
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+
+          AI applied narrowly, with a brake
+        </h3>
+        <p>
+
+          Four specific uses: draft the opening approach, draft a proposal from the catalogue, write a follow-up by reading the conversation history, and produce the daily read of the numbers. Each with explicit rules against inventing a price, a deadline or a deliverable, plus a review layer that re-reads the generated text and flags claims the system state does not support.
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+
+          Multi-user with revenue split
+        </h3>
+        <p>
+
+          Lead sharing between partners, a percentage per lead and payout calculation, with finance respecting the split. Per-user isolation and revenue split are the same problem seen from two sides.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== IV · A DECISÃO ===================== -->
+  <section class="decision">
+    <div class="shell">
+      <div class="head">
+        <span class="head__folio" aria-hidden="true">IV</span>
+        <h2 class="head__title">
+
+          Automate everything except the last mile
+        </h2>
+      </div>
+
+      <div class="decision__body">
+        <p class="decision__lede">
+
+          The system never sends a message automatically, on any channel, and that is deliberate. It builds the queue, writes the text and records the send, but the send click is always human.
+        </p>
+        <p>
+
+          The reason is operational and legal risk. The official API requires documented consent the base does not have. The unofficial alternatives violate the terms and get the account banned. And the number used for prospecting is the same one that serves the clients who already pay.
+        </p>
+        <p>
+
+          Automating the send would save minutes and put the main channel of the business at risk. The trade does not pay. The system is designed around that choice, not in spite of it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== V · NÚMEROS ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">V</span>
+      <h2 class="head__title">
+        What exists today
+      </h2>
+    </div>
+
+    <dl class="figures figures--paper">
+      <div class="figure">
+        <dt class="figure__label">Lines of TypeScript</dt>
+        <dd class="figure__value">21.133</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Files</dt>
+        <dd class="figure__value">103</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">MCP tools</dt>
+        <dd class="figure__value">70</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">RLS policies</dt>
+        <dd class="figure__value">133</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Tables</dt>
+        <dd class="figure__value">29</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Migrations</dt>
+        <dd class="figure__value">32</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Routes</dt>
+        <dd class="figure__value">21</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Cron routines</dt>
+        <dd class="figure__value">3</dd>
+      </div>
+    </dl>
+
+    <div class="doc__body doc__body--tight">
+      <p>
+
+        Of the 21 routes, 17 are protected and 4 are public by token. Ten production dependencies in total: no Tailwind and no component library, styling is inline over CSS variables, with a light and a dark theme.
+      </p>
+      <ul class="stack stack--lg">
+        <li>Next.js 15</li><li>React 19</li><li>TypeScript</li><li>Supabase</li>
+        <li>Postgres RLS</li><li>Realtime</li><li>Storage</li><li>Vercel</li>
+        <li>@vercel/mcp-adapter</li><li>Anthropic SDK</li><li>@dnd-kit</li><li>Zod</li>
+      </ul>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ===================== FIM ===================== -->
+  <section class="doc__end shell">
+    <div class="doc__endrule" aria-hidden="true"><span></span><i></i><span></span></div>
+    <p class="doc__endnote">
+
+      Want to see the rest of the work, or talk about a project?
+    </p>
+    <div class="doc__endcta">
+      <a class="btn btn--solid" href="/en/#projetos">
+        See all projects
+      </a>
+      <a class="btn btn--ghost" href="/en/#contato">
+        Let's talk
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<script src="../../assets/main.js" defer></script>
+</body>
+</html>

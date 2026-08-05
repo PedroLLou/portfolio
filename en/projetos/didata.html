@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Didata · Case study · Pedro Lourençoni Lima</title>
+<meta name="description" content="AI SaaS for Brazilian teachers: material generation anchored in the national curriculum, photo-based exam grading with Vision, and the rule that no grade is closed by the machine." />
+<meta name="theme-color" content="#F2EADC" />
+<link rel="canonical" href="https://www.pedrolou.dev/en/projetos/didata" />
+<link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/projetos/didata" />
+<link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/projetos/didata" />
+<link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/projetos/didata" />
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.pedrolou.dev/en/projetos/didata" />
+<meta property="og:title" content="Didata · Case study · Pedro Lourençoni Lima" />
+<meta property="og:description" content="AI SaaS for Brazilian teachers: material generation anchored in the national curriculum, photo-based exam grading with Vision, and the rule that no grade is closed by the machine." />
+<meta property="og:image" content="https://www.pedrolou.dev/uploads/og-card.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="pt_BR" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/ibm-plex-mono-400-normal-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/ibm-plex-sans-400+500-normal-latin.woff2" crossorigin />
+<link rel="stylesheet" href="../../assets/fonts.css" />
+<link rel="stylesheet" href="../../assets/styles.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Didata, estudo de caso",
+      "description": "SaaS com IA para professores brasileiros: geração ancorada na BNCC, correção de prova por foto e a regra de que nenhuma nota é fechada pela máquina.",
+      "url": "https://www.pedrolou.dev/en/projetos/didata",
+      "image": "https://www.pedrolou.dev/uploads/og-card.jpg",
+      "inLanguage": "en",
+      "datePublished": "2026-08-05",
+      "dateModified": "2026-08-05",
+      "author": {
+        "@type": "Person",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/en/"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Didata",
+        "applicationCategory": "EducationalApplication",
+        "url": "https://usedidata.com.br"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Portfólio", "item": "https://www.pedrolou.dev/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Projetos", "item": "https://www.pedrolou.dev/en/#projetos" },
+        { "@type": "ListItem", "position": 3, "name": "Didata" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#problema">
+  Skip to content
+</a>
+
+<div class="page page--doc">
+
+  <header class="doc__top shell">
+    <div class="doc__nav">
+      <a class="doc__back" href="/en/#projetos">
+        <span aria-hidden="true">←</span>
+        Portfolio
+      </a>
+      <div class="langswitch" role="group" aria-label="Idioma / Language">
+        <a class="langswitch__btn" href="/projetos/didata">PT</a>
+        <a class="langswitch__btn" href="/en/projetos/didata" aria-current="true">EN</a>
+      </div>
+    </div>
+
+    <h1 class="doc__title">Didata</h1>
+
+    <p class="doc__lede">
+
+      A platform where Brazilian teachers generate lessons, activities, exams and slides with AI, grade exams from a photo and follow each class. It is live at usedidata.com.br, with a free and a paid plan, and no public announcement.
+    </p>
+
+    <dl class="doc__meta">
+      <div>
+        <dt>Role</dt>
+        <dd>Sole author, from product to deploy</dd>
+      </div>
+      <div>
+        <dt>Context</dt>
+        <dd>Kyber Tech, flagship</dd>
+      </div>
+      <div>
+        <dt>Status</dt>
+        <dd>In production, with a free and a paid plan</dd>
+      </div>
+      <div>
+        <dt>Access</dt>
+        <dd><a href="https://usedidata.com.br" target="_blank" rel="noreferrer">usedidata.com.br ↗</a></dd>
+      </div>
+    </dl>
+  </header>
+
+  <main>
+
+  <!-- ===================== I · O PROBLEMA ===================== -->
+  <section id="problema" class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">I</span>
+      <h2 class="head__title">
+        The problem
+      </h2>
+    </div>
+    <div class="doc__body">
+      <p>
+
+        The user is a teacher, from early years to higher education, weighted toward middle and high school, plus private tutors and language and prep-course teachers. The usage context is low technical familiarity and work done between classes, at night, on weekends. What they need is to turn a topic into finished material, grade exams and follow the class.
+      </p>
+      <p>
+
+        On exactly where the teacher's time goes, there is no field research in the repository. No interviews, no surveys, no notes from talking to a real teacher. What exists is the user description in the product document, which is positioning, not collected data. I would rather write that down than present positioning as research.
+      </p>
+      <p>
+
+        The verifiable trace of user contact is small and lives in the code. There was a beta programme, shut down in July 2026, and two decisions carry the feedback date in their comments: multi-page exams, up to five photos per student in one grading pass, and sending every page in a single call so the full answer sheet is assembled at once.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== II · A DECISÃO ===================== -->
+  <section class="decision">
+    <div class="shell">
+      <div class="head">
+        <span class="head__folio" aria-hidden="true">II</span>
+        <h2 class="head__title">
+
+          The AI suggests, the teacher confirms
+        </h2>
+      </div>
+
+      <div class="decision__body">
+        <p class="decision__lede">
+
+          No pedagogical decision, grade, correction or feedback is closed by the machine. Every answer the AI reads is born with a suggested status, without exception, including the high-confidence ones.
+        </p>
+        <p>
+
+          It is a choice, not a limitation. The model returns one alternative per question plus a confidence score from 0 to 100. Writing the grade straight through above a threshold would be trivial. The system does not: suggested and confirmed are distinct states in the database, and the official report card only counts cells the teacher confirmed.
+        </p>
+        <p>
+
+          The cost in convenience is real and was paid deliberately. On an exam of 30 students by 10 questions that is 300 readings to accept. The mitigation was not to loosen the rule, it was to lower the cost of accepting: batch confirmation for the high-confidence ones, and a queue that surfaces what needs attention first. The queue's bias is declared and errs toward caution: a question with no reading at all counts as uncertain.
+          </p>
+        <p>
+
+          The same rule binds material generation. Every prompt carries the instruction to review and adapt before using it in class.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== III · CURRÍCULO ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">III</span>
+      <h2 class="head__title">
+
+        The Brazilian curriculum, and the limit of what it guarantees
+      </h2>
+      <p class="head__note">
+
+        This is where the case has to be honest, because the mechanism is more modest than the promise would suggest.
+      </p>
+    </div>
+
+    <div class="notes">
+      <article class="note">
+        <h3 class="note__title">
+
+          Class context resolves the code range
+        </h3>
+        <p>
+
+          Grade, subject and teacher type resolve a BNCC range. For 9th-grade maths it returns EF09MA01 to EF09MA24, with the topics. That line goes into the user prompt, never the system prompt, because the system prompt is constant and feeds provider caching.
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+
+          The cases a naive regex would break on
+        </h3>
+        <p>
+
+          Higher education gets no codes at all, since it does not follow the BNCC. Early years get fields of experience instead of skills. And "3rd year" is only treated as high school when the grade or the teacher type says so, because a 3rd year of primary school exists too.
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+
+          Six state curricula over one spine
+        </h3>
+        <p>
+
+          GO, SP, MG, RJ, RS and BA have their own module. The design rests on a legal fact: state curricula adopt BNCC codes, and what changes is the axis of regional contextualisation. So the spine lives in one file and each state contributes only the header and the axis, such as Goianidade in the Goiás document.
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+
+          The source travels with it
+        </h3>
+        <p>
+
+          Each module declares source and version, and the block injected into the prompt carries the citable line: authority, document, year, and the instruction to cite the BNCC code because it matches the state document and can be checked against the official PDF.
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+
+          What this does not guarantee
+        </h3>
+        <p>
+
+          There is no deterministic validation of the cited code against an official list. The two post-generation validators check the answer-key marker, the point total, the question count and the slide palette. None looks at BNCC codes. Validating against an official list is open work, and the repository records why it has not been done: no real corpus yet.
+        </p>
+      </article>
+
+      <article class="note">
+        <h3 class="note__title">
+
+          So the real differentiator is elsewhere
+        </h3>
+        <p>
+
+          Grade, subject, code range, regional axis and citable source enter the prompt without the teacher typing anything, on every generation for that class. Against using ChatGPT directly, that is the gain, not formal citation checking. It is worth saying which one it is.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== IV · CORREÇÃO POR FOTO ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">IV</span>
+      <h2 class="head__title">
+        From photo to grade
+      </h2>
+    </div>
+
+    <ol class="svc">
+      <li class="svc__row">
+        <span class="svc__num">01</span>
+        <span class="svc__name">Client-side compression</span>
+        <span class="svc__note">2048px on the long edge, JPEG 0.82, only above 1.5MB and never upscaling. Phone cameras produce 4 to 12MB and the server was rejecting them with a generic error.</span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">02</span>
+        <span class="svc__name">Server-side guards</span>
+        <span class="svc__note">8MB per photo, up to 5 per student, restricted MIME types and magic-byte verification before any processing.</span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">03</span>
+        <span class="svc__name">Partition by status</span>
+        <span class="svc__note">Anything already suggested or confirmed is left alone. Re-uploading does not erase work, and if everything is processed Vision is not called at all.</span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">04</span>
+        <span class="svc__name">Vision with forced tool use</span>
+        <span class="svc__note">Claude Haiku 4.5, all of a student's pages in one call. Output comes through a tool schema, not free-text JSON, because prose around it was killing the whole photo at parse time.</span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">05</span>
+        <span class="svc__name">Conservative persistence</span>
+        <span class="svc__note">One answer per question, with the AI's alternative and its confidence. The final grade reads a different field, the only one the teacher writes.</span>
+      </li>
+    </ol>
+
+    <div class="doc__body doc__body--tight">
+      <p>
+
+        When reading fails there are three separate paths by failure type. A retryable error falls back to GPT-4o with an identical schema and logs a warning tagged with primary and fallback; 4xx errors and invalid schemas propagate without a retry. A question that came back unread becomes an error state and enters a missing-answers counter. And absent confidence is treated as low: no signal counts against the AI, not for it.
+      </p>
+      <p>
+
+        Accuracy is measured by teacher disagreement, and only over answers the teacher confirmed, because counting unconfirmed ones as agreement would inflate the result in the AI's favour. Two readings: per question, the share of readings the teacher changed, flagged above 20%; and per confidence band, to answer whether the AI is wrong more often where it claimed less confidence. If divergence is equal across bands, the signal does not discriminate and the uncertainty queue gives false comfort. None of it shows before 10 confirmations, to avoid percentages over a tiny sample.
+      </p>
+      <p class="doc__caveat">
+
+        Accuracy numbers do not exist. There is no labelled test set and no evaluation report. The Vision mock states in its own header that it exercises the machinery around the AI and does not test whether it reads handwriting. The divergence instrumentation is what stands in for an offline metric: it measures in use, not before.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== V · ARQUITETURA ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">V</span>
+      <h2 class="head__title">
+        Architecture
+      </h2>
+      <p class="head__note">
+
+        Next.js 16 on a single Vercel deployment, no separate service, no queue and no worker. Long work is streamed inside the request; periodic work is four cron jobs.
+      </p>
+    </div>
+
+    <div class="notes">
+      <article class="note">
+        <h3 class="note__title">Authorization in the app, RLS as depth</h3>
+        <p>
+
+          The opposite of Kyber CRM, deliberately. Prisma connects as a role that bypasses RLS, so authorization is the application's job. RLS exists in case someone talks to Postgres through the Supabase client, with force enabled and an explicit deny all on tables without a policy.
+        </p>
+      </article>
+      <article class="note">
+        <h3 class="note__title">Isolation by teacher and by school</h3>
+        <p>
+
+          Every teacher query filters by owner. Schools are multi-tenant by organisation, with context resolved in one place and only approved members counted. The invariant forbidding the school surface from reading unpublished third-party content is a test, not a paragraph: it fails CI.
+        </p>
+      </article>
+      <article class="note">
+        <h3 class="note__title">Four layers of AI cost control</h3>
+        <p>
+
+          Quota reserved in a serializable transaction, closing the race between counting and creating; a burst throttle; complexity routing through a deterministic classifier that does not call an AI to decide; and prompt caching plus source dedupe by hash. Every call records the model the response actually came from, never hardcoded.
+        </p>
+      </article>
+      <article class="note">
+        <h3 class="note__title">Export that respects the paper</h3>
+        <p>
+
+          PDF, DOCX, PPTX and CSV. Equations go through KaTeX on the web and MathJax plus SVG-to-PNG in the PDF. AI text is cleaned before printing, because the renderer does not parse markdown and HTML comments were leaking onto the student's sheet.
+        </p>
+      </article>
+      <article class="note">
+        <h3 class="note__title">Governance that costs CI time</h3>
+        <p>
+
+          A constitution with numbered invariants, immutable ADRs and specs with acceptance criteria. The expensive invariants are tests: CI fails if a new AI route does not reserve quota, or if a prompt builder does not neutralise injection.
+        </p>
+      </article>
+      <article class="note">
+        <h3 class="note__title">A read-only MCP server to operate it</h3>
+        <p>
+
+          Seven tools for health, usage, cost, failures, grading, business and feedback. Local, over stdio, outside the deployment. The weekly summary cron reuses the same queries instead of having its own.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== VI · NÚMEROS ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">VI</span>
+      <h2 class="head__title">
+        What exists today
+      </h2>
+    </div>
+
+    <dl class="figures figures--paper">
+      <div class="figure">
+        <dt class="figure__label">Unit tests</dt>
+        <dd class="figure__value">1.595</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Data models</dt>
+        <dd class="figure__value">34</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">State curricula</dt>
+        <dd class="figure__value">6</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Migrations</dt>
+        <dd class="figure__value">86</dd>
+      </div>
+    </dl>
+
+    <div class="doc__body doc__body--tight">
+      <p>
+
+        Also: 111 pages, 32 route handlers, 60 Server Action files, 906 TypeScript files, 33 end-to-end test blocks across 9 specs, 33 production dependencies and 798 commits since May 2026. Test coverage does not exist: no script collects it, so quoting a percentage would be inventing one.
+      </p>
+      <p class="doc__caveat">
+
+        Usage numbers do not exist, and this case publishes none. There is no count of active teachers, generated materials, schools or revenue. The product is live with a free and a paid plan, but was never announced. The Vision cost meter and the divergence instrumentation are already built: the choice is to measure in use, not to publish an estimate. Didata's own product document forbids fabricated social proof, and the same rule applies here.
+      </p>
+      <ul class="stack stack--lg">
+        <li>Next.js 16</li><li>React</li><li>TypeScript</li><li>Prisma 7</li><li>PostgreSQL</li>
+        <li>Supabase</li><li>pgvector</li><li>Anthropic</li><li>OpenAI</li><li>Vision</li><li>RAG</li><li>Vercel</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== VII · O QUE QUEBROU ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">VII</span>
+      <h2 class="head__title">
+        What broke, in three acts
+      </h2>
+      <p class="head__note">
+
+        The best documented failure is infrastructure, not product, and the three acts are linked.
+      </p>
+    </div>
+
+    <div class="doc__body">
+      <p>
+
+        The migration that never ran. The Prisma Client is rebuilt on every deploy from the schema, so it started expecting columns that two migrations would create. Both sat on disk, never applied in production, and the dashboard broke asking for a column that did not exist. The interesting part is not the error: the project documentation claimed Vercel ran migrate deploy on build, and that had never been configured. A written assumption, never verified, held up by days of deploys that happened not to touch the new columns.
+      </p>
+      <p>
+
+        Seven deploys dead at 45 minutes. With migrate deploy in the build, deploys started dying at the timeout with no error message. Supabase's transaction pooler, which is the right one for serverless runtime, does not support migrate deploy's long DDL transactions, and the command hangs instead of failing. The fix was separating the runtime URL from the CLI URL. The detail that only shows up when it hurts: the same variable has to exist on Vercel and in CI secrets, because CI runs the same build.
+      </p>
+      <p>
+
+        The config that only breaks on the platform's own infrastructure. After that, raising the Server Action body limit started breaking the build with a type error, right after the platform applied its own config modification. The local build did not reproduce it. It took about six hours of bisecting to isolate. The consequence stuck: the limit stays at the 1MB default and no Server Action can take a file, so every upload in the product is a route handler.
+      </p>
+      <p class="doc__caveat">
+
+        What I would do differently: migrate deploy in the pipeline from the first deploy, because applying migrations as a manual step fails silently; and treating the gap between the local build and the platform build as a known fact, running the platform build before merging config changes. The third act's workaround is still debt, not design: the rule holds because someone else's bug was never fixed.
+      </p>
+    </div>
+  </section>
+
+  </main>
+
+  <section class="doc__end shell">
+    <div class="doc__endrule" aria-hidden="true"><span></span><i></i><span></span></div>
+    <p class="doc__endnote">
+
+      Want to see the rest of the work, or talk about a role?
+    </p>
+    <div class="doc__endcta">
+      <a class="btn btn--solid" href="https://usedidata.com.br" target="_blank" rel="noreferrer">
+        See Didata live
+      </a>
+      <a class="btn btn--ghost" href="/en/#contato">
+        Get in touch
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<script src="../../assets/main.js" defer></script>
+</body>
+</html>
