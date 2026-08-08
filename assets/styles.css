@@ -1436,6 +1436,33 @@ code {
   }
 }
 
+/* ---------------------------------------------------------
+   Transicao entre paginas, nativa do navegador.
+   Sao doze paginas muito ligadas entre si, e trocar de idioma
+   e navegar para a MESMA pagina noutra lingua: o corte branco
+   ali fazia parecer recarga, nao troca. Zero JavaScript, zero
+   dependencia, e quem nao suporta continua vendo o corte, que
+   e o comportamento de sempre.
+   --------------------------------------------------------- */
+@view-transition { navigation: auto; }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 260ms;
+  animation-timing-function: var(--ease);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* O nome do projeto e a mesma palavra nos dois lados do link, entao ele
+     nao recomeca: escorrega do card ate o titulo do estudo de caso.
+     Cada nome precisa ser unico por pagina, dai um por projeto. */
+  .feature__name, .doc__title--didata { view-transition-name: proj-didata; }
+  .band__name,    .doc__title--kyber  { view-transition-name: proj-kyber; }
+  .work__name,    .doc__title--brava  { view-transition-name: proj-brava; }
+  /* o nome no topo atravessa a troca de idioma sem piscar */
+  .hero__name { view-transition-name: nome; }
+}
+
 /* =========================================================
    15. RESPONSIVE
    ========================================================= */
