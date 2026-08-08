@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html lang="pt" data-desc-pt="Notas curtas e datadas sobre o que quebrou e o que a quebra ensinou: o pooler que trava em vez de falhar, o limite que virou regra de arquitetura, RLS contra autorização na aplicação, e por que a IA sugere sem confirmar." data-desc-en="Short, dated notes on what broke and what the breakage taught: the pooler that hangs instead of failing, the limit that became an architecture rule, RLS versus application-level authorisation, and why the AI suggests without confirming." data-ogalt-pt="Notas de Pedro Lourençoni Lima" data-ogalt-en="Notes by Pedro Lourençoni Lima" data-title-pt="Notas · Pedro Lourençoni Lima" data-title-en="Notes · Pedro Lourençoni Lima">
+<html lang="pt" data-desc-pt="Notas curtas e datadas: o pooler que trava em vez de falhar, o limite de 1 MB que virou regra de arquitetura, e por que a IA sugere sem confirmar." data-desc-en="Short, dated notes: the pooler that hangs instead of failing, the 1 MB limit that became an architecture rule, and why the AI suggests without confirming." data-ogalt-pt="Notas de Pedro Lourençoni Lima" data-ogalt-en="Notes by Pedro Lourençoni Lima" data-title-pt="Notas · Pedro Lourençoni Lima" data-title-en="Notes · Pedro Lourençoni Lima">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Notas · Pedro Lourençoni Lima</title>
-<meta name="description" content="Notas curtas e datadas sobre o que quebrou e o que a quebra ensinou: o pooler que trava em vez de falhar, o limite que virou regra de arquitetura, RLS contra autorização na aplicação, e por que a IA sugere sem confirmar." />
+<meta name="description" content="Notas curtas e datadas: o pooler que trava em vez de falhar, o limite de 1 MB que virou regra de arquitetura, e por que a IA sugere sem confirmar." />
+<meta name="author" content="Pedro Lourençoni Lima" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#F2EADC" />
-<link rel="canonical" href="https://www.pedrolou.dev/notas/" />
+<link rel="canonical" href="https://www.pedrolou.dev/notas" />
 <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
 
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://www.pedrolou.dev/notas/" />
+<meta property="og:site_name" content="Pedro Lourençoni Lima" />
+<meta property="og:url" content="https://www.pedrolou.dev/notas" />
 <meta property="og:title" content="Notas · Pedro Lourençoni Lima" />
 <meta property="og:description" content="Notas curtas e datadas sobre o que quebrou e o que a quebra ensinou. Uma regra por nota, e a origem sempre citada." />
 <meta property="og:image" content="https://www.pedrolou.dev/uploads/og-card.jpg" />
@@ -25,7 +28,7 @@
 <link rel="stylesheet" href="../assets/fonts.css" />
 <link rel="stylesheet" href="../assets/styles.css" />
 
-<script type="application/ld+json">
+<script type="application/ld+json" data-lang="pt">
 {
   "@context": "https://schema.org",
   "@graph": [
@@ -33,7 +36,7 @@
       "@type": "Blog",
       "name": "Notas",
       "description": "Notas curtas e datadas sobre o que quebrou e o que a quebra ensinou.",
-      "url": "https://www.pedrolou.dev/notas/",
+      "url": "https://www.pedrolou.dev/notas",
       "inLanguage": "pt-BR",
       "author": {
         "@type": "Person",
@@ -46,43 +49,154 @@
           "headline": "O pooler que trava em vez de falhar",
           "url": "https://www.pedrolou.dev/notas/#pooler",
           "datePublished": "2026-08-05",
-          "author": { "@type": "Person", "name": "Pedro Lourençoni Lima" }
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
         },
         {
           "@type": "BlogPosting",
           "headline": "Um limite de 1 MB que virou regra de arquitetura",
           "url": "https://www.pedrolou.dev/notas/#server-action",
           "datePublished": "2026-08-05",
-          "author": { "@type": "Person", "name": "Pedro Lourençoni Lima" }
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
         },
         {
           "@type": "BlogPosting",
           "headline": "RLS no banco ou autorização na aplicação",
           "url": "https://www.pedrolou.dev/notas/#rls",
           "datePublished": "2026-08-05",
-          "author": { "@type": "Person", "name": "Pedro Lourençoni Lima" }
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
         },
         {
           "@type": "BlogPosting",
           "headline": "Por que a IA sugere e não confirma",
           "url": "https://www.pedrolou.dev/notas/#sugerida",
           "datePublished": "2026-08-05",
-          "author": { "@type": "Person", "name": "Pedro Lourençoni Lima" }
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
         },
         {
           "@type": "BlogPosting",
           "headline": "A espera infinita é o sintoma mais caro",
           "url": "https://www.pedrolou.dev/notas/#espera",
           "datePublished": "2026-08-05",
-          "author": { "@type": "Person", "name": "Pedro Lourençoni Lima" }
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
         }
       ]
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Portfólio", "item": "https://www.pedrolou.dev/" },
-        { "@type": "ListItem", "position": 2, "name": "Notas" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Portfólio",
+          "item": "https://www.pedrolou.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Notas"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" data-lang="en">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      "name": "Notes",
+      "description": "Short, dated notes on what broke and what the breakage taught.",
+      "url": "https://www.pedrolou.dev/notas",
+      "inLanguage": "pt-BR",
+      "author": {
+        "@type": "Person",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/"
+      },
+      "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "headline": "The pooler that hangs instead of failing",
+          "url": "https://www.pedrolou.dev/notas/#pooler",
+          "datePublished": "2026-08-05",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "A 1 MB limit that became an architecture rule",
+          "url": "https://www.pedrolou.dev/notas/#server-action",
+          "datePublished": "2026-08-05",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "RLS in the database or authorisation in the application",
+          "url": "https://www.pedrolou.dev/notas/#rls",
+          "datePublished": "2026-08-05",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Why the AI suggests and does not confirm",
+          "url": "https://www.pedrolou.dev/notas/#sugerida",
+          "datePublished": "2026-08-05",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "The infinite wait is the most expensive symptom",
+          "url": "https://www.pedrolou.dev/notas/#espera",
+          "datePublished": "2026-08-05",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Portfolio",
+          "item": "https://www.pedrolou.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Notes"
+        }
       ]
     }
   ]
@@ -289,7 +403,7 @@
       <span data-i18n="en" lang="en">Want to see the work these notes came out of?</span>
     </p>
     <div class="doc__endcta">
-      <a class="btn btn--solid" href="/projetos/">
+      <a class="btn btn--solid" href="/projetos">
         <span data-i18n="pt">Ver os projetos</span><span data-i18n="en" lang="en">See the projects</span>
       </a>
       <a class="btn btn--ghost" href="/#contato">

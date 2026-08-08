@@ -4,7 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Didata · Estudo de caso · Pedro Lourençoni Lima</title>
-<meta name="description" content="SaaS com IA para professores brasileiros: geração de material ancorada na BNCC, correção de prova por foto com Vision, e a regra de que nenhuma nota é fechada pela máquina." />
+<meta name="description" content="SaaS com IA para professores: material ancorado na BNCC, correção de prova por foto com Vision, e a regra de que nenhuma nota é fechada pela máquina." />
+<meta name="author" content="Pedro Lourençoni Lima" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#F2EADC" />
 <link rel="canonical" href="https://www.pedrolou.dev/projetos/didata" />
 <link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/projetos/didata" />
@@ -13,9 +15,10 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
 
 <meta property="og:type" content="article" />
+<meta property="og:site_name" content="Pedro Lourençoni Lima" />
 <meta property="og:url" content="https://www.pedrolou.dev/projetos/didata" />
 <meta property="og:title" content="Didata · Estudo de caso · Pedro Lourençoni Lima" />
-<meta property="og:description" content="SaaS com IA para professores brasileiros: geração de material ancorada na BNCC, correção de prova por foto com Vision, e a regra de que nenhuma nota é fechada pela máquina." />
+<meta property="og:description" content="SaaS com IA para professores: material ancorado na BNCC, correção de prova por foto com Vision, e a regra de que nenhuma nota é fechada pela máquina." />
 <meta property="og:image" content="https://www.pedrolou.dev/uploads/og-card.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -35,6 +38,7 @@
   "@graph": [
     {
       "@type": "TechArticle",
+      "@id": "https://www.pedrolou.dev/projetos/didata#artigo",
       "headline": "Didata, estudo de caso",
       "description": "SaaS com IA para professores brasileiros: geração ancorada na BNCC, correção de prova por foto e a regra de que nenhuma nota é fechada pela máquina.",
       "url": "https://www.pedrolou.dev/projetos/didata",
@@ -44,9 +48,24 @@
       "dateModified": "2026-08-05",
       "author": {
         "@type": "Person",
+        "@id": "https://www.pedrolou.dev/#pedro",
         "name": "Pedro Lourençoni Lima",
         "url": "https://www.pedrolou.dev/"
       },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://www.pedrolou.dev/#pedro",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.pedrolou.dev/projetos/didata"
+      },
+      "isPartOf": {
+        "@id": "https://www.pedrolou.dev/#site"
+      },
+      "keywords": "SaaS educacional, IA aplicada, Next.js, TypeScript, PostgreSQL, Prisma, Vision, correcao automatica de prova, BNCC, RAG",
       "about": {
         "@type": "SoftwareApplication",
         "name": "Didata",
@@ -57,9 +76,23 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Portfólio", "item": "https://www.pedrolou.dev/" },
-        { "@type": "ListItem", "position": 2, "name": "Projetos", "item": "https://www.pedrolou.dev/#projetos" },
-        { "@type": "ListItem", "position": 3, "name": "Didata" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Portfólio",
+          "item": "https://www.pedrolou.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Projetos",
+          "item": "https://www.pedrolou.dev/#projetos"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Didata"
+        }
       ]
     }
   ]
@@ -446,6 +479,10 @@
 
   <section class="doc__end shell">
     <div class="doc__endrule" aria-hidden="true"><span></span><i></i><span></span></div>
+    <p class="doc__related">
+      Três notas saíram deste case: <a href="/notas#pooler">o pooler que trava em vez de falhar</a>, <a href="/notas#server-action">o limite de 1 MB que virou regra</a> e <a href="/notas#sugerida">por que a IA sugere sem confirmar</a>.
+
+    </p>
     <p class="doc__endnote">
       Quer ver o resto do trabalho, ou conversar sobre uma vaga?
 

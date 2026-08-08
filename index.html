@@ -4,19 +4,21 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Pedro Lourençoni Lima · Desenvolvedor Full Stack</title>
-<meta name="description" content="Desenvolvedor full stack de Goiânia, especializado em SaaS e IA aplicada. Dois produtos próprios em produção, cinco clientes entregues e estudos de caso com as decisões por trás." />
+<meta name="description" content="Desenvolvedor full stack em Goiânia. Dois produtos próprios em produção, cinco clientes entregues, e estudos de caso com as decisões por trás de cada um." />
 <meta name="author" content="Pedro Lourençoni Lima" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#F2EADC" />
 <link rel="canonical" href="https://www.pedrolou.dev/" />
 <link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/" />
-<link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en/" />
+<link rel="alternate" hreflang="en" href="https://www.pedrolou.dev/en" />
 <link rel="alternate" hreflang="x-default" href="https://www.pedrolou.dev/" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 
 <meta property="og:type" content="website" />
+<meta property="og:site_name" content="Pedro Lourençoni Lima" />
 <meta property="og:url" content="https://www.pedrolou.dev/" />
 <meta property="og:title" content="Pedro Lourençoni Lima · Desenvolvedor Full Stack" />
-<meta property="og:description" content="Desenvolvedor full stack de Goiânia, especializado em SaaS e IA aplicada. Dois produtos próprios em produção, cinco clientes entregues e estudos de caso com as decisões por trás." />
+<meta property="og:description" content="Desenvolvedor full stack em Goiânia. Dois produtos próprios em produção, cinco clientes entregues, e estudos de caso com as decisões por trás de cada um." />
 <meta property="og:image" content="https://www.pedrolou.dev/uploads/og-card.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -35,44 +37,95 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  "url": "https://www.pedrolou.dev/",
-  "inLanguage": "pt-BR",
-  "mainEntity": {
-    "@type": "Person",
-    "name": "Pedro Lourençoni Lima",
-    "url": "https://www.pedrolou.dev/",
-    "image": "https://www.pedrolou.dev/uploads/og-card.jpg",
-    "jobTitle": "Desenvolvedor Full Stack",
-    "description": "Desenvolvedor full stack especializado em SaaS e IA aplicada, fundador da Kyber Tech.",
-    "email": "mailto:pedroloulima@gmail.com",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Goiânia",
-      "addressRegion": "GO",
-      "addressCountry": "BR"
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.pedrolou.dev/#site",
+      "url": "https://www.pedrolou.dev/",
+      "name": "Pedro Lourençoni Lima",
+      "inLanguage": "pt-BR",
+      "publisher": {
+        "@id": "https://www.pedrolou.dev/#pedro"
+      }
     },
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Kyber Tech",
-      "url": "https://somoskyber.com.br"
-    },
-    "alumniOf": {
-      "@type": "CollegeOrUniversity",
-      "name": "Pontifícia Universidade Católica de Goiás"
-    },
-    "knowsLanguage": ["pt-BR", "en", "es"],
-    "knowsAbout": [
-      "React", "Next.js", "TypeScript", "Node.js", "PostgreSQL",
-      "Supabase", "Prisma", "Model Context Protocol", "RAG",
-      "Row Level Security", "SaaS", "IA aplicada"
-    ],
-    "sameAs": [
-      "https://github.com/PedroLLou",
-      "https://www.linkedin.com/in/pedrolourenconilima",
-      "https://somoskyber.com.br"
-    ]
-  }
+    {
+      "@type": "ProfilePage",
+      "url": "https://www.pedrolou.dev/",
+      "inLanguage": "pt-BR",
+      "isPartOf": {
+        "@id": "https://www.pedrolou.dev/#site"
+      },
+      "mainEntity": {
+        "@type": "Person",
+        "@id": "https://www.pedrolou.dev/#pedro",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/",
+        "image": "https://www.pedrolou.dev/uploads/og-card.jpg",
+        "jobTitle": "Desenvolvedor Full Stack",
+        "description": "Desenvolvedor full stack especializado em SaaS e IA aplicada, fundador da Kyber Tech.",
+        "email": "mailto:pedroloulima@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Goiânia",
+          "addressRegion": "GO",
+          "addressCountry": "BR"
+        },
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Kyber Tech",
+          "url": "https://somoskyber.com.br"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Pontifícia Universidade Católica de Goiás"
+        },
+        "knowsLanguage": [
+          "pt-BR",
+          "en",
+          "es"
+        ],
+        "knowsAbout": [
+          "React",
+          "Next.js",
+          "TypeScript",
+          "Node.js",
+          "PostgreSQL",
+          "Supabase",
+          "Prisma",
+          "Model Context Protocol",
+          "RAG",
+          "Row Level Security",
+          "SaaS",
+          "IA aplicada"
+        ],
+        "sameAs": [
+          "https://github.com/PedroLLou",
+          "https://www.linkedin.com/in/pedrolourenconilima",
+          "https://somoskyber.com.br"
+        ],
+        "hasOccupation": {
+          "@type": "Occupation",
+          "name": "Desenvolvedor Full Stack",
+          "occupationLocation": {
+            "@type": "City",
+            "name": "Goiânia"
+          },
+          "skills": "React, Next.js, TypeScript, Node.js, PostgreSQL, IA aplicada"
+        },
+        "subjectOf": [
+          {
+            "@id": "https://www.pedrolou.dev/projetos/didata#artigo"
+          },
+          {
+            "@id": "https://www.pedrolou.dev/projetos/kyber-crm#artigo"
+          },
+          {
+            "@id": "https://www.pedrolou.dev/projetos/brava#artigo"
+          }
+        ]
+      }
+    }
+  ]
 }
 </script>
 </head>
@@ -94,7 +147,7 @@
       </nav>
       <div class="langswitch" role="group" aria-label="Idioma / Language">
         <a class="langswitch__btn" href="/" aria-current="true">PT</a>
-        <a class="langswitch__btn" href="/en/">EN</a>
+        <a class="langswitch__btn" href="/en">EN</a>
       </div>
     </div>
 
@@ -146,7 +199,7 @@
     <a class="pillnav__home" href="#top">PL</a>
     <a href="#sobre">Sobre</a>
     <a href="#projetos">Projetos</a>
-    <a class="pillnav__opt" href="/notas/">Notas</a>
+    <a class="pillnav__opt" href="/notas">Notas</a>
     <a class="pillnav__opt" href="#experiencia">Experiência</a>
     <a class="pillnav__cta" href="#contato">Contato</a>
   </nav>
@@ -328,7 +381,10 @@
     <!-- (c) two-up -->
     <article class="work work--wide reveal">
       <div class="work__shot work__shot--left">
-        <img src="uploads/brava-dashboard.webp" alt="Dashboard do Brava.gg" width="950" height="488" loading="lazy" />
+        <!-- Captura do modo demonstracao: os numerinhos sao os sete valores fixos
+             que a secao II do case conta terem sido trocados por "-". Descrever
+             como dado real contradiria o proprio case. -->
+        <img src="uploads/brava-dashboard.webp" alt="Painel do Brava.gg em modo demonstração: barra lateral com nove telas, indicadores de jogadores online e economia do servidor, gráfico de atividade semanal e feed de alertas críticos" width="950" height="488" loading="lazy" />
       </div>
       <div class="work__body">
         <div class="work__head">
@@ -353,7 +409,7 @@
          rolagem em mobile era o achado da auditoria, e eram os dois blocos
          que menos pesavam na primeira impressao. -->
     <p class="projects__more reveal">
-      <a class="link-out" href="/projetos/">
+      <a class="link-out" href="/projetos">
         Ver todos os projetos, a carteira de clientes e o padrão de entrega →
 
       </a>

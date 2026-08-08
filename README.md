@@ -61,6 +61,12 @@ as duas URLs e aponta o currículo para o PDF do idioma certo.
 
 `src/` está em `Disallow` no `robots.txt`: é fonte, não página.
 
+O `sitemap.xml` sai do mesmo script. Era escrito à mão e ficou defasado
+três vezes seguidas, uma por página nova; agora não há como acrescentar
+rota sem que ele acompanhe. O `lastmod` vem da data de alteração da
+**fonte**, não do arquivo gerado, senão toda execução anunciaria que o
+site inteiro mudou.
+
 ## Rodar localmente
 
 ```bash
@@ -151,6 +157,19 @@ cerca de 30% do peso na separação.
 
 O seletor virou dois links, com `aria-current` no idioma ativo. Não
 depende de JavaScript.
+
+**Os dados estruturados também têm idioma.** JSON-LD não aceita
+`<span data-i18n>` dentro, então a fonte traz um bloco por idioma, marcado
+com `data-lang`, e o gerador fica com o do idioma pedido. Antes disso as
+páginas em inglês anunciavam `headline`, `description` e trilha em
+português, o que anula o `hreflang`: o Google lia um idioma diferente do
+que a página declarava ser.
+
+**Sem barra no fim.** A Vercel roda com `trailingSlash: false`, então
+`/projetos/` e `/en/` respondem 308 para a versão sem barra. Canonical,
+`hreflang`, `og:url`, sitemap e links internos apontavam para essas URLs
+que redirecionam. Só a raiz mantém a barra, porque o domínio sozinho não
+é URL.
 
 ## Motion
 

@@ -1352,6 +1352,19 @@ code {
   text-align: center;
 }
 
+/* Fecha o ciclo de links: as notas ja citavam os cases, os cases nao
+   citavam as notas. Ancora descritiva, nao "clique aqui". */
+.doc__related {
+  max-width: 58ch;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--body-2);
+  text-align: center;
+}
+/* sublinhado porque sao links no meio de uma frase: sem ele, so a cor
+   distingue, e cor sozinha nao serve como unico indicador */
+.doc__related a { color: var(--blue); text-decoration: underline; text-underline-offset: 0.2em; }
+
 /* Case sem data envelhece em silencio: foi o que aconteceu com o status do
    Didata, que ficou meses dizendo "cobranca em implementacao" com o produto
    ja vendendo plano. */

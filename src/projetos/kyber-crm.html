@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt" data-desc-pt="Sistema interno da Kyber Tech: um app Next.js servindo quatro superfícies sobre o mesmo modelo de dados, com servidor MCP de 70 ferramentas e autorização no Postgres." data-desc-en="Kyber Tech's internal system: one Next.js app serving four surfaces over the same data model, with a 70-tool MCP server and authorization enforced in Postgres." data-ogalt-pt="Central do dia do Kyber CRM, com dados de cliente borrados" data-ogalt-en="Kyber CRM's daily hub, with client data redacted" data-title-pt="Kyber CRM · Estudo de caso · Pedro Lourençoni Lima" data-title-en="Kyber CRM · Case study · Pedro Lourençoni Lima">
+<html lang="pt" data-desc-pt="Sistema interno da Kyber Tech: um app Next.js servindo quatro superfícies sobre o mesmo modelo, com servidor MCP de 70 ferramentas e RLS no Postgres." data-desc-en="Kyber Tech's internal system: one Next.js app serving four surfaces over one data model, with a 70-tool MCP server and authorization enforced in Postgres." data-ogalt-pt="Central do dia do Kyber CRM, com dados de cliente borrados" data-ogalt-en="Kyber CRM's daily hub, with client data redacted" data-title-pt="Kyber CRM · Estudo de caso · Pedro Lourençoni Lima" data-title-en="Kyber CRM · Case study · Pedro Lourençoni Lima">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Kyber CRM · Estudo de caso · Pedro Lourençoni Lima</title>
-<meta name="description" content="Sistema interno da Kyber Tech: um app Next.js servindo quatro superfícies sobre o mesmo modelo de dados, com servidor MCP de 70 ferramentas e autorização no Postgres." />
+<meta name="description" content="Sistema interno da Kyber Tech: um app Next.js servindo quatro superfícies sobre o mesmo modelo, com servidor MCP de 70 ferramentas e RLS no Postgres." />
+<meta name="author" content="Pedro Lourençoni Lima" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#F2EADC" />
 <link rel="canonical" href="https://www.pedrolou.dev/projetos/kyber-crm" />
 <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
 
 <meta property="og:type" content="article" />
+<meta property="og:site_name" content="Pedro Lourençoni Lima" />
 <meta property="og:url" content="https://www.pedrolou.dev/projetos/kyber-crm" />
 <meta property="og:title" content="Kyber CRM · Estudo de caso" />
 <meta property="og:description" content="Quatro superfícies sobre o mesmo modelo de dados, autorização no banco e uma decisão deliberada de não automatizar a última milha." />
@@ -25,12 +28,13 @@
 <link rel="stylesheet" href="../assets/fonts.css" />
 <link rel="stylesheet" href="../assets/styles.css" />
 
-<script type="application/ld+json">
+<script type="application/ld+json" data-lang="pt">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "TechArticle",
+      "@id": "https://www.pedrolou.dev/projetos/kyber-crm#artigo",
       "headline": "Kyber CRM, estudo de caso",
       "description": "Quatro superfícies sobre o mesmo modelo de dados, autorização no Postgres e uma decisão deliberada de não automatizar a última milha.",
       "url": "https://www.pedrolou.dev/projetos/kyber-crm",
@@ -40,9 +44,24 @@
       "dateModified": "2026-08-05",
       "author": {
         "@type": "Person",
+        "@id": "https://www.pedrolou.dev/#pedro",
         "name": "Pedro Lourençoni Lima",
         "url": "https://www.pedrolou.dev/"
       },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://www.pedrolou.dev/#pedro",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.pedrolou.dev/projetos/kyber-crm"
+      },
+      "isPartOf": {
+        "@id": "https://www.pedrolou.dev/#site"
+      },
+      "keywords": "CRM, Next.js, TypeScript, Supabase, PostgreSQL, Row Level Security, Model Context Protocol, MCP, automacao de vendas",
       "about": {
         "@type": "SoftwareApplication",
         "name": "Kyber CRM",
@@ -52,9 +71,88 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Portfólio", "item": "https://www.pedrolou.dev/" },
-        { "@type": "ListItem", "position": 2, "name": "Projetos", "item": "https://www.pedrolou.dev/#projetos" },
-        { "@type": "ListItem", "position": 3, "name": "Kyber CRM" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Portfólio",
+          "item": "https://www.pedrolou.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Projetos",
+          "item": "https://www.pedrolou.dev/#projetos"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Kyber CRM"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" data-lang="en">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://www.pedrolou.dev/projetos/kyber-crm#artigo",
+      "headline": "Kyber CRM, a case study",
+      "description": "Four surfaces over one data model, authorisation enforced in Postgres, and a deliberate decision not to automate the last mile.",
+      "url": "https://www.pedrolou.dev/projetos/kyber-crm",
+      "image": "https://www.pedrolou.dev/uploads/og-kyber-crm.jpg",
+      "inLanguage": "pt-BR",
+      "datePublished": "2026-08-03",
+      "dateModified": "2026-08-05",
+      "author": {
+        "@type": "Person",
+        "@id": "https://www.pedrolou.dev/#pedro",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://www.pedrolou.dev/#pedro",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.pedrolou.dev/projetos/kyber-crm"
+      },
+      "isPartOf": {
+        "@id": "https://www.pedrolou.dev/#site"
+      },
+      "keywords": "CRM, Next.js, TypeScript, Supabase, PostgreSQL, Row Level Security, Model Context Protocol, MCP, sales automation",
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Kyber CRM",
+        "applicationCategory": "BusinessApplication"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Portfolio",
+          "item": "https://www.pedrolou.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Projects",
+          "item": "https://www.pedrolou.dev/#projetos"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Kyber CRM"
+        }
       ]
     }
   ]
@@ -341,6 +439,10 @@
   <!-- ===================== FIM ===================== -->
   <section class="doc__end shell">
     <div class="doc__endrule" aria-hidden="true"><span></span><i></i><span></span></div>
+    <p class="doc__related">
+      <span data-i18n="pt">Uma nota saiu deste case: <a href="/notas#rls">RLS no banco ou autorização na aplicação</a>.</span>
+      <span data-i18n="en" lang="en">One note came out of this case: <a href="/notas#rls">RLS in the database or authorisation in the application</a>.</span>
+    </p>
     <p class="doc__endnote">
       <span data-i18n="pt">Quer ver o resto do trabalho, ou conversar sobre um projeto?</span>
       <span data-i18n="en" lang="en">Want to see the rest of the work, or talk about a project?</span>

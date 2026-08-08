@@ -4,7 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Didata · Case study · Pedro Lourençoni Lima</title>
-<meta name="description" content="AI SaaS for Brazilian teachers: material generation anchored in the national curriculum, photo-based exam grading with Vision, and the rule that no grade is closed by the machine." />
+<meta name="description" content="AI SaaS for teachers: material anchored in the Brazilian curriculum, photo-based exam grading with Vision, and the rule that no grade is closed by machine." />
+<meta name="author" content="Pedro Lourençoni Lima" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#F2EADC" />
 <link rel="canonical" href="https://www.pedrolou.dev/en/projetos/didata" />
 <link rel="alternate" hreflang="pt-BR" href="https://www.pedrolou.dev/projetos/didata" />
@@ -13,9 +15,10 @@
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
 
 <meta property="og:type" content="article" />
+<meta property="og:site_name" content="Pedro Lourençoni Lima" />
 <meta property="og:url" content="https://www.pedrolou.dev/en/projetos/didata" />
 <meta property="og:title" content="Didata · Case study · Pedro Lourençoni Lima" />
-<meta property="og:description" content="AI SaaS for Brazilian teachers: material generation anchored in the national curriculum, photo-based exam grading with Vision, and the rule that no grade is closed by the machine." />
+<meta property="og:description" content="AI SaaS for teachers: material anchored in the Brazilian curriculum, photo-based exam grading with Vision, and the rule that no grade is closed by machine." />
 <meta property="og:image" content="https://www.pedrolou.dev/uploads/og-card.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -35,8 +38,9 @@
   "@graph": [
     {
       "@type": "TechArticle",
-      "headline": "Didata, estudo de caso",
-      "description": "SaaS com IA para professores brasileiros: geração ancorada na BNCC, correção de prova por foto e a regra de que nenhuma nota é fechada pela máquina.",
+      "@id": "https://www.pedrolou.dev/en/projetos/didata#artigo",
+      "headline": "Didata, a case study",
+      "description": "AI SaaS for Brazilian teachers: generation anchored in the national curriculum, photo-based exam grading, and the rule that no grade is closed by the machine.",
       "url": "https://www.pedrolou.dev/en/projetos/didata",
       "image": "https://www.pedrolou.dev/uploads/og-card.jpg",
       "inLanguage": "en",
@@ -44,9 +48,24 @@
       "dateModified": "2026-08-05",
       "author": {
         "@type": "Person",
+        "@id": "https://www.pedrolou.dev/en#pedro",
         "name": "Pedro Lourençoni Lima",
-        "url": "https://www.pedrolou.dev/en/"
+        "url": "https://www.pedrolou.dev/en"
       },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://www.pedrolou.dev/en#pedro",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/en"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.pedrolou.dev/en/projetos/didata"
+      },
+      "isPartOf": {
+        "@id": "https://www.pedrolou.dev/en#site"
+      },
+      "keywords": "education SaaS, applied AI, Next.js, TypeScript, PostgreSQL, Prisma, Vision, automated exam grading, curriculum alignment, RAG",
       "about": {
         "@type": "SoftwareApplication",
         "name": "Didata",
@@ -57,9 +76,23 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Portfólio", "item": "https://www.pedrolou.dev/en/" },
-        { "@type": "ListItem", "position": 2, "name": "Projetos", "item": "https://www.pedrolou.dev/en/#projetos" },
-        { "@type": "ListItem", "position": 3, "name": "Didata" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Portfolio",
+          "item": "https://www.pedrolou.dev/en"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Projects",
+          "item": "https://www.pedrolou.dev/en#projetos"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Didata"
+        }
       ]
     }
   ]
@@ -446,6 +479,10 @@
 
   <section class="doc__end shell">
     <div class="doc__endrule" aria-hidden="true"><span></span><i></i><span></span></div>
+    <p class="doc__related">
+
+      Three notes came out of this case: <a href="/en/notas#pooler">the pooler that hangs instead of failing</a>, <a href="/en/notas#server-action">the 1 MB limit that became a rule</a> and <a href="/en/notas#sugerida">why the AI suggests without confirming</a>.
+    </p>
     <p class="doc__endnote">
 
       Want to see the rest of the work, or talk about a role?

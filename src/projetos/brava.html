@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt" data-desc-pt="Painel administrativo de um servidor de roleplay FiveM: SPA na Vercel falando com um servidor de jogo numa máquina doméstica sem IP público, e a decisão de mostrar um traço em vez de um número inventado." data-desc-en="Admin dashboard for a FiveM roleplay server: a Vercel SPA talking to a game server on a home machine with no public IP, and the decision to show a dash instead of an invented number." data-ogalt-pt="Estudo de caso do Brava Dashboard" data-ogalt-en="Brava Dashboard case study" data-title-pt="Brava Dashboard · Estudo de caso · Pedro Lourençoni Lima" data-title-en="Brava Dashboard · Case study · Pedro Lourençoni Lima">
+<html lang="pt" data-desc-pt="Painel de um servidor de roleplay FiveM: SPA na Vercel falando com um servidor de jogo sem IP público, e a decisão de mostrar um traço em vez de inventar." data-desc-en="Admin panel for a FiveM roleplay server: a Vercel SPA talking to a game server with no public IP, and the decision to show a dash instead of inventing one." data-ogalt-pt="Estudo de caso do Brava Dashboard" data-ogalt-en="Brava Dashboard case study" data-title-pt="Brava Dashboard · Estudo de caso · Pedro Lourençoni Lima" data-title-en="Brava Dashboard · Case study · Pedro Lourençoni Lima">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Brava Dashboard · Estudo de caso · Pedro Lourençoni Lima</title>
-<meta name="description" content="Painel administrativo de um servidor de roleplay FiveM: SPA na Vercel falando com um servidor de jogo numa máquina doméstica sem IP público, e a decisão de mostrar um traço em vez de um número inventado." />
+<meta name="description" content="Painel de um servidor de roleplay FiveM: SPA na Vercel falando com um servidor de jogo sem IP público, e a decisão de mostrar um traço em vez de inventar." />
+<meta name="author" content="Pedro Lourençoni Lima" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#F2EADC" />
 <link rel="canonical" href="https://www.pedrolou.dev/projetos/brava" />
 <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
 
 <meta property="og:type" content="article" />
+<meta property="og:site_name" content="Pedro Lourençoni Lima" />
 <meta property="og:url" content="https://www.pedrolou.dev/projetos/brava" />
 <meta property="og:title" content="Brava Dashboard · Estudo de caso" />
 <meta property="og:description" content="Um adapter HTTP em Lua sobre um servidor de jogo, três tentativas de autenticação até a certa, e a escolha de renderizar um traço onde o dado ainda não existe." />
@@ -25,12 +28,13 @@
 <link rel="stylesheet" href="../assets/fonts.css" />
 <link rel="stylesheet" href="../assets/styles.css" />
 
-<script type="application/ld+json">
+<script type="application/ld+json" data-lang="pt">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "TechArticle",
+      "@id": "https://www.pedrolou.dev/projetos/brava#artigo",
       "headline": "Brava Dashboard, estudo de caso",
       "description": "Painel administrativo de um servidor de roleplay FiveM: um adapter HTTP em Lua, três tentativas de autenticação, e a decisão de mostrar um traço em vez de um número inventado.",
       "url": "https://www.pedrolou.dev/projetos/brava",
@@ -40,9 +44,24 @@
       "dateModified": "2026-08-05",
       "author": {
         "@type": "Person",
+        "@id": "https://www.pedrolou.dev/#pedro",
         "name": "Pedro Lourençoni Lima",
         "url": "https://www.pedrolou.dev/"
       },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://www.pedrolou.dev/#pedro",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.pedrolou.dev/projetos/brava"
+      },
+      "isPartOf": {
+        "@id": "https://www.pedrolou.dev/#site"
+      },
+      "keywords": "painel administrativo, React, TypeScript, Vite, Lua, FiveM, MariaDB, Cloudflare Tunnel, Supabase Auth, integracao de sistemas",
       "about": {
         "@type": "SoftwareApplication",
         "name": "Brava Dashboard",
@@ -52,9 +71,88 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Portfólio", "item": "https://www.pedrolou.dev/" },
-        { "@type": "ListItem", "position": 2, "name": "Projetos", "item": "https://www.pedrolou.dev/#projetos" },
-        { "@type": "ListItem", "position": 3, "name": "Brava Dashboard" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Portfólio",
+          "item": "https://www.pedrolou.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Projetos",
+          "item": "https://www.pedrolou.dev/#projetos"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Brava Dashboard"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json" data-lang="en">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://www.pedrolou.dev/projetos/brava#artigo",
+      "headline": "Brava Dashboard, a case study",
+      "description": "Admin dashboard for a FiveM roleplay server: a thin HTTP adapter in Lua, three attempts at authentication, and the decision to show a dash instead of an invented number.",
+      "url": "https://www.pedrolou.dev/projetos/brava",
+      "image": "https://www.pedrolou.dev/uploads/og-card.jpg",
+      "inLanguage": "pt-BR",
+      "datePublished": "2026-08-05",
+      "dateModified": "2026-08-05",
+      "author": {
+        "@type": "Person",
+        "@id": "https://www.pedrolou.dev/#pedro",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://www.pedrolou.dev/#pedro",
+        "name": "Pedro Lourençoni Lima",
+        "url": "https://www.pedrolou.dev/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.pedrolou.dev/projetos/brava"
+      },
+      "isPartOf": {
+        "@id": "https://www.pedrolou.dev/#site"
+      },
+      "keywords": "admin dashboard, React, TypeScript, Vite, Lua, FiveM, MariaDB, Cloudflare Tunnel, Supabase Auth, systems integration",
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Brava Dashboard",
+        "applicationCategory": "BusinessApplication"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Portfolio",
+          "item": "https://www.pedrolou.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Projects",
+          "item": "https://www.pedrolou.dev/#projetos"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Brava Dashboard"
+        }
       ]
     }
   ]
@@ -373,6 +471,10 @@
 
   <section class="doc__end shell">
     <div class="doc__endrule" aria-hidden="true"><span></span><i></i><span></span></div>
+    <p class="doc__related">
+      <span data-i18n="pt">Uma nota saiu deste case: <a href="/notas#espera">a espera infinita é o sintoma mais caro</a>.</span>
+      <span data-i18n="en" lang="en">One note came out of this case: <a href="/notas#espera">the infinite wait is the most expensive symptom</a>.</span>
+    </p>
     <p class="doc__endnote">
       <span data-i18n="pt">Painel privado, sem link público. Quer ver o resto do trabalho, ou conversar sobre uma vaga?</span>
       <span data-i18n="en" lang="en">Private panel, no public link. Want to see the rest of the work, or talk about a role?</span>

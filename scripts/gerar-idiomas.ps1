@@ -17,11 +17,11 @@ $enc  = New-Object System.Text.UTF8Encoding($false)
 
 $paginas = @(
   @{ src = "src\index.html";               pt = "index.html";               en = "en\index.html";               rota = "";                        prof = 0 },
-  @{ src = "src\projetos\index.html";      pt = "projetos\index.html";      en = "en\projetos\index.html";      rota = "projetos/";               prof = 1 },
+  @{ src = "src\projetos\index.html";      pt = "projetos\index.html";      en = "en\projetos\index.html";      rota = "projetos";                prof = 1 },
   @{ src = "src\projetos\didata.html";     pt = "projetos\didata.html";     en = "en\projetos\didata.html";     rota = "projetos/didata";         prof = 1 },
   @{ src = "src\projetos\kyber-crm.html";  pt = "projetos\kyber-crm.html";  en = "en\projetos\kyber-crm.html";  rota = "projetos/kyber-crm";      prof = 1 },
   @{ src = "src\projetos\brava.html";      pt = "projetos\brava.html";      en = "en\projetos\brava.html";      rota = "projetos/brava";          prof = 1 },
-  @{ src = "src\notas\index.html";         pt = "notas\index.html";         en = "en\notas\index.html";         rota = "notas/";                  prof = 1 }
+  @{ src = "src\notas\index.html";         pt = "notas\index.html";         en = "en\notas\index.html";         rota = "notas";                   prof = 1 }
 )
 
 # rotulos acessiveis: o seletor de idioma nao trocava atributo, entao ficavam em portugues no ingles
@@ -46,6 +46,16 @@ function Gerar($origem, $lang) {
     $s = [regex]::Replace($s, '<span data-i18n="pt"[^>]*>.*?</span>', '', 'Singleline')
     $s = [regex]::Replace($s, '<span data-i18n="en"[^>]*>(.*?)</span>', '$1', 'Singleline')
   }
+
+  # 1b. dados estruturados por idioma
+  # O bloco JSON-LD nao e texto de pagina, entao os <span data-i18n> nao servem
+  # ali dentro: virariam JSON invalido. A fonte traz um bloco por idioma,
+  # marcado com data-lang, e aqui fica o do idioma pedido. Sem isso, as paginas
+  # em ingles anunciavam headline, description e trilha em portugues, o que
+  # anula o hreflang: o Google le o idioma errado do que a pagina afirma ser.
+  $outro = if ($lang -eq 'pt') { 'en' } else { 'pt' }
+  $s = [regex]::Replace($s, '[ \t]*<script type="application/ld\+json" data-lang="' + $outro + '">.*?</script>\r?\n?', '', 'Singleline')
+  $s = $s.Replace('<script type="application/ld+json" data-lang="' + $lang + '">', '<script type="application/ld+json">')
 
   # 2. atributo lang e limpeza dos data-title, que eram do seletor por JS
   $htmlLang = if ($lang -eq 'pt') { 'pt-BR' } else { 'en' }
@@ -87,8 +97,9 @@ function AjustarCaminhos($s, $lang, $prof) {
 
   # links internos entre paginas: raiz-relativos, com o /en na frente quando for o caso
   $base = if ($lang -eq 'en') { '/en' } else { '' }
-  $s = $s.Replace('href="/projetos/', "href=""$base/projetos/")
-  $s = $s.Replace('href="/notas/', "href=""$base/notas/")
+  # sem a barra no fim do padrao, para pegar tanto /projetos quanto /projetos/didata
+  $s = $s.Replace('href="/projetos', "href=""$base/projetos")
+  $s = $s.Replace('href="/notas', "href=""$base/notas")
   $s = $s.Replace('href="/#', "href=""$base/#")
   return $s
 }
@@ -113,8 +124,12 @@ foreach ($p in $paginas) {
 
     $titulo = if ($lang -eq 'pt') { $tPt } else { $tEn }
     $desc   = if ($lang -eq 'pt') { $dPt } else { $dEn }
-    $urlPt  = "$dominio/" + $p.rota
-    $urlEn  = "$dominio/en/" + $p.rota
+    # A Vercel roda com trailingSlash=false, entao /projetos/ e /en/ respondem
+    # 308 para a versao sem barra. Canonical, hreflang e og:url apontavam para
+    # essas URLs que redirecionam, o que dilui o sinal a toa. So a raiz mantem
+    # a barra, porque "$dominio" sozinho nao e URL.
+    $urlPt  = if ($p.rota) { "$dominio/" + $p.rota } else { "$dominio/" }
+    $urlEn  = if ($p.rota) { "$dominio/en/" + $p.rota } else { "$dominio/en" }
     $url    = if ($lang -eq 'pt') { $urlPt } else { $urlEn }
     $locale = if ($lang -eq 'pt') { 'pt_BR' } else { 'en_US' }
     $altLoc = if ($lang -eq 'pt') { 'en_US' } else { 'pt_BR' }
@@ -141,6 +156,10 @@ foreach ($p in $paginas) {
       $bloco = [regex]::Replace($bloco, '"inLanguage":\s*(\[[^\]]*\]|"[^"]*")', """inLanguage"": ""$htmlLangJson""")
       if ($lang -eq 'en') {
         $bloco = [regex]::Replace($bloco, 'https://www\.pedrolou\.dev/(?!uploads/|en/)', 'https://www.pedrolou.dev/en/')
+        # a raiz vira /en/ na linha acima, e /en/ responde 308. Sem barra, entao,
+        # tanto na URL solta quanto antes de uma ancora.
+        $bloco = $bloco.Replace('https://www.pedrolou.dev/en/#', 'https://www.pedrolou.dev/en#')
+        $bloco = $bloco.Replace('"https://www.pedrolou.dev/en/"', '"https://www.pedrolou.dev/en"')
       }
       return $m.Groups[1].Value + $bloco + $m.Groups[3].Value
     })
@@ -152,12 +171,14 @@ foreach ($p in $paginas) {
     $s = [regex]::Replace($s, '(<link rel="canonical" href="[^"]*" />)', "`$1`r`n$hreflang")
 
     # o seletor deixa de ser botao e vira link entre as duas URLs
+    $hrefPt = if ($p.rota) { "/$($p.rota)" } else { "/" }
+    $hrefEn = if ($p.rota) { "/en/$($p.rota)" } else { "/en" }
     $seletor = if ($lang -eq 'pt') {
-      "<a class=""langswitch__btn"" href=""$($(if($p.rota){"/$($p.rota)"}else{"/"}))"" aria-current=""true"">PT</a>`r`n        " +
-      "<a class=""langswitch__btn"" href=""/en/$($p.rota)"">EN</a>"
+      "<a class=""langswitch__btn"" href=""$hrefPt"" aria-current=""true"">PT</a>`r`n        " +
+      "<a class=""langswitch__btn"" href=""$hrefEn"">EN</a>"
     } else {
-      "<a class=""langswitch__btn"" href=""$($(if($p.rota){"/$($p.rota)"}else{"/"}))"">PT</a>`r`n        " +
-      "<a class=""langswitch__btn"" href=""/en/$($p.rota)"" aria-current=""true"">EN</a>"
+      "<a class=""langswitch__btn"" href=""$hrefPt"">PT</a>`r`n        " +
+      "<a class=""langswitch__btn"" href=""$hrefEn"" aria-current=""true"">EN</a>"
     }
     $s = [regex]::Replace($s,
       '<button type="button" class="langswitch__btn" data-setlang="pt"[^>]*>PT</button>\s*<button type="button" class="langswitch__btn" data-setlang="en"[^>]*>EN</button>',
@@ -184,5 +205,43 @@ foreach ($p in $paginas) {
     "{0,-30} {1,7:N0} bytes" -f $(if ($lang -eq 'pt') { $p.pt } else { $p.en }), (Get-Item $destino).Length
   }
 }
+
+# ---------------------------------------------------------------------------
+# sitemap
+#
+# Era escrito a mao e ficou defasado tres vezes seguidas, uma por pagina nova.
+# Sai daqui porque a lista de paginas ja esta aqui: nao ha como acrescentar
+# rota sem que o sitemap acompanhe.
+#
+# lastmod vem da data de alteracao da FONTE, nao do arquivo gerado, senao toda
+# execucao anunciaria que tudo mudou.
+# ---------------------------------------------------------------------------
+$sm = New-Object System.Text.StringBuilder
+[void]$sm.AppendLine('<?xml version="1.0" encoding="UTF-8"?>')
+[void]$sm.AppendLine('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')
+[void]$sm.AppendLine('        xmlns:xhtml="http://www.w3.org/1999/xhtml">')
+
+foreach ($p in $paginas) {
+  $mod = (Get-Item (Join-Path $raiz $p.src)).LastWriteTime.ToString('yyyy-MM-dd')
+  $uPt = if ($p.rota) { "$dominio/" + $p.rota } else { "$dominio/" }
+  $uEn = if ($p.rota) { "$dominio/en/" + $p.rota } else { "$dominio/en" }
+  # a home vale mais que as secoes, que valem mais que os casos individuais
+  $prio = if (-not $p.rota) { '1.0' } elseif ($p.rota -notmatch '/') { '0.9' } else { '0.8' }
+  foreach ($u in @($uPt, $uEn)) {
+    # a versao em ingles pesa um degrau abaixo: o publico principal le portugues
+    $pr = if ($u -eq $uEn) { ([double]$prio - 0.1).ToString('0.0', [Globalization.CultureInfo]::InvariantCulture) } else { $prio }
+    [void]$sm.AppendLine('  <url>')
+    [void]$sm.AppendLine("    <loc>$u</loc>")
+    [void]$sm.AppendLine("    <xhtml:link rel=""alternate"" hreflang=""pt-BR"" href=""$uPt"" />")
+    [void]$sm.AppendLine("    <xhtml:link rel=""alternate"" hreflang=""en"" href=""$uEn"" />")
+    [void]$sm.AppendLine("    <xhtml:link rel=""alternate"" hreflang=""x-default"" href=""$uPt"" />")
+    [void]$sm.AppendLine("    <lastmod>$mod</lastmod>")
+    [void]$sm.AppendLine("    <priority>$pr</priority>")
+    [void]$sm.AppendLine('  </url>')
+  }
+}
+[void]$sm.AppendLine('</urlset>')
+[System.IO.File]::WriteAllText((Join-Path $raiz 'sitemap.xml'), $sm.ToString(), $enc)
+
 ""
-"geradas: $total paginas"
+"geradas: $total paginas, mais o sitemap com $($paginas.Count * 2) urls"
