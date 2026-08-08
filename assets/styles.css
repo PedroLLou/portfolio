@@ -1437,6 +1437,58 @@ code {
 }
 
 /* ---------------------------------------------------------
+   Fio de progresso, so nas paginas de documento.
+   O case do Didata tem 1.920 palavras e quase doze telas, e
+   nao havia nada fixo na tela: quem le nao sabia onde estava
+   nem quanto faltava. Aqui o fio e o mesmo elemento que o site
+   ja usa em todo lugar, so que medindo a rolagem.
+   A home nao ganha: ela e vitrine, nao leitura linear.
+   --------------------------------------------------------- */
+@keyframes om-progresso { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .page--doc::before {
+      content: "";
+      position: fixed;
+      inset-block-start: 0;
+      inset-inline: 0;
+      height: 2px;
+      background: var(--blue);
+      transform-origin: 0 50%;
+      /* abaixo do skip-link, que e 100 */
+      z-index: 50;
+      animation: om-progresso linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+
+/* ---------------------------------------------------------
+   Nota apontada por link.
+   Os tres estudos de caso agora linkam para a nota que saiu
+   deles, com ancora. Sem marca nenhuma, quem chega em
+   /notas#pooler cai no meio de uma lista sem saber qual das
+   cinco foi. O losango e o mesmo do fim dos documentos.
+   --------------------------------------------------------- */
+.log__entry { position: relative; }
+.log__entry:target::before {
+  content: "";
+  position: absolute;
+  inset-block-start: calc(var(--s-7) + 0.35rem);
+  inset-inline-start: -1.25rem;
+  width: 7px;
+  height: 7px;
+  rotate: 45deg;
+  background: var(--blue);
+}
+@media (max-width: 60rem) {
+  /* na margem estreita nao cabe fora, entao nao aparece */
+  .log__entry:target::before { display: none; }
+  .log__entry:target { border-inline-start: 2px solid var(--blue); padding-inline-start: var(--s-3); }
+}
+
+/* ---------------------------------------------------------
    Transicao entre paginas, nativa do navegador.
    Sao doze paginas muito ligadas entre si, e trocar de idioma
    e navegar para a MESMA pagina noutra lingua: o corte branco
