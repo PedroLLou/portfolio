@@ -32,9 +32,16 @@ scripts/                    geração de idiomas, imagens, fontes e card social
 
 **Edite `src/`, nunca os arquivos gerados.** Depois rode:
 
-```powershell
-.\scripts\gerar-idiomas.ps1
+```bash
+node scripts/gerar-idiomas.mjs
 ```
+
+O `gerar-idiomas.ps1` original continua no repositório, mas dependia de
+PowerShell e do caminho fixo `E:\portfolio`. O porte em Node gera os mesmos
+bytes, roda em qualquer máquina e corrige os rótulos ARIA, que saíam em
+português nas páginas em inglês. O `lastmod` do sitemap passa a vir do
+último commit que tocou a fonte, porque num clone novo a data do arquivo é
+a hora do clone.
 
 Ele produz as seis páginas. Um arquivo gerado que você editar à mão é
 sobrescrito na próxima execução.
