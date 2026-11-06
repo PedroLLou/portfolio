@@ -1,0 +1,18 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-11-06T21:10:00Z" },
+  "title": "Portfólio Pedro · redesenho",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": { "x": 0, "y": 0, "w": 1440, "h": 6200, "title": "Home · desktop", "expand": "fill" },
+    "Mobile.dc.html": { "x": 1520, "y": 0, "w": 390, "h": 3400, "title": "Home · celular" },
+    "Case.dc.html": { "x": 1990, "y": 0, "w": 1440, "h": 4800, "title": "Estudo de caso · Kyber CRM", "expand": "fill" },
+    "System.dc.html": { "x": 3510, "y": 0, "w": 1440, "h": 1640, "title": "Sistema visual" }
+  },
+  "order": ["Main.dc.html", "Mobile.dc.html", "Case.dc.html", "System.dc.html"],
+  "notes": {
+    "titulo": { "x": 0, "y": -300, "text": "Portfólio · redesenho de novembro de 2026", "kind": "title1", "maxW": 4950 }
+  },
+  "designSystems": []
+}

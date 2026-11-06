@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Kyber CRM · estudo de caso</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap">
+<style>
+body{margin:0;background:#FCFCFA}
+a{color:#1E3A8A}a:hover{color:#0E1525}
+.wrap{max-width:1200px;margin:0 auto;padding:0 48px;box-sizing:border-box}
+@media (max-width:960px){
+  .wrap{padding:0 20px}
+  .cols{grid-template-columns:minmax(0,1fr)!important}
+  .specs{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .figs{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .hide-sm{display:none!important}
+  .h1{font-size:48px!important}
+}
+</style>
+</helmet>
+<div style="background: #FCFCFA; color: #0E1525; font-family: Geist, system-ui, sans-serif; font-size: 16px; line-height: 1.6;">
+
+  <header style="position: sticky; top: 0; z-index: 5; background: rgba(252,252,250,0.94); border-bottom: 1px solid #E3E5EA;">
+    <div class="wrap" style="display: flex; align-items: center; gap: 20px; height: 64px;">
+      <a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #0E1525;">
+        <span style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border: 1.5px solid #1E3A8A; color: #1E3A8A; font-family: Newsreader, serif; font-style: italic; font-size: 17px; border-radius: 4px;">PL</span>
+        <span class="hide-sm" style="font-weight: 600; font-size: 15px;">Pedro Lourençoni Lima</span>
+      </a>
+      <nav aria-label="Trilha" style="font-size: 14px; color: #5B6475;">
+        <a href="Main.dc.html" style="color: #5B6475; text-decoration: none;">Trabalho</a>
+        <span aria-hidden="true"> / </span>
+        <span style="color: #0E1525;">Kyber CRM</span>
+      </nav>
+      <div role="group" aria-label="Idioma" style="margin-left: auto; display: flex; border: 1px solid #D5D8DF; border-radius: 6px; overflow: hidden; font-family: 'Geist Mono', monospace; font-size: 12px;">
+        <a href="#" aria-current="true" style="padding: 6px 10px; background: #0E1525; color: #FFFFFF; text-decoration: none;">PT</a>
+        <a href="#" style="padding: 6px 10px; color: #3A4252; text-decoration: none;">EN</a>
+      </div>
+      <a href="#" style="display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 6px; background: #1E3A8A; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500;">Contato</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap" style="padding-top: 64px;">
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 12px;">
+        <span style="padding: 4px 10px; border-radius: 999px; background: #ECF7EF; color: #14532D; font-weight: 500;">Em produção, uso diário</span>
+        <span style="padding: 4px 10px; border-radius: 999px; background: #F1F3F6; color: #3A4252;">Estudo de caso</span>
+        <span style="font-family: 'Geist Mono', monospace; color: #5B6475;">atualizado em 06/11/2026 · 8 min de leitura</span>
+      </div>
+      <h1 class="h1" style="margin: 20px 0 0; font-family: Newsreader, serif; font-weight: 500; font-size: 72px; line-height: 1.02; letter-spacing: -0.02em;">Kyber CRM</h1>
+      <p style="margin: 18px 0 0; max-width: 760px; font-size: 21px; line-height: 1.45; color: #3A4252;">O sistema que opera uma empresa de software pequena: funil, propostas, financeiro, suporte e conteúdo, com um agente de IA operando por conversa e a autorização no banco.</p>
+
+      <dl class="specs" style="margin: 40px 0 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: 1px solid #E3E5EA; border-bottom: 1px solid #E3E5EA;">
+        <div style="padding: 18px 16px 18px 0;"><dt style="font-size: 12px; color: #5B6475;">Papel</dt><dd style="margin: 4px 0 0; font-size: 14px;">Arquitetura e código, do banco ao servidor</dd></div>
+        <div style="padding: 18px 16px;"><dt style="font-size: 12px; color: #5B6475;">Equipe</dt><dd style="margin: 4px 0 0; font-size: 14px;">Eu. Igor Ferreira usa e fez 8 de 572 commits</dd></div>
+        <div style="padding: 18px 16px;"><dt style="font-size: 12px; color: #5B6475;">Período</dt><dd style="margin: 4px 0 0; font-size: 14px;">jul/2026 → atual</dd></div>
+        <div style="padding: 18px 16px;"><dt style="font-size: 12px; color: #5B6475;">Onde roda</dt><dd style="margin: 4px 0 0; font-size: 14px;">Servidor próprio desde 31/10</dd></div>
+        <div style="padding: 18px 16px;"><dt style="font-size: 12px; color: #5B6475;">Stack</dt><dd style="margin: 4px 0 0; font-size: 14px;">Next.js, PostgreSQL, Better Auth, MCP, Docker</dd></div>
+        <div style="padding: 18px 0 18px 16px;"><dt style="font-size: 12px; color: #5B6475;">Acesso</dt><dd style="margin: 4px 0 0; font-size: 14px;">Privado, sistema interno</dd></div>
+      </dl>
+    </section>
+
+    <section class="wrap" aria-label="Em 30 segundos" style="padding-top: 40px;">
+      <div class="cols" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-radius: 12px; background: #EEF2FB; overflow: hidden;">
+        <div style="padding: 28px; border-right: 1px solid #D9E1F5;">
+          <p style="margin: 0 0 8px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #1E3A8A;">O problema</p>
+          <p style="margin: 0; font-size: 15px; color: #1F2840;">Proposta num arquivo, cobrança em outro, o combinado com cada cliente na memória de quem atendeu. O custo aparecia como cobrança esquecida e follow-up que não saiu.</p>
+        </div>
+        <div style="padding: 28px; border-right: 1px solid #D9E1F5;">
+          <p style="margin: 0 0 8px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #1E3A8A;">O que eu construí</p>
+          <p style="margin: 0; font-size: 15px; color: #1F2840;">Um app com cinco superfícies sobre o mesmo modelo e a mesma autorização: painel, servidor MCP, páginas públicas por token, rotinas e estúdio de conteúdo.</p>
+        </div>
+        <div style="padding: 28px;">
+          <p style="margin: 0 0 8px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #1E3A8A;">Onde está hoje</p>
+          <p style="margin: 0; font-size: 15px; color: #1F2840;">Em uso todo dia desde julho. Em 31/10 saiu da Vercel e do Supabase para servidor próprio, sem perder escrita.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" style="padding-top: 40px;">
+      <dl class="figs" style="margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;">
+        <div style="padding: 20px; border: 1px solid #E3E5EA; border-radius: 10px; background: #FFFFFF; display: flex; flex-direction: column-reverse;"><dt style="margin-top: 4px; font-size: 13px; color: #3A4252;">ferramentas MCP</dt><dd style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 34px; font-weight: 500; color: #1E3A8A;">121</dd></div>
+        <div style="padding: 20px; border: 1px solid #E3E5EA; border-radius: 10px; background: #FFFFFF; display: flex; flex-direction: column-reverse;"><dt style="margin-top: 4px; font-size: 13px; color: #3A4252;">policies de RLS vivas</dt><dd style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 34px; font-weight: 500; color: #1E3A8A;">276</dd></div>
+        <div style="padding: 20px; border: 1px solid #E3E5EA; border-radius: 10px; background: #FFFFFF; display: flex; flex-direction: column-reverse;"><dt style="margin-top: 4px; font-size: 13px; color: #3A4252;">tabelas</dt><dd style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 34px; font-weight: 500; color: #1E3A8A;">78</dd></div>
+        <div style="padding: 20px; border: 1px solid #E3E5EA; border-radius: 10px; background: #FFFFFF; display: flex; flex-direction: column-reverse;"><dt style="margin-top: 4px; font-size: 13px; color: #3A4252;">testes automatizados</dt><dd style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 34px; font-weight: 500; color: #1E3A8A;">2.555</dd></div>
+      </dl>
+      <figure style="margin: 32px 0 0;">
+        <img src="/_blob/aa002f0715ed3cbfcf6c2548b73c0aa2" alt="Central do dia do Kyber CRM com dados de cliente borrados" style="display: block; width: 100%; border-radius: 10px; border: 1px solid #E3E5EA;">
+        <figcaption style="margin-top: 10px; font-family: 'Geist Mono', monospace; font-size: 11px; color: #5B6475;">Central do dia. Nomes de cliente e valores borrados de propósito.</figcaption>
+      </figure>
+    </section>
+
+    <section class="wrap" style="padding-top: 72px; padding-bottom: 40px;">
+      <div class="cols" style="display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 64px; align-items: start;">
+        <nav aria-label="Nesta página" class="hide-sm" style="position: sticky; top: 96px; display: flex; flex-direction: column; gap: 4px; font-size: 14px;">
+          <p style="margin: 0 0 8px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6475;">Nesta página</p>
+          <a href="#c1" style="padding: 6px 0 6px 12px; border-left: 2px solid #1E3A8A; color: #0E1525; text-decoration: none; font-weight: 500;">1 · Cinco superfícies</a>
+          <a href="#c2" style="padding: 6px 0 6px 12px; border-left: 2px solid #E3E5EA; color: #5B6475; text-decoration: none;">2 · Autorização no banco</a>
+          <a href="#c3" style="padding: 6px 0 6px 12px; border-left: 2px solid #E3E5EA; color: #5B6475; text-decoration: none;">3 · A última milha</a>
+          <a href="#c4" style="padding: 6px 0 6px 12px; border-left: 2px solid #E3E5EA; color: #5B6475; text-decoration: none;">4 · Sair da nuvem</a>
+          <a href="#c5" style="padding: 6px 0 6px 12px; border-left: 2px solid #E3E5EA; color: #5B6475; text-decoration: none;">5 · O que não está provado</a>
+        </nav>
+
+        <article style="max-width: 700px; display: flex; flex-direction: column; gap: 56px;">
+          <section id="c1">
+            <p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 12px; color: #1E3A8A;">01</p>
+            <h2 style="margin: 6px 0 14px; font-family: Newsreader, serif; font-weight: 500; font-size: 34px; line-height: 1.15;">Cinco superfícies, um modelo</h2>
+            <p style="margin: 0 0 20px; font-size: 17px; color: #3A4252;">O ponto não é a quantidade de superfícies, é que todas compartilham as mesmas regras e o mesmo isolamento por usuário. Uma regra corrigida vale para o painel, para o agente e para a rotina ao mesmo tempo.</p>
+            <ol style="margin: 0; padding: 0; list-style: none; border-top: 1px solid #E3E5EA;">
+              <li style="display: grid; grid-template-columns: 40px 200px minmax(0, 1fr); gap: 12px; padding: 14px 0; border-bottom: 1px solid #E3E5EA; font-size: 15px;"><span style="font-family: 'Geist Mono', monospace; color: #5B6475;">01</span><strong style="font-weight: 600;">Painel web</strong><span style="color: #3A4252;">Funil, fila do dia, financeiro, métricas e uma conversa que propõe operações e não executa sozinha.</span></li>
+              <li style="display: grid; grid-template-columns: 40px 200px minmax(0, 1fr); gap: 12px; padding: 14px 0; border-bottom: 1px solid #E3E5EA; font-size: 15px;"><span style="font-family: 'Geist Mono', monospace; color: #5B6475;">02</span><strong style="font-weight: 600;">Servidor MCP</strong><span style="color: #3A4252;">121 ferramentas para um agente operar o sistema por conversa, com identidade por token.</span></li>
+              <li style="display: grid; grid-template-columns: 40px 200px minmax(0, 1fr); gap: 12px; padding: 14px 0; border-bottom: 1px solid #E3E5EA; font-size: 15px;"><span style="font-family: 'Geist Mono', monospace; color: #5B6475;">03</span><strong style="font-weight: 600;">Páginas por token</strong><span style="color: #3A4252;">Proposta, portal do cliente e status de projeto, sem login.</span></li>
+              <li style="display: grid; grid-template-columns: 40px 200px minmax(0, 1fr); gap: 12px; padding: 14px 0; border-bottom: 1px solid #E3E5EA; font-size: 15px;"><span style="font-family: 'Geist Mono', monospace; color: #5B6475;">04</span><strong style="font-weight: 600;">Rotinas</strong><span style="color: #3A4252;">Cobrança, snapshot de receita, briefing e nota fiscal, em timers do systemd.</span></li>
+              <li style="display: grid; grid-template-columns: 40px 200px minmax(0, 1fr); gap: 12px; padding: 14px 0; border-bottom: 1px solid #E3E5EA; font-size: 15px;"><span style="font-family: 'Geist Mono', monospace; color: #5B6475;">05</span><strong style="font-weight: 600;">Estúdio de conteúdo</strong><span style="color: #3A4252;">Pautas e peças com papéis por projeto. Nada publica sem ação humana.</span></li>
+            </ol>
+          </section>
+
+          <section id="c2">
+            <p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 12px; color: #1E3A8A;">02</p>
+            <h2 style="margin: 6px 0 14px; font-family: Newsreader, serif; font-weight: 500; font-size: 34px; line-height: 1.15;">Autorização no banco, não na aplicação</h2>
+            <p style="margin: 0 0 16px; font-size: 17px; color: #3A4252;">Com cinco portas, a regra escrita em cada uma seria a mesma regra escrita cinco vezes, divergindo na primeira pressa. Então ela desceu para o Postgres: 276 policies de RLS vivas sobre 78 tabelas. O servidor conecta com papéis sem <code style="font-family: 'Geist Mono', monospace; font-size: 15px; background: #F1F3F6; padding: 1px 5px; border-radius: 4px;">bypassrls</code> e se recusa a subir se algum login tiver esse poder.</p>
+            <dl class="cols" style="margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
+              <div style="padding: 16px; border: 1px solid #E3E5EA; border-radius: 8px; background: #FFFFFF;"><dt style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6475;">Decisão</dt><dd style="margin: 6px 0 0; font-size: 14px;">A regra mora no banco.</dd></div>
+              <div style="padding: 16px; border: 1px solid #E3E5EA; border-radius: 8px; background: #FFFFFF;"><dt style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6475;">Por quê</dt><dd style="margin: 6px 0 0; font-size: 14px;">Cinco portas, uma regra só.</dd></div>
+              <div style="padding: 16px; border: 1px solid #E3E5EA; border-radius: 8px; background: #FFFFFF;"><dt style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6475;">Custo</dt><dd style="margin: 6px 0 0; font-size: 14px;">Policy é código que precisa de teste próprio.</dd></div>
+            </dl>
+          </section>
+
+          <section id="c3" style="padding: 36px; border-radius: 12px; background: #0E1525; color: #FFFFFF;">
+            <p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 12px; color: #A9B6E8;">03 · a decisão que vale contar</p>
+            <h2 style="margin: 6px 0 14px; font-family: Newsreader, serif; font-weight: 400; font-size: 34px; line-height: 1.15;">Automatizar tudo, menos a última milha</h2>
+            <p style="margin: 0 0 14px; font-size: 17px; color: #D6DAE4;">O sistema monta a fila, escreve o texto e registra o envio. O clique de enviar é sempre humano, em qualquer canal.</p>
+            <p style="margin: 0; font-size: 17px; color: #D6DAE4;">A API oficial exige consentimento que a base não tem, as alternativas violam os termos, e o número da prospecção é o mesmo que atende quem já paga. Automatizar economizaria minutos e arriscaria o canal principal do negócio.</p>
+          </section>
+
+          <section id="c4">
+            <p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 12px; color: #1E3A8A;">04</p>
+            <h2 style="margin: 6px 0 14px; font-family: Newsreader, serif; font-weight: 500; font-size: 34px; line-height: 1.15;">Sair da nuvem sem caminho de volta</h2>
+            <p style="margin: 0 0 16px; font-size: 17px; color: #3A4252;">Voltar o DNS para a origem só funciona até o destino receber a primeira escrita. Depois disso, apaga em silêncio o que foi feito no destino. Então a regra ficou escrita antes da virada: aberto o destino, ele se recupera, nunca se troca.</p>
+            <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px;">
+              <li style="display: flex; gap: 14px; align-items: baseline; font-size: 15px; color: #3A4252;"><span style="flex: none; font-family: 'Geist Mono', monospace; font-size: 12px; color: #1E3A8A; width: 64px;">antes</span>Origem bloqueada, captura final cifrada.</li>
+              <li style="display: flex; gap: 14px; align-items: baseline; font-size: 15px; color: #3A4252;"><span style="flex: none; font-family: 'Geist Mono', monospace; font-size: 12px; color: #1E3A8A; width: 64px;">restore</span>Transação única, 146 tabelas, 11 sequências e arquivos conferidos por hash antes do COMMIT.</li>
+              <li style="display: flex; gap: 14px; align-items: baseline; font-size: 15px; color: #3A4252;"><span style="flex: none; font-family: 'Geist Mono', monospace; font-size: 12px; color: #1E3A8A; width: 64px;">21h28</span>Endereço público trocado.</li>
+              <li style="display: flex; gap: 14px; align-items: baseline; font-size: 15px; color: #3A4252;"><span style="flex: none; font-family: 'Geist Mono', monospace; font-size: 12px; color: #1E3A8A; width: 64px;">21h30</span>Primeiro backup do destino, baixado e decifrado fora do servidor.</li>
+            </ol>
+          </section>
+
+          <section id="c5" style="padding: 24px 28px; border: 1px dashed #C9CDD6; border-radius: 12px;">
+            <p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 12px; color: #7C2D12;">05 · o que ainda não está provado</p>
+            <p style="margin: 8px 0 0; font-size: 16px; color: #3A4252;">A meta de perder no máximo uma hora de dados e reconstruir o servidor em duas horas não foi demonstrada em ensaio. Está registrada como pendência, não como fato.</p>
+          </section>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap" style="padding-top: 24px; padding-bottom: 96px;">
+      <div class="cols" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;">
+        <a href="#" style="display: flex; flex-direction: column; gap: 4px; padding: 24px; border: 1px solid #E3E5EA; border-radius: 10px; background: #FFFFFF; text-decoration: none; color: #0E1525;">
+          <span style="font-size: 13px; color: #5B6475;">← Estudo anterior</span>
+          <span style="font-family: Newsreader, serif; font-size: 26px;">Didata</span>
+        </a>
+        <a href="#" style="display: flex; flex-direction: column; gap: 4px; align-items: flex-end; padding: 24px; border: 1px solid #E3E5EA; border-radius: 10px; background: #FFFFFF; text-decoration: none; color: #0E1525;">
+          <span style="font-size: 13px; color: #5B6475;">Próximo estudo →</span>
+          <span style="font-family: Newsreader, serif; font-size: 26px;">Brava.gg</span>
+        </a>
+      </div>
+      <div style="margin-top: 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 28px 32px; border-radius: 12px; background: #EEF2FB;">
+        <p style="margin: 0; font-family: Newsreader, serif; font-size: 24px;">Quer conversar sobre este projeto ou uma vaga?</p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="mailto:pedroloulima@gmail.com" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 6px; background: #1E3A8A; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500;">Escrever um e-mail</a>
+          <a href="#" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 6px; border: 1px solid #C9CDD6; color: #0E1525; text-decoration: none; font-size: 14px; font-weight: 500;">Currículo (PDF) ↓</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
