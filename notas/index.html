@@ -50,6 +50,36 @@
       "blogPost": [
         {
           "@type": "BlogPosting",
+          "headline": "Depois da primeira escrita, não existe voltar",
+          "url": "https://www.pedrolou.dev/notas/#migracao",
+          "datePublished": "2026-11-06",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Abrir o WhatsApp não é enviar",
+          "url": "https://www.pedrolou.dev/notas/#ja-enviei",
+          "datePublished": "2026-11-06",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "O prazo tem que caber dentro do prazo",
+          "url": "https://www.pedrolou.dev/notas/#prazo",
+          "datePublished": "2026-11-06",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
           "headline": "O pooler que trava em vez de falhar",
           "url": "https://www.pedrolou.dev/notas/#pooler",
           "datePublished": "2026-08-05",
@@ -147,7 +177,7 @@
     </p>
 
     <p class="doc__lede">
-      Abertas em agosto de 2026, todas de uma vez. As cinco primeiras já existiam enterradas dentro dos estudos de caso, onde ninguém que não abrisse a página inteira ia encontrar. Estão aqui em versão curta, com a origem citada. Daqui para frente é aqui que coisa nova aparece, sem precisar redesenhar nada.
+      Abertas em agosto de 2026 com cinco notas de uma vez, que já existiam enterradas dentro dos estudos de caso. As três de novembro são de coisas que aconteceram depois: uma migração, um botão que mentia e um prazo que não cabia no prazo. Cada uma cita a origem.
 
     </p>
   </header>
@@ -158,6 +188,96 @@
     <div class="log">
 
       <!-- ===================== 01 ===================== -->
+      <article class="log__entry reveal" id="migracao">
+        <p class="log__meta">
+          <time datetime="2026-11-06">06.11.2026</time>
+          <span class="log__where">Kyber CRM</span>
+          Infraestrutura
+        </p>
+        <h2 class="log__title">
+          Depois da primeira escrita, não existe voltar
+
+        </h2>
+        <p>
+          Em 31/10 o CRM saiu da Vercel e do Supabase para um servidor próprio. O plano de reversão óbvio, apontar o DNS de volta se algo der errado, só funciona até o destino receber a primeira escrita. Depois disso, voltar para a origem apaga em silêncio tudo o que foi feito no destino.
+
+        </p>
+        <p>
+          Então a origem foi bloqueada antes da captura final, o restore rodou numa transação única e só fez <code>COMMIT</code> depois de comparar 146 tabelas, 11 sequências e os arquivos por hash. E a regra ficou escrita antes da virada: depois de aberto, o destino se recupera, nunca se troca.
+
+        </p>
+        <p class="log__take">
+          Rollback de migração tem prazo de validade, e ele vence na primeira escrita. Decida antes da virada o que acontece depois dela.
+
+        </p>
+        <p class="log__source">
+          <a class="link-out" href="/projetos/kyber-crm">
+            A migração inteira, no case do Kyber CRM, seção VI →
+
+          </a>
+        </p>
+      </article>
+
+      <article class="log__entry reveal" id="ja-enviei">
+        <p class="log__meta">
+          <time datetime="2026-11-06">06.11.2026</time>
+          <span class="log__where">Kyber CRM</span>
+          Produto
+        </p>
+        <h2 class="log__title">
+          Abrir o WhatsApp não é enviar
+
+        </h2>
+        <p>
+          O botão "Enviar no WhatsApp" abria a conversa e, no mesmo clique, marcava a proposta como enviada e registrava o contato. Mas abrir não é enviar: a pessoa pode fechar a janela, mudar o texto ou desistir. O sistema afirmava um fato que ninguém tinha confirmado, e o funil inteiro contava em cima dele.
+
+        </p>
+        <p>
+          Agora são dois gestos. "Abrir no WhatsApp" só abre. "Já enviei" registra, e devolve um resultado explícito: registrada, já registrada, parcial ou recusada com motivo. Clicar duas vezes não duplica nada, sem migration: a mudança de estado é um <code>UPDATE</code> condicional ao rascunho, e o contato tem id derivado da proposta.
+
+        </p>
+        <p class="log__take">
+          Um clique registra o que o clique faz, não o que se espera que venha depois. O que vem depois pede o próprio botão.
+
+        </p>
+        <p class="log__source">
+          <a class="link-out" href="/projetos/kyber-crm">
+            A regra da última milha, no case do Kyber CRM, seção IV →
+
+          </a>
+        </p>
+      </article>
+
+      <article class="log__entry reveal" id="prazo">
+        <p class="log__meta">
+          <time datetime="2026-11-06">06.11.2026</time>
+          <span class="log__where">Didata</span>
+          Confiabilidade
+        </p>
+        <h2 class="log__title">
+          O prazo tem que caber dentro do prazo
+
+        </h2>
+        <p>
+          Duas gerações de atividade falharam na mesma semana e o registro só dizia "timeout, limpeza". Era a rotina de limpeza fechando, meia hora depois, o que tinha ficado pendente. A causa original não estava em lugar nenhum, porque a função morria no limite de 60 segundos da plataforma antes de conseguir gravar por que morreu.
+
+        </p>
+        <p>
+          A geração passou a ter prazo absoluto de 55 segundos desde a entrada. Ao vencer, aborta o provedor, não aceita resposta tardia e usa os 5 segundos que sobram para gravar a causa, entre seis tipadas, e a duração. Nova tentativa só começa se houver 10 segundos úteis, e nunca depois de um pedaço já ter sido entregue.
+
+        </p>
+        <p class="log__take">
+          Se o limite de fora mata o processo, o limite de dentro tem que vencer antes, com folga para contar o que aconteceu. Falha sem causa gravada é falha que vai acontecer de novo.
+
+        </p>
+        <p class="log__source">
+          <a class="link-out" href="/projetos/didata">
+            A arquitetura de geração, no case do Didata, seção V →
+
+          </a>
+        </p>
+      </article>
+
       <article class="log__entry reveal" id="pooler">
         <p class="log__meta">
           <time datetime="2026-08-05">05.08.2026</time>
@@ -227,11 +347,11 @@
 
         </h2>
         <p>
-          Dois produtos meus, sobre o mesmo Postgres, com escolhas opostas. O CRM tem 133 policies de row level security sobre 29 tabelas: o banco recusa a linha, aconteça o que acontecer na aplicação. O Didata autoriza na aplicação.
+          Dois produtos meus, os dois em Postgres, com escolhas opostas. O CRM tem 276 policies de row level security vivas sobre 78 tabelas: o banco recusa a linha, aconteça o que acontecer na aplicação. O Didata autoriza na aplicação.
 
         </p>
         <p>
-          A diferença não é maturidade, é quantas portas existem. O CRM é alcançado por um painel, por um servidor MCP de 70 ferramentas, por páginas públicas com token e por rotinas agendadas. Quatro portas, e a regra escrita em cada uma seria a mesma regra escrita quatro vezes, divergindo na primeira pressa. O Didata tem uma porta.
+          A diferença não é maturidade, é quantas portas existem. O CRM é alcançado por um painel, por um servidor MCP de 121 ferramentas, por páginas públicas com token, por rotinas agendadas e, desde outubro, por um estúdio de conteúdo. Cinco portas, e a regra escrita em cada uma seria a mesma regra escrita cinco vezes, divergindo na primeira pressa. O Didata tem uma porta.
 
         </p>
         <p class="log__take">
@@ -240,7 +360,7 @@
         </p>
         <p class="log__source">
           <a class="link-out" href="/projetos/kyber-crm">
-            O caso das quatro portas, no case do Kyber CRM →
+            O caso das cinco portas, no case do Kyber CRM →
 
           </a>
         </p>
@@ -262,7 +382,7 @@
 
         </p>
         <p>
-          Custa caro em conveniência: uma prova de 30 alunos por 10 questões são 300 leituras para aceitar. A mitigação não foi afrouxar a regra, foi baratear o aceite, com confirmação em lote e uma fila que sobe o que pede atenção. O viés da fila é declarado e pró-cautela: questão sem leitura nenhuma conta como incerta.
+          Custa caro em conveniência: uma prova de 30 alunos por 10 questões são 300 leituras para aceitar. A mitigação não foi afrouxar a regra, foi baratear o aceite, com confirmação em lote e uma fila que sobe o que pede atenção. O viés da fila é declarado e pró-cautela: questão sem leitura nenhuma conta como incerta. Em outubro, o Parecer CNE/CP 15/2026 tirou a confirmação em lote: agora é questão por questão, e na dissertativa a IA só transcreve. A fila ficou.
 
         </p>
         <p class="log__take">

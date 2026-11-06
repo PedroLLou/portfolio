@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Pedro Lourençoni Lima · Full-Stack Developer</title>
-<meta name="description" content="Full-stack developer in Goiânia, Brazil. Two products of my own in production, five clients delivered, and case studies with the decisions behind each one." />
+<meta name="description" content="Full-stack developer in Goiânia, Brazil. Products of my own in production, a CRM with an MCP server running on its own server, five clients delivered and case studies with the decisions behind each one." />
 <meta name="author" content="Pedro Lourençoni Lima" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#F2EADC" />
@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="Pedro Lourençoni Lima" />
 <meta property="og:url" content="https://www.pedrolou.dev/en" />
 <meta property="og:title" content="Pedro Lourençoni Lima · Full-Stack Developer" />
-<meta property="og:description" content="Full-stack developer in Goiânia, Brazil. Two products of my own in production, five clients delivered, and case studies with the decisions behind each one." />
+<meta property="og:description" content="Full-stack developer in Goiânia, Brazil. Products of my own in production, a CRM with an MCP server running on its own server, five clients delivered and case studies with the decisions behind each one." />
 <meta property="og:image" content="https://www.pedrolou.dev/uploads/og-card.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -95,6 +95,8 @@
           "Model Context Protocol",
           "RAG",
           "Row Level Security",
+          "Docker",
+          "Linux",
           "SaaS",
           "Applied AI"
         ],
@@ -210,8 +212,8 @@
   <ul class="evidence">
     <li>Own products in production</li>
     <li>Five clients served</li>
-    <li>1,595 unit tests in Didata</li>
-    <li>From first contact to a site live in 4 days</li>
+    <li>4,512 unit tests in Didata</li>
+    <li>CRM moved from the cloud to its own server</li>
   </ul>
 
   <!-- ========================= I · SOBRE ========================= -->
@@ -228,7 +230,7 @@
       <div class="about__prose reveal" style="grid-column: 2">
         <p class="about__lede">
 
-          Full-stack developer from Goiânia. Founder of Kyber Tech, my software company: websites, systems, automation and AI for real clients. I ship Didata, an AI platform for teachers and Kyber's flagship, already in production, plus an internal CRM with its own MCP server that runs the business by chat.
+          Full-stack developer from Goiânia. Founder of Kyber Tech, my software company: websites, systems and applied AI for real clients. I run Didata, an AI platform for teachers and Kyber's flagship, in production with a paid plan; Kyber CRM, an internal system with an MCP server that now runs on its own server; and Kyber Copilot, a SaaS in staging for people who want to sell AI-built websites.
         </p>
         <p class="about__note">
 
@@ -242,7 +244,7 @@
           </div>
           <div class="skills__item">
             <dt>Back-end and data</dt>
-            <dd>NestJS, REST APIs, PostgreSQL, MySQL/MariaDB, Supabase, Prisma</dd>
+            <dd>NestJS, Fastify, REST APIs, PostgreSQL, MySQL/MariaDB, Supabase, Prisma, Kysely</dd>
           </div>
           <div class="skills__item">
             <dt>IA / LLMs</dt>
@@ -262,7 +264,7 @@
             <dt>DevOps and quality</dt>
             <dd>
 
-              Git/GitHub, CI/CD (GitHub Actions), Vercel, testing (Vitest, Playwright)
+              Git/GitHub, CI/CD (GitHub Actions), Vercel, Linux VPS with Docker, systemd and Nginx, testing (Vitest, Playwright)
             </dd>
           </div>
           <div class="skills__item">
@@ -299,7 +301,7 @@
       </h2>
       <p class="head__note">
 
-        The three largest, each with a case study. They run today, with real users and a bill to pay at the end of the month.
+        The four largest. Three run today, with real users and a bill to pay at the end of the month, and have a case study. The fourth is in staging and says so.
       </p>
     </div>
 
@@ -312,11 +314,11 @@
         <h3 class="feature__name">Didata</h3>
         <p class="feature__desc">
 
-          Pedagogical AI that works inside the Brazilian curriculum: it drafts lessons, activities and exams citing the BNCC skill code, grades exams from a photo and keeps the memory of each class. The AI suggests, the teacher confirms. Kyber Tech's flagship.
+          Pedagogical AI that works inside the Brazilian curriculum: it drafts lessons, activities and exams citing the official BNCC skill code and text, grades exams from a photo and keeps the memory of each class. In grading, the AI reads and the teacher confirms question by question; on essays and written answers, the AI only transcribes. In production, with a paid plan.
         </p>
         <ul class="stack">
           <li>Next.js</li><li>React</li><li>TypeScript</li><li>Node.js</li><li>PostgreSQL</li>
-          <li>Prisma</li><li>Supabase</li><li>OpenAI</li><li>Anthropic</li><li>RAG</li><li>Vision</li>
+          <li>Prisma</li><li>Supabase</li><li>OpenAI</li><li>Anthropic</li><li>RAG</li><li>Vision</li><li>Asaas</li>
         </ul>
         <div class="feature__cta">
           <a class="btn btn--solid" href="/en/projetos/didata">
@@ -344,10 +346,10 @@
         </div>
         <p class="band__desc">
 
-          Kyber's internal system, in production and used every day. One Next.js app serves four surfaces over the same data model and the same authorization layer: an ops dashboard, an MCP server that lets an AI agent run the system by conversation, token-based public pages and cron routines.
+          Kyber's internal system, in production and used every day. One Next.js app serves an ops dashboard, an MCP server that lets an AI agent run the system by conversation, token-based public pages, scheduled jobs and, since October, a content studio, all over the same data model and the same authorization in the database. On 31 October it moved off Vercel and Supabase onto its own server.
         </p>
         <ul class="stack">
-          <li>Next.js 15</li><li>React 19</li><li>TypeScript</li><li>Supabase</li><li>Postgres RLS</li><li>MCP</li><li>Vercel</li>
+          <li>Next.js</li><li>React 19</li><li>TypeScript</li><li>PostgreSQL</li><li>RLS</li><li>MCP</li><li>Better Auth</li><li>Docker</li>
         </ul>
         <a class="link-out link-out--plate" href="/en/projetos/kyber-crm">
           Read the case study
@@ -357,53 +359,78 @@
       <dl class="figures">
         <div class="figure">
           <dt class="figure__label">MCP tools</dt>
-          <dd class="figure__value">70</dd>
+          <dd class="figure__value">121</dd>
         </div>
         <div class="figure">
           <dt class="figure__label">RLS policies</dt>
-          <dd class="figure__value">133</dd>
+          <dd class="figure__value">276</dd>
         </div>
         <div class="figure">
           <dt class="figure__label">Tables</dt>
-          <dd class="figure__value">29</dd>
+          <dd class="figure__value">78</dd>
         </div>
         <div class="figure">
-          <dt class="figure__label">Leads managed</dt>
-          <dd class="figure__value">213</dd>
+          <dt class="figure__label">Automated tests</dt>
+          <dd class="figure__value">2,555</dd>
         </div>
       </dl>
       <img class="band__shot" src="../uploads/kyber-crm.webp"
            srcset="../uploads/kyber-crm-640.webp 640w, ../uploads/kyber-crm-1000.webp 1000w, ../uploads/kyber-crm.webp 1901w"
            sizes="(max-width: 60rem) 88vw, 944px"
-           alt="Central do dia do Kyber CRM, com dados de cliente borrados" width="1901" height="790" loading="lazy" />
+           alt="Central do dia do Kyber CRM em agosto de 2026, antes do redesenho de outubro, com dados de cliente borrados" width="1901" height="790" loading="lazy" />
     </article>
 
-    <!-- (c) two-up -->
-    <article class="work work--wide reveal">
-      <div class="work__shot work__shot--left">
-        <!-- Captura do modo demonstracao: os numerinhos sao os sete valores fixos
-             que a secao II do case conta terem sido trocados por "-". Descrever
-             como dado real contradiria o proprio case. -->
-        <img src="../uploads/brava-dashboard.webp" alt="Painel do Brava.gg em modo demonstração: barra lateral com nove telas, indicadores de jogadores online e economia do servidor, gráfico de atividade semanal e feed de alertas críticos" width="950" height="488" loading="lazy" />
-      </div>
-      <div class="work__body">
-        <div class="work__head">
-          <h3 class="work__name">Brava.gg</h3>
-          <span class="period">abr/2026 → mai/2026</span>
-          <span class="tag">Private</span>
-        </div>
-        <p class="work__desc">
+    <!-- (c) duo: Copilot sem imagem (a captura do repositorio mostra o tema
+         escuro ja substituido, e a homologacao e noindex), Brava com a dele -->
+    <div class="duo">
+      <article class="work reveal">
+        <div class="work__body">
+          <div class="work__head">
+            <h3 class="work__name">Kyber Copilot</h3>
+            <span class="period">Sep 2026 → present</span>
+            <span class="tag">In staging</span>
+          </div>
+          <p class="work__desc">
 
-          Full FiveM roleplay server built by a team of three: in-game scripts and a rewards system in Lua, plus a 13-screen web dashboard and public site.
-        </p>
-        <div class="work__foot">
-          <ul class="stack"><li>Lua</li><li>React</li><li>Vite</li><li>TypeScript</li><li>Tailwind CSS</li><li>MySQL</li></ul>
-          <a class="link-out" href="/en/projetos/brava">
-            Case study →
-          </a>
+            Kyber's SaaS for people starting to sell AI-built websites: find businesses without a site, reach out, negotiate, deliver and get paid, with learning tracks and an assistant. I built the product core, the MCP server, the paid AI quota, the deploy and the current redesign. Igor Ferreira, my partner at Kyber, did the launch audit, the design system and billing.
+          </p>
+          <p class="work__desc">
+
+            AI quota is reserved in a locked transaction before calling the provider, and failure recovery never repeats the call: no double charge, no lost quota.
+          </p>
+          <div class="work__foot">
+            <ul class="stack"><li>React 19</li><li>Vite</li><li>Fastify</li><li>Kysely</li><li>PostgreSQL</li><li>Better Auth</li><li>MCP</li><li>Docker</li></ul>
+            <span>141 routes · 71 migrations · private source</span>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+
+      <article class="work reveal">
+        <div class="work__shot work__shot--left">
+          <!-- Captura do modo demonstracao: os numerinhos sao os sete valores fixos
+               que a secao II do case conta terem sido trocados por "-". Descrever
+               como dado real contradiria o proprio case. -->
+          <img src="../uploads/brava-dashboard.webp" alt="Painel do Brava.gg em modo demonstração: barra lateral com nove telas, indicadores de jogadores online e economia do servidor, gráfico de atividade semanal e feed de alertas críticos" width="950" height="488" loading="lazy" />
+        </div>
+        <div class="work__body">
+          <div class="work__head">
+            <h3 class="work__name">Brava.gg</h3>
+            <span class="period">abr/2026 → mai/2026</span>
+            <span class="tag">Private</span>
+          </div>
+          <p class="work__desc">
+
+            FiveM roleplay server built by a team of three. My part: the 13-screen web dashboard, the API and the integration with a game server that has no public IP.
+          </p>
+          <div class="work__foot">
+            <ul class="stack"><li>React</li><li>Vite</li><li>TypeScript</li><li>Lua</li><li>MariaDB</li></ul>
+            <a class="link-out" href="/en/projetos/brava">
+              Case study →
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
 
     <!-- A carteira e os projetos menores vivem em /projetos/. Onze telas de
          rolagem em mobile era o achado da auditoria, e eram os dois blocos
@@ -465,7 +492,7 @@
             </span>
             <span class="job__desc">
 
-              My own software company: websites, systems, automation and AI for real clients. Didata and Kyber CRM from zero to deploy.
+              My own software company: websites, systems and applied AI for real clients. Didata and Kyber CRM from zero to deploy, Kyber Copilot in staging, and the CRM's move to its own server. Since October, AI consulting for businesses is the main line of work.
             </span>
           </div>
         </li>

@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Kyber CRM · Case study · Pedro Lourençoni Lima</title>
-<meta name="description" content="Kyber Tech's internal system: one Next.js app serving four surfaces over one data model, with a 70-tool MCP server and authorization enforced in Postgres." />
+<meta name="description" content="Kyber Tech's internal system: one Next.js app with a dashboard, a 121-tool MCP server, public pages, scheduled jobs and a content studio over one data model, with RLS in Postgres and its own server since 31 October." />
 <meta name="author" content="Pedro Lourençoni Lima" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#F2EADC" />
@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="Pedro Lourençoni Lima" />
 <meta property="og:url" content="https://www.pedrolou.dev/en/projetos/kyber-crm" />
 <meta property="og:title" content="Kyber CRM · Case study · Pedro Lourençoni Lima" />
-<meta property="og:description" content="Kyber Tech's internal system: one Next.js app serving four surfaces over one data model, with a 70-tool MCP server and authorization enforced in Postgres." />
+<meta property="og:description" content="Kyber Tech's internal system: one Next.js app with a dashboard, a 121-tool MCP server, public pages, scheduled jobs and a content studio over one data model, with RLS in Postgres and its own server since 31 October." />
 <meta property="og:image" content="https://www.pedrolou.dev/uploads/og-kyber-crm.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -45,7 +45,7 @@
       "image": "https://www.pedrolou.dev/uploads/og-kyber-crm.jpg",
       "inLanguage": "en",
       "datePublished": "2026-08-03",
-      "dateModified": "2026-08-05",
+      "dateModified": "2026-11-06",
       "author": {
         "@type": "Person",
         "@id": "https://www.pedrolou.dev/en#pedro",
@@ -127,7 +127,7 @@
     <dl class="doc__meta">
       <div>
         <dt>Role</dt>
-        <dd>Sole author, from data model to deploy</dd>
+        <dd>Author, from data model to server. Igor Ferreira, my partner at Kyber, uses it every day and contributed 8 of the 572 commits</dd>
       </div>
       <div>
         <dt>Context</dt>
@@ -135,7 +135,7 @@
       </div>
       <div>
         <dt>Status</dt>
-        <dd>In production, daily use</dd>
+        <dd>In production, daily use, on its own server since 31 Oct 2026</dd>
       </div>
       <div>
         <dt>Access</dt>
@@ -151,7 +151,7 @@
          alt="Central do dia do Kyber CRM: navegação com treze módulos, cinco indicadores no topo, fila de tarefas do dia e o painel de leitura escrita por IA" width="1901" height="790" />
     <figcaption>
 
-      The daily hub. Client names and figures are deliberately redacted.
+      The daily hub in August 2026, before the October redesign. Client names and figures are deliberately redacted.
     </figcaption>
   </figure>
 
@@ -182,11 +182,11 @@
     <div class="head">
       <span class="head__folio" aria-hidden="true">II</span>
       <h2 class="head__title">
-        Four surfaces, one model
+        Five surfaces, one model
       </h2>
       <p class="head__note">
 
-        One Next.js application serves four very different things over the same data model and the same authorization layer.
+        One Next.js application serves five very different things over the same data model and the same authorization layer. There were four in August; the content studio arrived in October without creating a new access rule of its own.
       </p>
     </div>
 
@@ -194,12 +194,12 @@
       <li class="svc__row">
         <span class="svc__num">01</span>
         <span class="svc__name">Web dashboard</span>
-        <span class="svc__note">Where the operation happens: kanban funnel, daily queue, finance and metrics.</span>
+        <span class="svc__note">Where the operation happens: kanban funnel, daily queue, finance and metrics, with a chat on every screen that proposes typed operations and executes nothing on its own.</span>
       </li>
       <li class="svc__row">
         <span class="svc__num">02</span>
         <span class="svc__name">MCP server</span>
-        <span class="svc__note">70 tools that let an AI agent run the system by conversation.</span>
+        <span class="svc__note">121 tools that let an AI agent run the system by conversation. There were 70 in August.</span>
       </li>
       <li class="svc__row">
         <span class="svc__num">03</span>
@@ -209,14 +209,19 @@
       <li class="svc__row">
         <span class="svc__num">04</span>
         <span class="svc__name">Scheduled routines</span>
-        <span class="svc__note">Invoicing, revenue snapshots and a daily briefing, on cron.</span>
+        <span class="svc__note">Invoicing, revenue snapshots, a daily briefing and invoice issuing for a retail client, now on systemd timers.</span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">05</span>
+        <span class="svc__name">Content studio</span>
+        <span class="svc__note">Topics, pieces and posts for the Kyber and Didata profiles, with per-project roles and a worker on a desktop PC to render video. Nothing is published without a human action.</span>
       </li>
     </ol>
 
     <div class="doc__body doc__body--tight">
       <p>
 
-        The interesting part is not how many surfaces there are, it is that all four share the same business rules and the same per-user isolation instead of each reimplementing its own version. A rule fixed once holds for the dashboard, the agent, the public page and the cron job at the same time.
+        The interesting part is not how many surfaces there are, it is that all of them share the same business rules and the same per-user isolation instead of each reimplementing its own version. A rule fixed once holds for the dashboard, the agent, the public page and the scheduled job at the same time.
       </p>
     </div>
   </section>
@@ -238,7 +243,7 @@
         </h3>
         <p>
 
-          All 70 tools run under one endpoint, and who is operating is resolved from the request token. Identity is propagated through <code>AsyncLocalStorage</code> so it cannot leak between concurrent requests. Each partner operates only their own data, under the same rules as the dashboard.
+          All 121 tools run under one endpoint, and who is operating is resolved from the request token. Identity is propagated through <code>AsyncLocalStorage</code> so it cannot leak between concurrent requests. Each partner operates only their own data, under the same rules as the dashboard.
         </p>
       </article>
 
@@ -249,7 +254,7 @@
         </h3>
         <p>
 
-          133 RLS policies across 29 tables, with <code>SECURITY DEFINER</code> functions for the composite decisions: who can see which lead, who is an admin. The front end is never the security boundary. Even holding the public key, Postgres refuses.
+          276 live RLS policies across 78 tables, with <code>SECURITY DEFINER</code> functions for the composite decisions: who can see which lead, who is an admin, who can reach which area. The front end is never the security boundary. Since the migration, the server derives identity from the session and connects with roles that lack <code>bypassrls</code>, and startup refuses to boot if any login holds that power.
         </p>
       </article>
 
@@ -260,7 +265,7 @@
         </h3>
         <p>
 
-          A sequence of four touches with distinct angles and growing intervals. Prioritisation uses signals from the lead: public rating, review volume, digital presence and historical niche. There is a daily cap per person and a global opt-out list. A reply from the lead pauses the automation and hands the case back to a human.
+          A sequence of three touches with distinct angles and growing intervals. There were four until September. Measured over the 1,542 touches recorded in the database, the third one, social proof, got replies at the same level as the first and was cut; the closing one stayed, because it is the one that returns the lead for recycling. Prioritisation uses signals from the lead: public rating, review volume, digital presence and historical niche. There is a daily cap per person and a global opt-out list. A reply from the lead pauses the automation and hands the case back to a human.
         </p>
       </article>
 
@@ -271,7 +276,7 @@
         </h3>
         <p>
 
-          Four specific uses: draft the opening approach, draft a proposal from the catalogue, write a follow-up by reading the conversation history, and produce the daily read of the numbers. Each with explicit rules against inventing a price, a deadline or a deliverable, plus a review layer that re-reads the generated text and flags claims the system state does not support.
+          Specific uses: draft the opening approach, draft a proposal from the catalogue, write a follow-up by reading the conversation history, produce the daily read of the numbers and, since October, the operational chat and the studio's writing assistance. Each with explicit rules against inventing a price, a deadline or a deliverable, plus a review layer that re-reads the generated text and flags claims the system state does not support.
         </p>
       </article>
 
@@ -302,7 +307,7 @@
       <div class="decision__body">
         <p class="decision__lede">
 
-          The system never sends a message automatically, on any channel, and that is deliberate. It builds the queue, writes the text and records the send, but the send click is always human.
+          The system never sends a message automatically, on any channel, and that is deliberate. It builds the queue, writes the text and records the send, but the send click is always human. There is an optional pilot of a sales agent, capped at ten conversations and gated by an admin; it is ready and has not been switched on.
         </p>
         <p>
 
@@ -327,49 +332,77 @@
 
     <dl class="figures figures--paper">
       <div class="figure">
-        <dt class="figure__label">Lines of TypeScript</dt>
-        <dd class="figure__value">21.133</dd>
-      </div>
-      <div class="figure">
-        <dt class="figure__label">Files</dt>
-        <dd class="figure__value">103</dd>
-      </div>
-      <div class="figure">
         <dt class="figure__label">MCP tools</dt>
-        <dd class="figure__value">70</dd>
+        <dd class="figure__value">121</dd>
       </div>
       <div class="figure">
-        <dt class="figure__label">RLS policies</dt>
-        <dd class="figure__value">133</dd>
+        <dt class="figure__label">Live RLS policies</dt>
+        <dd class="figure__value">276</dd>
       </div>
       <div class="figure">
         <dt class="figure__label">Tables</dt>
-        <dd class="figure__value">29</dd>
+        <dd class="figure__value">78</dd>
       </div>
       <div class="figure">
         <dt class="figure__label">Migrations</dt>
-        <dd class="figure__value">32</dd>
+        <dd class="figure__value">141</dd>
       </div>
       <div class="figure">
-        <dt class="figure__label">Routes</dt>
-        <dd class="figure__value">21</dd>
+        <dt class="figure__label">Automated tests</dt>
+        <dd class="figure__value">2,555</dd>
       </div>
       <div class="figure">
-        <dt class="figure__label">Cron routines</dt>
-        <dd class="figure__value">3</dd>
+        <dt class="figure__label">Pages</dt>
+        <dd class="figure__value">46</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Route handlers</dt>
+        <dd class="figure__value">56</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Production dependencies</dt>
+        <dd class="figure__value">17</dd>
       </div>
     </dl>
 
     <div class="doc__body doc__body--tight">
       <p>
 
-        Of the 21 routes, 17 are protected and 4 are public by token. Ten production dependencies in total: no Tailwind and no component library, styling is inline over CSS variables, with a light and a dark theme.
+        Counted in the code on 6 Nov 2026; tests are the 2 Nov run. Of the 46 pages, 4 open without login (sign-in, portal, proposal and status by token). In August this table said 70 tools and 133 policies. The 133 was already wrong then: it counted <code>CREATE POLICY</code> statements in the files, not policies that existed, which were 97. The count now replays the migrations in order, drops included, and adds the 96 policies generated per area.
       </p>
       <ul class="stack stack--lg">
-        <li>Next.js 15</li><li>React 19</li><li>TypeScript</li><li>Supabase</li>
-        <li>Postgres RLS</li><li>Realtime</li><li>Storage</li><li>Vercel</li>
-        <li>@vercel/mcp-adapter</li><li>Anthropic SDK</li><li>@dnd-kit</li><li>Zod</li>
+        <li>Next.js</li><li>React 19</li><li>TypeScript</li><li>PostgreSQL</li>
+        <li>RLS</li><li>Better Auth</li><li>Kysely</li><li>LISTEN/SSE</li>
+        <li>Docker</li><li>Nginx</li><li>systemd</li><li>MCP</li><li>Anthropic SDK</li><li>Zod</li>
       </ul>
+    </div>
+  </section>
+
+  <!-- ===================== VI · A MIGRAÇÃO ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">VI</span>
+      <h2 class="head__title">
+        Leaving the cloud with no way back
+      </h2>
+      <p class="head__note">
+
+        On 31 Oct 2026 at 9:28 pm, the CRM left Vercel and Supabase and started running on its own server, with its own Postgres, authentication and file storage.
+      </p>
+    </div>
+    <div class="doc__body">
+      <p>
+
+        The risk in a migration like this is not the cutover day, it is the day after: if the destination takes a write and something goes wrong, pointing DNS back to the origin silently loses that write. So the origin was locked before the final capture, and the rule was written down: after the first write on the destination, recovery is always of the destination, never a return to the cloud.
+      </p>
+      <p>
+
+        The final capture was encrypted, restored in a single transaction and compared before <code>COMMIT</code>: 146 tables, 11 sequences and the files checked by hash. Only then did the public address change. The scheduled 9:30 pm backup, two minutes later, already captured the open destination, and it was downloaded and decrypted off the server to prove it restores.
+      </p>
+      <p>
+
+        What is not proven yet is said out loud: the goal of losing at most one hour of data and rebuilding the whole server in two hours has not been shown in a drill. It is recorded as pending, not as fact.
+      </p>
     </div>
   </section>
 
@@ -396,7 +429,7 @@
     </div>
     <p class="doc__date">
 
-      Updated 5 August 2026
+      Updated 6 November 2026
     </p>
   </section>
 

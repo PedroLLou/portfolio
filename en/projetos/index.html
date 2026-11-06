@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Projects · Pedro Lourençoni Lima</title>
-<meta name="description" content="All the work: two own products, a client dashboard, five local-business sites delivered under a written standard, and the smaller projects." />
+<meta name="description" content="All the work: three own products, a client dashboard, a system built in a pair, five local-business sites delivered under a written standard, open tools and academic projects." />
 <meta name="author" content="Pedro Lourençoni Lima" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#F2EADC" />
@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="Pedro Lourençoni Lima" />
 <meta property="og:url" content="https://www.pedrolou.dev/en/projetos" />
 <meta property="og:title" content="Projects · Pedro Lourençoni Lima" />
-<meta property="og:description" content="All the work: two own products, a client dashboard, five local-business sites delivered under a written standard, and the smaller projects." />
+<meta property="og:description" content="All the work: three own products, a client dashboard, a system built in a pair, five local-business sites delivered under a written standard, open tools and academic projects." />
 <meta property="og:image" content="https://www.pedrolou.dev/uploads/og-card.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -91,7 +91,7 @@
 
     <p class="doc__lede">
 
-      The home page shows the three largest. This page shows all of them, including the small ones and the client roster, which is where the delivery standard shows better than any single site would.
+      The home page shows the four largest. This page shows all of them: the ones with a case study, the ones in progress or built in a pair, the client roster, the open tools and the academic ones. Each one says what part is mine.
     </p>
   </header>
 
@@ -120,7 +120,7 @@
 
           AI SaaS for teachers: material anchored in the Brazilian curriculum and photo-based exam grading. In production, with a free and a paid plan.
         </p>
-        <span class="index__tech">Next.js, TypeScript, Prisma, PostgreSQL, Vision</span>
+        <span class="index__tech">Next.js, TypeScript, Prisma, PostgreSQL, Vision, Asaas</span>
         <a class="link-out" href="/en/projetos/didata">Case study →</a>
       </li>
       <li class="index__row reveal">
@@ -130,9 +130,9 @@
         </div>
         <p class="index__desc">
 
-          Internal system in daily use: dashboard, a 70-tool MCP server, token-based public pages and scheduled jobs, over 133 RLS policies.
+          Internal system in daily use: dashboard, a 121-tool MCP server, token-based public pages, scheduled jobs and a content studio, over 276 RLS policies. On its own server since 31 Oct 2026.
         </p>
-        <span class="index__tech">Next.js, TypeScript, Supabase, MCP</span>
+        <span class="index__tech">Next.js, TypeScript, PostgreSQL, MCP, Docker</span>
         <a class="link-out" href="/en/projetos/kyber-crm">Case study →</a>
       </li>
       <li class="index__row reveal">
@@ -142,7 +142,7 @@
         </div>
         <p class="index__desc">
 
-          Admin panel for a FiveM roleplay server: a Vercel SPA talking to a Lua game server with no public IP.
+          Admin panel for a FiveM roleplay server built by a team of three: the panel, the API and the integration with a game server that has no public IP are mine.
         </p>
         <span class="index__tech">React, TypeScript, Vite, Lua, MariaDB</span>
         <a class="link-out" href="/en/projetos/brava">Case study →</a>
@@ -150,10 +150,51 @@
     </ol>
   </section>
 
-  <!-- ===================== II · CARTEIRA ===================== -->
+  <!-- ===================== II · EM ANDAMENTO E EM DUPLA ===================== -->
   <section class="section shell">
     <div class="head">
       <span class="head__folio" aria-hidden="true">II</span>
+      <h2 class="head__title">
+
+        In progress, and built in a pair
+      </h2>
+      <p class="head__note">
+
+        Two large systems without a case study yet. Both were built with Igor Ferreira, my partner at Kyber, and each row says who did what.
+      </p>
+    </div>
+    <ol class="index">
+      <li class="index__row reveal">
+        <div>
+          <span class="index__kind">Own product, in staging</span>
+          <h3 class="index__name">Kyber Copilot</h3>
+        </div>
+        <p class="index__desc">
+
+          SaaS for people starting to sell AI-built websites: find businesses without a site, reach out, negotiate, deliver and get paid. Mine: the product core, a two-phase MCP server (preparing and executing need different scopes), paid AI quota under concurrency, deploy and redesign. Igor's: launch audit, design system and billing.
+        </p>
+        <span class="index__tech">React 19, Fastify, Kysely, PostgreSQL, Better Auth, MCP</span>
+        <span class="index__tech">Private</span>
+      </li>
+      <li class="index__row reveal">
+        <div>
+          <span class="index__kind">Prototype, paused</span>
+          <h3 class="index__name">Psychology clinic management</h3>
+        </div>
+        <p class="index__desc">
+
+          Conflict-free scheduling, encrypted clinical records, finance that records without moving money, and a patient portal. It started as a course assignment. Mine: the MVP, with all 33 functional requirements and 148 integration tests, in one week. Igor's: the multi-tenant hardening. It stopped at a documented NO-GO: 11 of the 30 readiness items depend on third parties, such as a pentest and a data protection officer.
+        </p>
+        <span class="index__tech">Next.js 16, Prisma, PostgreSQL, Vitest, Playwright</span>
+        <span class="index__tech">Private</span>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===================== III · CARTEIRA ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">III</span>
       <h2 class="head__title">
 
         The roster, and the standard behind it
@@ -213,23 +254,70 @@
     </div>
   </section>
 
-  <!-- ===================== III · OS MENORES ===================== -->
+  <!-- ===================== IV · FERRAMENTAS ABERTAS ===================== -->
   <section class="section shell">
     <div class="head">
-      <span class="head__folio" aria-hidden="true">III</span>
+      <span class="head__folio" aria-hidden="true">IV</span>
       <h2 class="head__title">
-        The smaller ones
+        Open tools
       </h2>
       <p class="head__note">
 
-        One is a tool I use, the other is my final-year project. Neither has a user besides me, which is why they are here and not on the home page.
+        Pieces that came out of the products and stand on their own. Public code, tests that run without installing anything. Early versions, not on npm yet.
       </p>
     </div>
-
     <ol class="index">
       <li class="index__row reveal">
         <div>
-          <span class="index__kind">Open source</span>
+          <span class="index__kind">Node.js</span>
+          <h3 class="index__name">asaas-webhook-kit</h3>
+        </div>
+        <p class="index__desc">
+
+          Durable, idempotent inbox for Asaas payment webhooks: dedupes, orders per payment, applies in a transaction and tests your own policy, including the process dying midway. Zero dependencies. 61 tests and 9 conformance scenarios.
+        </p>
+        <span class="index__tech">Node.js, SQLite, TypeScript</span>
+        <a class="link-out" href="https://github.com/PedroLLou/asaas-webhook-kit" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </li>
+      <li class="index__row reveal">
+        <div>
+          <span class="index__kind">AI agents</span>
+          <h3 class="index__name">agent-handoff</h3>
+        </div>
+        <p class="index__desc">
+
+          A verifiable format for handing work between agents: keeps measured claims apart from merely reported ones and checks via sha256 that the Markdown matches the JSON. It is what I use between Codex and Claude. 71 tests.
+        </p>
+        <span class="index__tech">Node.js, JSON Schema, CLI</span>
+        <a class="link-out" href="https://github.com/PedroLLou/agent-handoff" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </li>
+      <li class="index__row reveal">
+        <div>
+          <span class="index__kind">Text</span>
+          <h3 class="index__name">numeros-ptbr</h3>
+        </div>
+        <p class="index__desc">
+
+          Finds every number in Brazilian Portuguese text, spelled-out ones included, in subtitles and transcripts too, and flags those without a recorded source. It came out of reviewing video scripts. 88 tests.
+        </p>
+        <span class="index__tech">Node.js, SRT</span>
+        <a class="link-out" href="https://github.com/PedroLLou/numeros-ptbr" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </li>
+      <li class="index__row reveal">
+        <div>
+          <span class="index__kind">Skill</span>
+          <h3 class="index__name">humanizador</h3>
+        </div>
+        <p class="index__desc">
+
+          Agent skill that removes AI tells from Brazilian Portuguese text without adding facts: 42 patterns, from "crucial" to stacked connectives. Adapted from blader/humanizer, installable in Claude Code.
+        </p>
+        <span class="index__tech">Python, Claude Code</span>
+        <a class="link-out" href="https://github.com/PedroLLou/humanizador" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </li>
+      <li class="index__row reveal">
+        <div>
+          <span class="index__kind">Career</span>
           <h3 class="index__name">gerador-curriculo</h3>
         </div>
         <p class="index__desc">
@@ -239,21 +327,60 @@
         <span class="index__tech">Python, Markdown, Claude Code, MCP</span>
         <a class="link-out" href="https://github.com/PedroLLou/gerador-curriculo" target="_blank" rel="noreferrer">GitHub ↗</a>
       </li>
-      <li class="index__row reveal">
-        <div>
-          <span class="index__kind">TCC</span>
-          <h3 class="index__name">Developer competency assessment</h3>
-        </div>
-        <p class="index__desc">
-
-          System to manage and assess software professionals' competencies. PUC-GO, in progress.
-        </p>
-        <span class="index__tech">NestJS, React, TypeScript, GitHub Actions</span>
-        <a class="link-out" href="https://github.com/PedroLLou/tcc20261" target="_blank" rel="noreferrer">GitHub ↗</a>
-      </li>
     </ol>
   </section>
 
+  <!-- ===================== V · ACADÊMICOS ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">V</span>
+      <h2 class="head__title">
+        Academic
+      </h2>
+      <p class="head__note">
+
+        Computer Science at PUC Goiás, expected to graduate in 2027. None of these has a real user, which is why they come last.
+      </p>
+    </div>
+    <ol class="index">
+      <li class="index__row reveal">
+        <div>
+          <span class="index__kind">Capstone, team of five</span>
+          <h3 class="index__name">Feedback and competency management</h3>
+        </div>
+        <p class="index__desc">
+
+          A system to manage feedback and assess software professionals' competencies, with permissions, approval and an audit trail. The thesis is about configuration management. My part: the team's Git and pull-request workflow, the contributing guide and two security fixes with tests.
+        </p>
+        <span class="index__tech">NestJS, React, TypeScript, PostgreSQL, GitHub Actions</span>
+        <a class="link-out" href="https://github.com/PedroLLou/tcc20261" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </li>
+      <li class="index__row reveal">
+        <div>
+          <span class="index__kind">Mobile</span>
+          <h3 class="index__name">Pulso</h3>
+        </div>
+        <p class="index__desc">
+
+          Mobile app with a Node and SQLite API for people who deliver websites to track support and renewals. Individual course project, with sample data.
+        </p>
+        <span class="index__tech">React Native, Expo, Node.js, SQLite</span>
+        <a class="link-out" href="https://github.com/PedroLLou/pulso" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </li>
+      <li class="index__row reveal">
+        <div>
+          <span class="index__kind">Applied cryptography</span>
+          <h3 class="index__name">Criptolib</h3>
+        </div>
+        <p class="index__desc">
+
+          Modular arithmetic and Chinese Remainder Theorem library, validated against known vectors and an independent verification loop.
+        </p>
+        <span class="index__tech">Python</span>
+        <a class="link-out" href="https://github.com/PedroLLou/criptografia-aplicada-atividade4" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </li>
+    </ol>
+  </section>
   </main>
 
   <section class="doc__end shell">
@@ -270,7 +397,7 @@
     </div>
     <p class="doc__date">
 
-      Updated 5 August 2026
+      Updated 6 November 2026
     </p>
   </section>
 

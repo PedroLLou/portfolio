@@ -46,6 +46,36 @@
       "blogPost": [
         {
           "@type": "BlogPosting",
+          "headline": "Depois da primeira escrita, não existe voltar",
+          "url": "https://www.pedrolou.dev/notas/#migracao",
+          "datePublished": "2026-11-06",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Abrir o WhatsApp não é enviar",
+          "url": "https://www.pedrolou.dev/notas/#ja-enviei",
+          "datePublished": "2026-11-06",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "O prazo tem que caber dentro do prazo",
+          "url": "https://www.pedrolou.dev/notas/#prazo",
+          "datePublished": "2026-11-06",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
           "headline": "O pooler que trava em vez de falhar",
           "url": "https://www.pedrolou.dev/notas/#pooler",
           "datePublished": "2026-08-05",
@@ -131,6 +161,36 @@
         "url": "https://www.pedrolou.dev/"
       },
       "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "headline": "After the first write, there is no going back",
+          "url": "https://www.pedrolou.dev/notas/#migracao",
+          "datePublished": "2026-11-06",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Opening WhatsApp is not sending",
+          "url": "https://www.pedrolou.dev/notas/#ja-enviei",
+          "datePublished": "2026-11-06",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "The deadline has to fit inside the deadline",
+          "url": "https://www.pedrolou.dev/notas/#prazo",
+          "datePublished": "2026-11-06",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
         {
           "@type": "BlogPosting",
           "headline": "The pooler that hangs instead of failing",
@@ -230,8 +290,8 @@
     </p>
 
     <p class="doc__lede">
-      <span data-i18n="pt">Abertas em agosto de 2026, todas de uma vez. As cinco primeiras já existiam enterradas dentro dos estudos de caso, onde ninguém que não abrisse a página inteira ia encontrar. Estão aqui em versão curta, com a origem citada. Daqui para frente é aqui que coisa nova aparece, sem precisar redesenhar nada.</span>
-      <span data-i18n="en" lang="en">Opened in August 2026, all at once. The first five already existed, buried inside the case studies where nobody who did not open the whole page would find them. They are here in short form, with the source cited. From here on this is where new things show up, without redesigning anything.</span>
+      <span data-i18n="pt">Abertas em agosto de 2026 com cinco notas de uma vez, que já existiam enterradas dentro dos estudos de caso. As três de novembro são de coisas que aconteceram depois: uma migração, um botão que mentia e um prazo que não cabia no prazo. Cada uma cita a origem.</span>
+      <span data-i18n="en" lang="en">Opened in August 2026 with five notes at once, which already existed buried inside the case studies. The three from November are about things that happened later: a migration, a button that lied and a deadline that did not fit inside the deadline. Each one cites its source.</span>
     </p>
   </header>
 
@@ -241,6 +301,96 @@
     <div class="log">
 
       <!-- ===================== 01 ===================== -->
+      <article class="log__entry reveal" id="migracao">
+        <p class="log__meta">
+          <time datetime="2026-11-06">06.11.2026</time>
+          <span class="log__where">Kyber CRM</span>
+          <span data-i18n="pt">Infraestrutura</span><span data-i18n="en" lang="en">Infrastructure</span>
+        </p>
+        <h2 class="log__title">
+          <span data-i18n="pt">Depois da primeira escrita, não existe voltar</span>
+          <span data-i18n="en" lang="en">After the first write, there is no going back</span>
+        </h2>
+        <p>
+          <span data-i18n="pt">Em 31/10 o CRM saiu da Vercel e do Supabase para um servidor próprio. O plano de reversão óbvio, apontar o DNS de volta se algo der errado, só funciona até o destino receber a primeira escrita. Depois disso, voltar para a origem apaga em silêncio tudo o que foi feito no destino.</span>
+          <span data-i18n="en" lang="en">On 31 October the CRM moved off Vercel and Supabase onto its own server. The obvious rollback plan, point DNS back if something goes wrong, only works until the destination takes its first write. After that, going back to the origin silently erases everything done on the destination.</span>
+        </p>
+        <p>
+          <span data-i18n="pt">Então a origem foi bloqueada antes da captura final, o restore rodou numa transação única e só fez <code>COMMIT</code> depois de comparar 146 tabelas, 11 sequências e os arquivos por hash. E a regra ficou escrita antes da virada: depois de aberto, o destino se recupera, nunca se troca.</span>
+          <span data-i18n="en" lang="en">So the origin was locked before the final capture, the restore ran in a single transaction and only committed after comparing 146 tables, 11 sequences and the files by hash. And the rule was written down before the cutover: once open, the destination is recovered, never swapped out.</span>
+        </p>
+        <p class="log__take">
+          <span data-i18n="pt">Rollback de migração tem prazo de validade, e ele vence na primeira escrita. Decida antes da virada o que acontece depois dela.</span>
+          <span data-i18n="en" lang="en">A migration rollback has an expiry date, and it expires at the first write. Decide before the cutover what happens after it.</span>
+        </p>
+        <p class="log__source">
+          <a class="link-out" href="/projetos/kyber-crm">
+            <span data-i18n="pt">A migração inteira, no case do Kyber CRM, seção VI →</span>
+            <span data-i18n="en" lang="en">The whole migration, in the Kyber CRM case, section VI →</span>
+          </a>
+        </p>
+      </article>
+
+      <article class="log__entry reveal" id="ja-enviei">
+        <p class="log__meta">
+          <time datetime="2026-11-06">06.11.2026</time>
+          <span class="log__where">Kyber CRM</span>
+          <span data-i18n="pt">Produto</span><span data-i18n="en" lang="en">Product</span>
+        </p>
+        <h2 class="log__title">
+          <span data-i18n="pt">Abrir o WhatsApp não é enviar</span>
+          <span data-i18n="en" lang="en">Opening WhatsApp is not sending</span>
+        </h2>
+        <p>
+          <span data-i18n="pt">O botão "Enviar no WhatsApp" abria a conversa e, no mesmo clique, marcava a proposta como enviada e registrava o contato. Mas abrir não é enviar: a pessoa pode fechar a janela, mudar o texto ou desistir. O sistema afirmava um fato que ninguém tinha confirmado, e o funil inteiro contava em cima dele.</span>
+          <span data-i18n="en" lang="en">The "Send on WhatsApp" button opened the chat and, in the same click, marked the proposal as sent and logged the contact. But opening is not sending: the person may close the window, change the text or give up. The system was asserting a fact nobody had confirmed, and the whole funnel counted on top of it.</span>
+        </p>
+        <p>
+          <span data-i18n="pt">Agora são dois gestos. "Abrir no WhatsApp" só abre. "Já enviei" registra, e devolve um resultado explícito: registrada, já registrada, parcial ou recusada com motivo. Clicar duas vezes não duplica nada, sem migration: a mudança de estado é um <code>UPDATE</code> condicional ao rascunho, e o contato tem id derivado da proposta.</span>
+          <span data-i18n="en" lang="en">Now there are two gestures. "Open in WhatsApp" only opens. "I sent it" records it and returns an explicit outcome: recorded, already recorded, partial or refused with a reason. Clicking twice duplicates nothing, with no migration: the state change is an <code>UPDATE</code> conditional on draft status, and the contact has an id derived from the proposal.</span>
+        </p>
+        <p class="log__take">
+          <span data-i18n="pt">Um clique registra o que o clique faz, não o que se espera que venha depois. O que vem depois pede o próprio botão.</span>
+          <span data-i18n="en" lang="en">A click records what the click does, not what is expected to follow. What follows needs its own button.</span>
+        </p>
+        <p class="log__source">
+          <a class="link-out" href="/projetos/kyber-crm">
+            <span data-i18n="pt">A regra da última milha, no case do Kyber CRM, seção IV →</span>
+            <span data-i18n="en" lang="en">The last-mile rule, in the Kyber CRM case, section IV →</span>
+          </a>
+        </p>
+      </article>
+
+      <article class="log__entry reveal" id="prazo">
+        <p class="log__meta">
+          <time datetime="2026-11-06">06.11.2026</time>
+          <span class="log__where">Didata</span>
+          <span data-i18n="pt">Confiabilidade</span><span data-i18n="en" lang="en">Reliability</span>
+        </p>
+        <h2 class="log__title">
+          <span data-i18n="pt">O prazo tem que caber dentro do prazo</span>
+          <span data-i18n="en" lang="en">The deadline has to fit inside the deadline</span>
+        </h2>
+        <p>
+          <span data-i18n="pt">Duas gerações de atividade falharam na mesma semana e o registro só dizia "timeout, limpeza". Era a rotina de limpeza fechando, meia hora depois, o que tinha ficado pendente. A causa original não estava em lugar nenhum, porque a função morria no limite de 60 segundos da plataforma antes de conseguir gravar por que morreu.</span>
+          <span data-i18n="en" lang="en">Two activity generations failed in the same week and the log only said "timeout, cleanup". It was the cleanup job closing, half an hour later, whatever had been left pending. The original cause was nowhere, because the function died at the platform's 60-second limit before it could record why it died.</span>
+        </p>
+        <p>
+          <span data-i18n="pt">A geração passou a ter prazo absoluto de 55 segundos desde a entrada. Ao vencer, aborta o provedor, não aceita resposta tardia e usa os 5 segundos que sobram para gravar a causa, entre seis tipadas, e a duração. Nova tentativa só começa se houver 10 segundos úteis, e nunca depois de um pedaço já ter sido entregue.</span>
+          <span data-i18n="en" lang="en">Generation now has an absolute 55-second deadline from entry. When it expires it aborts the provider, refuses late responses and uses the 5 seconds left to record the cause, one of six typed ones, and the duration. A retry only starts if there are 10 useful seconds, and never after a partial result has been delivered.</span>
+        </p>
+        <p class="log__take">
+          <span data-i18n="pt">Se o limite de fora mata o processo, o limite de dentro tem que vencer antes, com folga para contar o que aconteceu. Falha sem causa gravada é falha que vai acontecer de novo.</span>
+          <span data-i18n="en" lang="en">If the outer limit kills the process, the inner one has to expire first, with room left to say what happened. A failure with no recorded cause is a failure that will happen again.</span>
+        </p>
+        <p class="log__source">
+          <a class="link-out" href="/projetos/didata">
+            <span data-i18n="pt">A arquitetura de geração, no case do Didata, seção V →</span>
+            <span data-i18n="en" lang="en">The generation architecture, in the Didata case, section V →</span>
+          </a>
+        </p>
+      </article>
+
       <article class="log__entry reveal" id="pooler">
         <p class="log__meta">
           <time datetime="2026-08-05">05.08.2026</time>
@@ -310,12 +460,12 @@
           <span data-i18n="en" lang="en">RLS in the database or authorisation in the application</span>
         </h2>
         <p>
-          <span data-i18n="pt">Dois produtos meus, sobre o mesmo Postgres, com escolhas opostas. O CRM tem 133 policies de row level security sobre 29 tabelas: o banco recusa a linha, aconteça o que acontecer na aplicação. O Didata autoriza na aplicação.</span>
-          <span data-i18n="en" lang="en">Two of my products, on the same Postgres, with opposite choices. The CRM has 133 row-level-security policies over 29 tables: the database refuses the row, whatever happens in the application. Didata authorises in the application.</span>
+          <span data-i18n="pt">Dois produtos meus, os dois em Postgres, com escolhas opostas. O CRM tem 276 policies de row level security vivas sobre 78 tabelas: o banco recusa a linha, aconteça o que acontecer na aplicação. O Didata autoriza na aplicação.</span>
+          <span data-i18n="en" lang="en">Two of my products, both on Postgres, with opposite choices. The CRM has 276 live row-level-security policies over 78 tables: the database refuses the row, whatever happens in the application. Didata authorises in the application.</span>
         </p>
         <p>
-          <span data-i18n="pt">A diferença não é maturidade, é quantas portas existem. O CRM é alcançado por um painel, por um servidor MCP de 70 ferramentas, por páginas públicas com token e por rotinas agendadas. Quatro portas, e a regra escrita em cada uma seria a mesma regra escrita quatro vezes, divergindo na primeira pressa. O Didata tem uma porta.</span>
-          <span data-i18n="en" lang="en">The difference is not maturity, it is how many doors exist. The CRM is reached by a dashboard, by a 70-tool MCP server, by token-based public pages and by scheduled jobs. Four doors, and the rule written at each one would be the same rule written four times, drifting apart at the first rush. Didata has one door.</span>
+          <span data-i18n="pt">A diferença não é maturidade, é quantas portas existem. O CRM é alcançado por um painel, por um servidor MCP de 121 ferramentas, por páginas públicas com token, por rotinas agendadas e, desde outubro, por um estúdio de conteúdo. Cinco portas, e a regra escrita em cada uma seria a mesma regra escrita cinco vezes, divergindo na primeira pressa. O Didata tem uma porta.</span>
+          <span data-i18n="en" lang="en">The difference is not maturity, it is how many doors exist. The CRM is reached by a dashboard, by a 121-tool MCP server, by token-based public pages, by scheduled jobs and, since October, by a content studio. Five doors, and the rule written at each one would be the same rule written five times, drifting apart at the first rush. Didata has one door.</span>
         </p>
         <p class="log__take">
           <span data-i18n="pt">Conte as portas antes de escolher onde a regra mora. Uma porta, a aplicação basta e custa menos. Mais de uma, a regra desce para o banco, senão ela vira várias.</span>
@@ -323,8 +473,8 @@
         </p>
         <p class="log__source">
           <a class="link-out" href="/projetos/kyber-crm">
-            <span data-i18n="pt">O caso das quatro portas, no case do Kyber CRM →</span>
-            <span data-i18n="en" lang="en">The four-door case, in the Kyber CRM case study →</span>
+            <span data-i18n="pt">O caso das cinco portas, no case do Kyber CRM →</span>
+            <span data-i18n="en" lang="en">The five-door case, in the Kyber CRM case study →</span>
           </a>
         </p>
       </article>
@@ -345,8 +495,8 @@
           <span data-i18n="en" lang="en">The model returns one alternative per question plus a confidence score from 0 to 100. Writing the grade straight through above a threshold would be trivial, and the system does not: suggested and confirmed are distinct states in the database, and the report card only counts what the teacher confirmed. Including the high-confidence ones.</span>
         </p>
         <p>
-          <span data-i18n="pt">Custa caro em conveniência: uma prova de 30 alunos por 10 questões são 300 leituras para aceitar. A mitigação não foi afrouxar a regra, foi baratear o aceite, com confirmação em lote e uma fila que sobe o que pede atenção. O viés da fila é declarado e pró-cautela: questão sem leitura nenhuma conta como incerta.</span>
-          <span data-i18n="en" lang="en">It costs a lot in convenience: an exam of 30 students by 10 questions is 300 readings to accept. The mitigation was not to loosen the rule, it was to make accepting cheaper, with batch confirmation and a queue that surfaces what needs attention. The queue's bias is declared and errs toward caution: a question with no reading at all counts as uncertain.</span>
+          <span data-i18n="pt">Custa caro em conveniência: uma prova de 30 alunos por 10 questões são 300 leituras para aceitar. A mitigação não foi afrouxar a regra, foi baratear o aceite, com confirmação em lote e uma fila que sobe o que pede atenção. O viés da fila é declarado e pró-cautela: questão sem leitura nenhuma conta como incerta. Em outubro, o Parecer CNE/CP 15/2026 tirou a confirmação em lote: agora é questão por questão, e na dissertativa a IA só transcreve. A fila ficou.</span>
+          <span data-i18n="en" lang="en">It costs a lot in convenience: an exam of 30 students by 10 questions is 300 readings to accept. The mitigation was not to loosen the rule, it was to make accepting cheaper, with batch confirmation and a queue that surfaces what needs attention. The queue's bias is declared and errs toward caution: a question with no reading at all counts as uncertain. In October, the national education council's opinion CNE/CP 15/2026 removed batch confirmation: it is now question by question, and on written answers the AI only transcribes. The queue stayed.</span>
         </p>
         <p class="log__take">
           <span data-i18n="pt">Quando a regra dói, a saída é baixar o custo de obedecer, não abrir exceção. A primeira exceção é a que ninguém consegue explicar seis meses depois.</span>

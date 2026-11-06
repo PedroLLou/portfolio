@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt" data-desc-pt="Sistema interno da Kyber Tech: um app Next.js servindo quatro superfícies sobre o mesmo modelo, com servidor MCP de 70 ferramentas e RLS no Postgres." data-desc-en="Kyber Tech's internal system: one Next.js app serving four surfaces over one data model, with a 70-tool MCP server and authorization enforced in Postgres." data-ogalt-pt="Central do dia do Kyber CRM, com dados de cliente borrados" data-ogalt-en="Kyber CRM's daily hub, with client data redacted" data-title-pt="Kyber CRM · Estudo de caso · Pedro Lourençoni Lima" data-title-en="Kyber CRM · Case study · Pedro Lourençoni Lima">
+<html lang="pt" data-desc-pt="Sistema interno da Kyber Tech: um app Next.js com painel, servidor MCP de 121 ferramentas, páginas públicas, rotinas e estúdio de conteúdo sobre o mesmo modelo, com RLS no Postgres e servidor próprio desde 31/10." data-desc-en="Kyber Tech's internal system: one Next.js app with a dashboard, a 121-tool MCP server, public pages, scheduled jobs and a content studio over one data model, with RLS in Postgres and its own server since 31 October." data-ogalt-pt="Central do dia do Kyber CRM, com dados de cliente borrados" data-ogalt-en="Kyber CRM's daily hub, with client data redacted" data-title-pt="Kyber CRM · Estudo de caso · Pedro Lourençoni Lima" data-title-en="Kyber CRM · Case study · Pedro Lourençoni Lima">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Kyber CRM · Estudo de caso · Pedro Lourençoni Lima</title>
-<meta name="description" content="Sistema interno da Kyber Tech: um app Next.js servindo quatro superfícies sobre o mesmo modelo, com servidor MCP de 70 ferramentas e RLS no Postgres." />
+<meta name="description" content="Sistema interno da Kyber Tech: um app Next.js com painel, servidor MCP de 121 ferramentas, páginas públicas, rotinas e estúdio de conteúdo sobre o mesmo modelo, com RLS no Postgres e servidor próprio desde 31/10." />
 <meta name="author" content="Pedro Lourençoni Lima" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="theme-color" content="#F2EADC" />
@@ -41,7 +41,7 @@
       "image": "https://www.pedrolou.dev/uploads/og-kyber-crm.jpg",
       "inLanguage": "pt-BR",
       "datePublished": "2026-08-03",
-      "dateModified": "2026-08-05",
+      "dateModified": "2026-11-06",
       "author": {
         "@type": "Person",
         "@id": "https://www.pedrolou.dev/#pedro",
@@ -106,7 +106,7 @@
       "image": "https://www.pedrolou.dev/uploads/og-kyber-crm.jpg",
       "inLanguage": "pt-BR",
       "datePublished": "2026-08-03",
-      "dateModified": "2026-08-05",
+      "dateModified": "2026-11-06",
       "author": {
         "@type": "Person",
         "@id": "https://www.pedrolou.dev/#pedro",
@@ -188,7 +188,7 @@
     <dl class="doc__meta">
       <div>
         <dt><span data-i18n="pt">Papel</span><span data-i18n="en" lang="en">Role</span></dt>
-        <dd><span data-i18n="pt">Autor único, do modelo de dados ao deploy</span><span data-i18n="en" lang="en">Sole author, from data model to deploy</span></dd>
+        <dd><span data-i18n="pt">Autor, do modelo de dados ao servidor. Igor Ferreira, parceiro na Kyber, usa o sistema todo dia e contribuiu com 8 dos 572 commits</span><span data-i18n="en" lang="en">Author, from data model to server. Igor Ferreira, my partner at Kyber, uses it every day and contributed 8 of the 572 commits</span></dd>
       </div>
       <div>
         <dt><span data-i18n="pt">Contexto</span><span data-i18n="en" lang="en">Context</span></dt>
@@ -196,7 +196,7 @@
       </div>
       <div>
         <dt><span data-i18n="pt">Situação</span><span data-i18n="en" lang="en">Status</span></dt>
-        <dd><span data-i18n="pt">Em produção, uso diário</span><span data-i18n="en" lang="en">In production, daily use</span></dd>
+        <dd><span data-i18n="pt">Em produção, uso diário, em servidor próprio desde 31/10/2026</span><span data-i18n="en" lang="en">In production, daily use, on its own server since 31 Oct 2026</span></dd>
       </div>
       <div>
         <dt><span data-i18n="pt">Acesso</span><span data-i18n="en" lang="en">Access</span></dt>
@@ -211,8 +211,8 @@
          sizes="(max-width: 70rem) 92vw, 1040px"
          alt="Central do dia do Kyber CRM: navegação com treze módulos, cinco indicadores no topo, fila de tarefas do dia e o painel de leitura escrita por IA" width="1901" height="790" />
     <figcaption>
-      <span data-i18n="pt">Central do dia. Nomes de cliente e valores estão borrados de propósito.</span>
-      <span data-i18n="en" lang="en">The daily hub. Client names and figures are deliberately redacted.</span>
+      <span data-i18n="pt">Central do dia em agosto de 2026, antes do redesenho de outubro. Nomes de cliente e valores estão borrados de propósito.</span>
+      <span data-i18n="en" lang="en">The daily hub in August 2026, before the October redesign. Client names and figures are deliberately redacted.</span>
     </figcaption>
   </figure>
 
@@ -243,11 +243,11 @@
     <div class="head">
       <span class="head__folio" aria-hidden="true">II</span>
       <h2 class="head__title">
-        <span data-i18n="pt">Quatro superfícies, um modelo</span><span data-i18n="en" lang="en">Four surfaces, one model</span>
+        <span data-i18n="pt">Cinco superfícies, um modelo</span><span data-i18n="en" lang="en">Five surfaces, one model</span>
       </h2>
       <p class="head__note">
-        <span data-i18n="pt">Uma aplicação Next.js serve quatro coisas bem diferentes sobre o mesmo modelo de dados e a mesma camada de autorização.</span>
-        <span data-i18n="en" lang="en">One Next.js application serves four very different things over the same data model and the same authorization layer.</span>
+        <span data-i18n="pt">Uma aplicação Next.js serve cinco coisas bem diferentes sobre o mesmo modelo de dados e a mesma camada de autorização. Eram quatro em agosto; o estúdio de conteúdo entrou em outubro sem criar uma sexta regra de acesso.</span>
+        <span data-i18n="en" lang="en">One Next.js application serves five very different things over the same data model and the same authorization layer. There were four in August; the content studio arrived in October without creating a new access rule of its own.</span>
       </p>
     </div>
 
@@ -255,12 +255,12 @@
       <li class="svc__row">
         <span class="svc__num">01</span>
         <span class="svc__name"><span data-i18n="pt">Painel web</span><span data-i18n="en" lang="en">Web dashboard</span></span>
-        <span class="svc__note"><span data-i18n="pt">Onde a operação acontece: funil kanban, fila do dia, financeiro e métricas.</span><span data-i18n="en" lang="en">Where the operation happens: kanban funnel, daily queue, finance and metrics.</span></span>
+        <span class="svc__note"><span data-i18n="pt">Onde a operação acontece: funil kanban, fila do dia, financeiro e métricas, com uma conversa em qualquer tela que propõe operações tipadas e não executa nada sozinha.</span><span data-i18n="en" lang="en">Where the operation happens: kanban funnel, daily queue, finance and metrics, with a chat on every screen that proposes typed operations and executes nothing on its own.</span></span>
       </li>
       <li class="svc__row">
         <span class="svc__num">02</span>
         <span class="svc__name"><span data-i18n="pt">Servidor MCP</span><span data-i18n="en" lang="en">MCP server</span></span>
-        <span class="svc__note"><span data-i18n="pt">70 ferramentas que permitem a um agente de IA operar o sistema por conversa.</span><span data-i18n="en" lang="en">70 tools that let an AI agent run the system by conversation.</span></span>
+        <span class="svc__note"><span data-i18n="pt">121 ferramentas que permitem a um agente de IA operar o sistema por conversa. Eram 70 em agosto.</span><span data-i18n="en" lang="en">121 tools that let an AI agent run the system by conversation. There were 70 in August.</span></span>
       </li>
       <li class="svc__row">
         <span class="svc__num">03</span>
@@ -270,14 +270,19 @@
       <li class="svc__row">
         <span class="svc__num">04</span>
         <span class="svc__name"><span data-i18n="pt">Rotinas agendadas</span><span data-i18n="en" lang="en">Scheduled routines</span></span>
-        <span class="svc__note"><span data-i18n="pt">Cobranças, snapshot de receita e briefing diário, em cron.</span><span data-i18n="en" lang="en">Invoicing, revenue snapshots and a daily briefing, on cron.</span></span>
+        <span class="svc__note"><span data-i18n="pt">Cobranças, snapshot de receita, briefing diário e emissão de nota fiscal de um cliente varejista, hoje em timers do systemd.</span><span data-i18n="en" lang="en">Invoicing, revenue snapshots, a daily briefing and invoice issuing for a retail client, now on systemd timers.</span></span>
+      </li>
+      <li class="svc__row">
+        <span class="svc__num">05</span>
+        <span class="svc__name"><span data-i18n="pt">Estúdio de conteúdo</span><span data-i18n="en" lang="en">Content studio</span></span>
+        <span class="svc__note"><span data-i18n="pt">Pautas, peças e publicações dos perfis da Kyber e do Didata, com papéis por projeto e um worker no PC para renderizar vídeo. Nada é publicado sem ação humana.</span><span data-i18n="en" lang="en">Topics, pieces and posts for the Kyber and Didata profiles, with per-project roles and a worker on a desktop PC to render video. Nothing is published without a human action.</span></span>
       </li>
     </ol>
 
     <div class="doc__body doc__body--tight">
       <p>
-        <span data-i18n="pt">O ponto interessante não é a quantidade de superfícies, é que as quatro compartilham as mesmas regras de negócio e o mesmo isolamento por usuário, em vez de cada uma reimplementar a sua versão. Uma regra corrigida vale para o painel, para o agente, para a página pública e para o cron ao mesmo tempo.</span>
-        <span data-i18n="en" lang="en">The interesting part is not how many surfaces there are, it is that all four share the same business rules and the same per-user isolation instead of each reimplementing its own version. A rule fixed once holds for the dashboard, the agent, the public page and the cron job at the same time.</span>
+        <span data-i18n="pt">O ponto interessante não é a quantidade de superfícies, é que todas compartilham as mesmas regras de negócio e o mesmo isolamento por usuário, em vez de cada uma reimplementar a sua versão. Uma regra corrigida vale para o painel, para o agente, para a página pública e para a rotina agendada ao mesmo tempo.</span>
+        <span data-i18n="en" lang="en">The interesting part is not how many surfaces there are, it is that all of them share the same business rules and the same per-user isolation instead of each reimplementing its own version. A rule fixed once holds for the dashboard, the agent, the public page and the scheduled job at the same time.</span>
       </p>
     </div>
   </section>
@@ -298,8 +303,8 @@
           <span data-i18n="en" lang="en">Per-token identity in the MCP server</span>
         </h3>
         <p>
-          <span data-i18n="pt">As 70 ferramentas rodam sob o mesmo endpoint, e quem está operando é resolvido a partir do token da requisição. A identidade é propagada por <code>AsyncLocalStorage</code>, para não vazar entre requisições concorrentes. Cada parceiro opera só os próprios dados, com as mesmas regras do painel.</span>
-          <span data-i18n="en" lang="en">All 70 tools run under one endpoint, and who is operating is resolved from the request token. Identity is propagated through <code>AsyncLocalStorage</code> so it cannot leak between concurrent requests. Each partner operates only their own data, under the same rules as the dashboard.</span>
+          <span data-i18n="pt">As 121 ferramentas rodam sob o mesmo endpoint, e quem está operando é resolvido a partir do token da requisição. A identidade é propagada por <code>AsyncLocalStorage</code>, para não vazar entre requisições concorrentes. Cada parceiro opera só os próprios dados, com as mesmas regras do painel.</span>
+          <span data-i18n="en" lang="en">All 121 tools run under one endpoint, and who is operating is resolved from the request token. Identity is propagated through <code>AsyncLocalStorage</code> so it cannot leak between concurrent requests. Each partner operates only their own data, under the same rules as the dashboard.</span>
         </p>
       </article>
 
@@ -309,8 +314,8 @@
           <span data-i18n="en" lang="en">Authorization in the database, not the app</span>
         </h3>
         <p>
-          <span data-i18n="pt">133 policies de RLS sobre 29 tabelas, com funções <code>SECURITY DEFINER</code> para as decisões compostas: quem pode ver qual lead, quem é admin. O front nunca é a fronteira de segurança. Mesmo com a chave pública em mãos, o Postgres recusa.</span>
-          <span data-i18n="en" lang="en">133 RLS policies across 29 tables, with <code>SECURITY DEFINER</code> functions for the composite decisions: who can see which lead, who is an admin. The front end is never the security boundary. Even holding the public key, Postgres refuses.</span>
+          <span data-i18n="pt">276 policies de RLS vivas sobre 78 tabelas, com funções <code>SECURITY DEFINER</code> para as decisões compostas: quem pode ver qual lead, quem é admin, quem acessa qual área. O front nunca é a fronteira de segurança. Desde a migração, o servidor tira a identidade da sessão e conecta com papéis sem <code>bypassrls</code>, e a inicialização se recusa a subir se algum login tiver esse poder.</span>
+          <span data-i18n="en" lang="en">276 live RLS policies across 78 tables, with <code>SECURITY DEFINER</code> functions for the composite decisions: who can see which lead, who is an admin, who can reach which area. The front end is never the security boundary. Since the migration, the server derives identity from the session and connects with roles that lack <code>bypassrls</code>, and startup refuses to boot if any login holds that power.</span>
         </p>
       </article>
 
@@ -320,8 +325,8 @@
           <span data-i18n="en" lang="en">Prospecting cadence engine</span>
         </h3>
         <p>
-          <span data-i18n="pt">Sequência de quatro toques com ângulos distintos e intervalos crescentes. A priorização usa sinais do lead: nota pública, volume de avaliações, presença digital e nicho histórico. Há teto diário por pessoa e lista de descadastro global. Resposta do lead pausa a automação e devolve o caso para tratamento humano.</span>
-          <span data-i18n="en" lang="en">A sequence of four touches with distinct angles and growing intervals. Prioritisation uses signals from the lead: public rating, review volume, digital presence and historical niche. There is a daily cap per person and a global opt-out list. A reply from the lead pauses the automation and hands the case back to a human.</span>
+          <span data-i18n="pt">Sequência de três toques com ângulos distintos e intervalos crescentes. Eram quatro até setembro. Medidos os 1.542 toques registrados no banco, o terceiro, de prova social, respondia no mesmo patamar do primeiro e saiu; o de encerramento ficou, porque é ele que devolve o lead para reciclagem. A priorização usa sinais do lead: nota pública, volume de avaliações, presença digital e nicho histórico. Há teto diário por pessoa e lista de descadastro global. Resposta do lead pausa a automação e devolve o caso para tratamento humano.</span>
+          <span data-i18n="en" lang="en">A sequence of three touches with distinct angles and growing intervals. There were four until September. Measured over the 1,542 touches recorded in the database, the third one, social proof, got replies at the same level as the first and was cut; the closing one stayed, because it is the one that returns the lead for recycling. Prioritisation uses signals from the lead: public rating, review volume, digital presence and historical niche. There is a daily cap per person and a global opt-out list. A reply from the lead pauses the automation and hands the case back to a human.</span>
         </p>
       </article>
 
@@ -331,8 +336,8 @@
           <span data-i18n="en" lang="en">AI applied narrowly, with a brake</span>
         </h3>
         <p>
-          <span data-i18n="pt">Quatro usos específicos: gerar abordagem inicial, rascunhar proposta a partir do catálogo, escrever follow-up lendo o histórico da conversa e produzir a leitura diária dos números. Cada um com regras explícitas contra inventar preço, prazo ou entrega, mais uma camada de revisão que relê o texto gerado e sinaliza afirmações que o estado do sistema não sustenta.</span>
-          <span data-i18n="en" lang="en">Four specific uses: draft the opening approach, draft a proposal from the catalogue, write a follow-up by reading the conversation history, and produce the daily read of the numbers. Each with explicit rules against inventing a price, a deadline or a deliverable, plus a review layer that re-reads the generated text and flags claims the system state does not support.</span>
+          <span data-i18n="pt">Usos específicos: gerar abordagem inicial, rascunhar proposta a partir do catálogo, escrever follow-up lendo o histórico da conversa, produzir a leitura diária dos números e, desde outubro, a conversa operacional e a assistência de texto do estúdio. Cada um com regras explícitas contra inventar preço, prazo ou entrega, mais uma camada de revisão que relê o texto gerado e sinaliza afirmações que o estado do sistema não sustenta.</span>
+          <span data-i18n="en" lang="en">Specific uses: draft the opening approach, draft a proposal from the catalogue, write a follow-up by reading the conversation history, produce the daily read of the numbers and, since October, the operational chat and the studio's writing assistance. Each with explicit rules against inventing a price, a deadline or a deliverable, plus a review layer that re-reads the generated text and flags claims the system state does not support.</span>
         </p>
       </article>
 
@@ -362,8 +367,8 @@
 
       <div class="decision__body">
         <p class="decision__lede">
-          <span data-i18n="pt">O sistema não envia mensagem automaticamente, em canal nenhum, e isso é intencional. Ele monta a fila, escreve o texto e registra o envio, mas o clique de enviar é sempre humano.</span>
-          <span data-i18n="en" lang="en">The system never sends a message automatically, on any channel, and that is deliberate. It builds the queue, writes the text and records the send, but the send click is always human.</span>
+          <span data-i18n="pt">O sistema não envia mensagem automaticamente, em canal nenhum, e isso é intencional. Ele monta a fila, escreve o texto e registra o envio, mas o clique de enviar é sempre humano. Existe um piloto opcional de um agente comercial, com teto de dez conversas e confirmação de admin; está preparado e não foi ativado.</span>
+          <span data-i18n="en" lang="en">The system never sends a message automatically, on any channel, and that is deliberate. It builds the queue, writes the text and records the send, but the send click is always human. There is an optional pilot of a sales agent, capped at ten conversations and gated by an admin; it is ready and has not been switched on.</span>
         </p>
         <p>
           <span data-i18n="pt">O motivo é risco operacional e legal. A API oficial exige consentimento documentado que a base não tem. As alternativas não oficiais violam os termos e derrubam a conta. E o número usado na prospecção é o mesmo que atende os clientes que já pagam.</span>
@@ -388,49 +393,77 @@
 
     <dl class="figures figures--paper">
       <div class="figure">
-        <dt class="figure__label"><span data-i18n="pt">Linhas de TypeScript</span><span data-i18n="en" lang="en">Lines of TypeScript</span></dt>
-        <dd class="figure__value">21.133</dd>
-      </div>
-      <div class="figure">
-        <dt class="figure__label"><span data-i18n="pt">Arquivos</span><span data-i18n="en" lang="en">Files</span></dt>
-        <dd class="figure__value">103</dd>
-      </div>
-      <div class="figure">
         <dt class="figure__label"><span data-i18n="pt">Ferramentas MCP</span><span data-i18n="en" lang="en">MCP tools</span></dt>
-        <dd class="figure__value">70</dd>
+        <dd class="figure__value">121</dd>
       </div>
       <div class="figure">
-        <dt class="figure__label"><span data-i18n="pt">Policies de RLS</span><span data-i18n="en" lang="en">RLS policies</span></dt>
-        <dd class="figure__value">133</dd>
+        <dt class="figure__label"><span data-i18n="pt">Policies de RLS vivas</span><span data-i18n="en" lang="en">Live RLS policies</span></dt>
+        <dd class="figure__value">276</dd>
       </div>
       <div class="figure">
         <dt class="figure__label"><span data-i18n="pt">Tabelas</span><span data-i18n="en" lang="en">Tables</span></dt>
-        <dd class="figure__value">29</dd>
+        <dd class="figure__value">78</dd>
       </div>
       <div class="figure">
         <dt class="figure__label">Migrations</dt>
-        <dd class="figure__value">32</dd>
+        <dd class="figure__value">141</dd>
       </div>
       <div class="figure">
-        <dt class="figure__label"><span data-i18n="pt">Rotas</span><span data-i18n="en" lang="en">Routes</span></dt>
-        <dd class="figure__value">21</dd>
+        <dt class="figure__label"><span data-i18n="pt">Testes automatizados</span><span data-i18n="en" lang="en">Automated tests</span></dt>
+        <dd class="figure__value"><span data-i18n="pt">2.555</span><span data-i18n="en" lang="en">2,555</span></dd>
       </div>
       <div class="figure">
-        <dt class="figure__label"><span data-i18n="pt">Rotinas em cron</span><span data-i18n="en" lang="en">Cron routines</span></dt>
-        <dd class="figure__value">3</dd>
+        <dt class="figure__label"><span data-i18n="pt">Páginas</span><span data-i18n="en" lang="en">Pages</span></dt>
+        <dd class="figure__value">46</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label">Route handlers</dt>
+        <dd class="figure__value">56</dd>
+      </div>
+      <div class="figure">
+        <dt class="figure__label"><span data-i18n="pt">Dependências de produção</span><span data-i18n="en" lang="en">Production dependencies</span></dt>
+        <dd class="figure__value">17</dd>
       </div>
     </dl>
 
     <div class="doc__body doc__body--tight">
       <p>
-        <span data-i18n="pt">Das 21 rotas, 17 são protegidas e 4 são públicas por token. Dez dependências de produção no total: sem Tailwind e sem biblioteca de componentes, o estilo é inline sobre variáveis CSS, com tema claro e escuro.</span>
-        <span data-i18n="en" lang="en">Of the 21 routes, 17 are protected and 4 are public by token. Ten production dependencies in total: no Tailwind and no component library, styling is inline over CSS variables, with a light and a dark theme.</span>
+        <span data-i18n="pt">Contados no código em 06/11/2026; os testes são a execução de 02/11. Das 46 páginas, 4 abrem sem login (entrada, portal, proposta e status por token). Em agosto, este quadro dizia 70 ferramentas e 133 policies. O 133 estava errado já naquela data: era o número de comandos <code>CREATE POLICY</code> nos arquivos, não de policies existentes, que eram 97. Hoje a contagem refaz as migrations em ordem, com os <code>DROP</code>, e soma as 96 policies geradas por área.</span>
+        <span data-i18n="en" lang="en">Counted in the code on 6 Nov 2026; tests are the 2 Nov run. Of the 46 pages, 4 open without login (sign-in, portal, proposal and status by token). In August this table said 70 tools and 133 policies. The 133 was already wrong then: it counted <code>CREATE POLICY</code> statements in the files, not policies that existed, which were 97. The count now replays the migrations in order, drops included, and adds the 96 policies generated per area.</span>
       </p>
       <ul class="stack stack--lg">
-        <li>Next.js 15</li><li>React 19</li><li>TypeScript</li><li>Supabase</li>
-        <li>Postgres RLS</li><li>Realtime</li><li>Storage</li><li>Vercel</li>
-        <li>@vercel/mcp-adapter</li><li>Anthropic SDK</li><li>@dnd-kit</li><li>Zod</li>
+        <li>Next.js</li><li>React 19</li><li>TypeScript</li><li>PostgreSQL</li>
+        <li>RLS</li><li>Better Auth</li><li>Kysely</li><li>LISTEN/SSE</li>
+        <li>Docker</li><li>Nginx</li><li>systemd</li><li>MCP</li><li>Anthropic SDK</li><li>Zod</li>
       </ul>
+    </div>
+  </section>
+
+  <!-- ===================== VI · A MIGRAÇÃO ===================== -->
+  <section class="section shell">
+    <div class="head">
+      <span class="head__folio" aria-hidden="true">VI</span>
+      <h2 class="head__title">
+        <span data-i18n="pt">Sair da nuvem sem caminho de volta</span><span data-i18n="en" lang="en">Leaving the cloud with no way back</span>
+      </h2>
+      <p class="head__note">
+        <span data-i18n="pt">Em 31/10/2026, às 21h28, o CRM deixou a Vercel e o Supabase e passou a rodar num servidor próprio, com Postgres, autenticação e arquivos próprios.</span>
+        <span data-i18n="en" lang="en">On 31 Oct 2026 at 9:28 pm, the CRM left Vercel and Supabase and started running on its own server, with its own Postgres, authentication and file storage.</span>
+      </p>
+    </div>
+    <div class="doc__body">
+      <p>
+        <span data-i18n="pt">O risco de uma migração dessas não é o dia da virada, é o depois: se o destino recebe uma escrita e algo dá errado, voltar o DNS para a origem perde essa escrita em silêncio. Então a origem foi bloqueada antes da captura final, e a regra ficou escrita: depois da primeira escrita no destino, a recuperação é sempre do destino, nunca um retorno à nuvem.</span>
+        <span data-i18n="en" lang="en">The risk in a migration like this is not the cutover day, it is the day after: if the destination takes a write and something goes wrong, pointing DNS back to the origin silently loses that write. So the origin was locked before the final capture, and the rule was written down: after the first write on the destination, recovery is always of the destination, never a return to the cloud.</span>
+      </p>
+      <p>
+        <span data-i18n="pt">A captura final foi cifrada, restaurada numa transação única e comparada antes do <code>COMMIT</code>: 146 tabelas, 11 sequências e os arquivos conferidos por hash. Só depois o endereço público mudou. O backup agendado das 21h30, dois minutos depois, já capturou o destino aberto, e foi baixado e decifrado fora do servidor para provar que restaura.</span>
+        <span data-i18n="en" lang="en">The final capture was encrypted, restored in a single transaction and compared before <code>COMMIT</code>: 146 tables, 11 sequences and the files checked by hash. Only then did the public address change. The scheduled 9:30 pm backup, two minutes later, already captured the open destination, and it was downloaded and decrypted off the server to prove it restores.</span>
+      </p>
+      <p>
+        <span data-i18n="pt">O que ainda não está provado fica dito: a meta de perder no máximo uma hora de dados e de reconstruir o servidor inteiro em duas horas não foi demonstrada em ensaio. Está registrada como pendência, não como fato.</span>
+        <span data-i18n="en" lang="en">What is not proven yet is said out loud: the goal of losing at most one hour of data and rebuilding the whole server in two hours has not been shown in a drill. It is recorded as pending, not as fact.</span>
+      </p>
     </div>
   </section>
 
@@ -456,8 +489,8 @@
       </a>
     </div>
     <p class="doc__date">
-      <span data-i18n="pt">Atualizado em 5 de agosto de 2026</span>
-      <span data-i18n="en" lang="en">Updated 5 August 2026</span>
+      <span data-i18n="pt">Atualizado em 6 de novembro de 2026</span>
+      <span data-i18n="en" lang="en">Updated 6 November 2026</span>
     </p>
   </section>
 

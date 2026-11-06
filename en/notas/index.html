@@ -50,6 +50,36 @@
       "blogPost": [
         {
           "@type": "BlogPosting",
+          "headline": "After the first write, there is no going back",
+          "url": "https://www.pedrolou.dev/en/notas/#migracao",
+          "datePublished": "2026-11-06",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Opening WhatsApp is not sending",
+          "url": "https://www.pedrolou.dev/en/notas/#ja-enviei",
+          "datePublished": "2026-11-06",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "The deadline has to fit inside the deadline",
+          "url": "https://www.pedrolou.dev/en/notas/#prazo",
+          "datePublished": "2026-11-06",
+          "author": {
+            "@type": "Person",
+            "name": "Pedro Lourençoni Lima"
+          }
+        },
+        {
+          "@type": "BlogPosting",
           "headline": "The pooler that hangs instead of failing",
           "url": "https://www.pedrolou.dev/en/notas/#pooler",
           "datePublished": "2026-08-05",
@@ -148,7 +178,7 @@
 
     <p class="doc__lede">
 
-      Opened in August 2026, all at once. The first five already existed, buried inside the case studies where nobody who did not open the whole page would find them. They are here in short form, with the source cited. From here on this is where new things show up, without redesigning anything.
+      Opened in August 2026 with five notes at once, which already existed buried inside the case studies. The three from November are about things that happened later: a migration, a button that lied and a deadline that did not fit inside the deadline. Each one cites its source.
     </p>
   </header>
 
@@ -158,6 +188,96 @@
     <div class="log">
 
       <!-- ===================== 01 ===================== -->
+      <article class="log__entry reveal" id="migracao">
+        <p class="log__meta">
+          <time datetime="2026-11-06">06.11.2026</time>
+          <span class="log__where">Kyber CRM</span>
+          Infrastructure
+        </p>
+        <h2 class="log__title">
+
+          After the first write, there is no going back
+        </h2>
+        <p>
+
+          On 31 October the CRM moved off Vercel and Supabase onto its own server. The obvious rollback plan, point DNS back if something goes wrong, only works until the destination takes its first write. After that, going back to the origin silently erases everything done on the destination.
+        </p>
+        <p>
+
+          So the origin was locked before the final capture, the restore ran in a single transaction and only committed after comparing 146 tables, 11 sequences and the files by hash. And the rule was written down before the cutover: once open, the destination is recovered, never swapped out.
+        </p>
+        <p class="log__take">
+
+          A migration rollback has an expiry date, and it expires at the first write. Decide before the cutover what happens after it.
+        </p>
+        <p class="log__source">
+          <a class="link-out" href="/en/projetos/kyber-crm">
+
+            The whole migration, in the Kyber CRM case, section VI →
+          </a>
+        </p>
+      </article>
+
+      <article class="log__entry reveal" id="ja-enviei">
+        <p class="log__meta">
+          <time datetime="2026-11-06">06.11.2026</time>
+          <span class="log__where">Kyber CRM</span>
+          Product
+        </p>
+        <h2 class="log__title">
+
+          Opening WhatsApp is not sending
+        </h2>
+        <p>
+
+          The "Send on WhatsApp" button opened the chat and, in the same click, marked the proposal as sent and logged the contact. But opening is not sending: the person may close the window, change the text or give up. The system was asserting a fact nobody had confirmed, and the whole funnel counted on top of it.
+        </p>
+        <p>
+
+          Now there are two gestures. "Open in WhatsApp" only opens. "I sent it" records it and returns an explicit outcome: recorded, already recorded, partial or refused with a reason. Clicking twice duplicates nothing, with no migration: the state change is an <code>UPDATE</code> conditional on draft status, and the contact has an id derived from the proposal.
+        </p>
+        <p class="log__take">
+
+          A click records what the click does, not what is expected to follow. What follows needs its own button.
+        </p>
+        <p class="log__source">
+          <a class="link-out" href="/en/projetos/kyber-crm">
+
+            The last-mile rule, in the Kyber CRM case, section IV →
+          </a>
+        </p>
+      </article>
+
+      <article class="log__entry reveal" id="prazo">
+        <p class="log__meta">
+          <time datetime="2026-11-06">06.11.2026</time>
+          <span class="log__where">Didata</span>
+          Reliability
+        </p>
+        <h2 class="log__title">
+
+          The deadline has to fit inside the deadline
+        </h2>
+        <p>
+
+          Two activity generations failed in the same week and the log only said "timeout, cleanup". It was the cleanup job closing, half an hour later, whatever had been left pending. The original cause was nowhere, because the function died at the platform's 60-second limit before it could record why it died.
+        </p>
+        <p>
+
+          Generation now has an absolute 55-second deadline from entry. When it expires it aborts the provider, refuses late responses and uses the 5 seconds left to record the cause, one of six typed ones, and the duration. A retry only starts if there are 10 useful seconds, and never after a partial result has been delivered.
+        </p>
+        <p class="log__take">
+
+          If the outer limit kills the process, the inner one has to expire first, with room left to say what happened. A failure with no recorded cause is a failure that will happen again.
+        </p>
+        <p class="log__source">
+          <a class="link-out" href="/en/projetos/didata">
+
+            The generation architecture, in the Didata case, section V →
+          </a>
+        </p>
+      </article>
+
       <article class="log__entry reveal" id="pooler">
         <p class="log__meta">
           <time datetime="2026-08-05">05.08.2026</time>
@@ -228,11 +348,11 @@
         </h2>
         <p>
 
-          Two of my products, on the same Postgres, with opposite choices. The CRM has 133 row-level-security policies over 29 tables: the database refuses the row, whatever happens in the application. Didata authorises in the application.
+          Two of my products, both on Postgres, with opposite choices. The CRM has 276 live row-level-security policies over 78 tables: the database refuses the row, whatever happens in the application. Didata authorises in the application.
         </p>
         <p>
 
-          The difference is not maturity, it is how many doors exist. The CRM is reached by a dashboard, by a 70-tool MCP server, by token-based public pages and by scheduled jobs. Four doors, and the rule written at each one would be the same rule written four times, drifting apart at the first rush. Didata has one door.
+          The difference is not maturity, it is how many doors exist. The CRM is reached by a dashboard, by a 121-tool MCP server, by token-based public pages, by scheduled jobs and, since October, by a content studio. Five doors, and the rule written at each one would be the same rule written five times, drifting apart at the first rush. Didata has one door.
         </p>
         <p class="log__take">
 
@@ -241,7 +361,7 @@
         <p class="log__source">
           <a class="link-out" href="/en/projetos/kyber-crm">
 
-            The four-door case, in the Kyber CRM case study →
+            The five-door case, in the Kyber CRM case study →
           </a>
         </p>
       </article>
@@ -263,7 +383,7 @@
         </p>
         <p>
 
-          It costs a lot in convenience: an exam of 30 students by 10 questions is 300 readings to accept. The mitigation was not to loosen the rule, it was to make accepting cheaper, with batch confirmation and a queue that surfaces what needs attention. The queue's bias is declared and errs toward caution: a question with no reading at all counts as uncertain.
+          It costs a lot in convenience: an exam of 30 students by 10 questions is 300 readings to accept. The mitigation was not to loosen the rule, it was to make accepting cheaper, with batch confirmation and a queue that surfaces what needs attention. The queue's bias is declared and errs toward caution: a question with no reading at all counts as uncertain. In October, the national education council's opinion CNE/CP 15/2026 removed batch confirmation: it is now question by question, and on written answers the AI only transcribes. The queue stayed.
         </p>
         <p class="log__take">
 

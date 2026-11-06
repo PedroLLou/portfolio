@@ -290,15 +290,16 @@ vale corrigir lá.
 
 ## Números verificados
 
-As figuras do estudo de caso não são estimativa:
+Recontados no código em 06/11/2026, com o comando de cada um em
+[docs/conteudo-verificado-2026-11.md](docs/conteudo-verificado-2026-11.md).
+Os de agosto foram refeitos com os mesmos comandos nos commits daquela
+data e batem, menos um: as "133 policies de RLS" eram comandos
+`CREATE POLICY`, não policies existentes. O case do CRM diz isso.
 
-- **70 ferramentas MCP**: contadas no servidor MCP do Kyber CRM ao vivo.
-- **32 migrations**: `supabase/migrations`, de `0001_schema.sql` a
-  `0032_prospeccao_instagram.sql`.
-
-O texto do card do Didata vem do `PRODUCT.md` do próprio repositório
-(currículo BR verificável, correção por foto, memória da turma, e a
-regra de que a IA sugere e o professor confirma), não de paráfrase.
+O texto do card do Didata vem do `PRODUCT.md` e dos ADRs do próprio
+repositório (currículo BR verificável, correção por foto, a regra de que a
+IA sugere e o professor confirma, e desde outubro o Parecer CNE/CP 15/2026),
+não de paráfrase.
 
 ## Imagens
 

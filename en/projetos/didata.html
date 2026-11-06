@@ -45,7 +45,7 @@
       "image": "https://www.pedrolou.dev/uploads/og-card.jpg",
       "inLanguage": "en",
       "datePublished": "2026-08-05",
-      "dateModified": "2026-08-05",
+      "dateModified": "2026-11-06",
       "author": {
         "@type": "Person",
         "@id": "https://www.pedrolou.dev/en#pedro",
@@ -122,7 +122,7 @@
 
     <p class="doc__lede">
 
-      A platform where Brazilian teachers generate lessons, activities, exams and slides with AI, grade exams from a photo and follow each class. It is live at usedidata.com.br, with a free and a paid plan, and no public announcement.
+      A platform where Brazilian teachers generate lessons, activities, exams and slides with AI, grade exams from a photo and follow each class. It is live at usedidata.com.br, with a free and a paid plan, billed through Asaas.
     </p>
 
     <dl class="doc__meta">
@@ -193,11 +193,15 @@
         </p>
         <p>
 
-          The cost in convenience is real and was paid deliberately. On an exam of 30 students by 10 questions that is 300 readings to accept. The mitigation was not to loosen the rule, it was to lower the cost of accepting: batch confirmation for the high-confidence ones, and a queue that surfaces what needs attention first. The queue's bias is declared and errs toward caution: a question with no reading at all counts as uncertain.
+          The cost in convenience is real and was paid deliberately. On an exam of 30 students by 10 questions that is 300 readings to accept. The first mitigation was to make accepting cheaper: batch confirmation for the high-confidence ones and a queue that surfaces what needs attention, with a declared bias toward caution in which a question with no reading at all counts as uncertain.
           </p>
         <p>
 
           The same rule binds material generation. Every prompt carries the instruction to review and adapt before using it in class.
+        </p>
+        <p>
+
+          In October the rule got stricter from the outside. Brazil's National Education Council opinion CNE/CP 15/2026 forbids AI grades on essays and written answers and requires effective, documented human validation on multiple choice. Didata complied before the ministry ratified it, because waiting would leave the product selling what schools could not use: on essays and written answers the AI only transcribes and the teacher types the grade; on multiple choice the batch-confirm button is gone, and every confirmation is question by question, with its date recorded. The queue stayed, and became the only way to go faster.
         </p>
       </div>
     </div>
@@ -225,7 +229,7 @@
         </h3>
         <p>
 
-          Grade, subject and teacher type resolve a BNCC range. For 9th-grade maths it returns EF09MA01 to EF09MA24, with the topics. That line goes into the user prompt, never the system prompt, because the system prompt is constant and feeds provider caching.
+          Grade, subject and teacher type resolve the class's skills. When the combination is in the curated table, with 171 skills across five subjects, the full list goes in, with official code and text, and the AI picks from it instead of inventing. Outside the table only the range goes in (for 9th-grade maths, EF09MA01 to EF09MA24) with an instruction not to cite the codes. That goes into the user prompt, never the system prompt, because the system prompt is constant and feeds provider caching.
         </p>
       </article>
 
@@ -313,8 +317,8 @@
       </li>
       <li class="svc__row">
         <span class="svc__num">04</span>
-        <span class="svc__name">Vision with forced tool use</span>
-        <span class="svc__note">Claude Haiku 4.5, all of a student's pages in one call. Output comes through a tool schema, not free-text JSON, because prose around it was killing the whole photo at parse time.</span>
+        <span class="svc__name">Vision with a strict schema</span>
+        <span class="svc__note">An OpenAI vision model, all of a student's pages in one call, output through a strict <code>json_schema</code> and with no data retention at the provider. Until October it was Claude Haiku 4.5 with forced tool use; the rule is the same, never free-text JSON, because prose around it was killing the whole photo at parse time.</span>
       </li>
       <li class="svc__row">
         <span class="svc__num">05</span>
@@ -326,7 +330,7 @@
     <div class="doc__body doc__body--tight">
       <p>
 
-        When reading fails there are three separate paths by failure type. A retryable error falls back to GPT-4o with an identical schema and logs a warning tagged with primary and fallback; 4xx errors and invalid schemas propagate without a retry. A question that came back unread becomes an error state and enters a missing-answers counter. And absent confidence is treated as low: no signal counts against the AI, not for it.
+        When reading fails there are three separate paths by failure type. A retryable error only falls back to the second provider if the catalogue of providers authorised for student photos allows it, and since October only one is cleared: the failure surfaces instead of the photo going somewhere it was not authorised to go. 4xx errors and invalid schemas propagate without a retry. A question that came back unread becomes an error state and enters a missing-answers counter. And absent confidence is treated as low: no signal counts against the AI, not for it.
       </p>
       <p>
 
@@ -334,7 +338,7 @@
       </p>
       <p class="doc__caveat">
 
-        Accuracy numbers do not exist. There is no labelled test set and no evaluation report. The Vision mock states in its own header that it exercises the machinery around the AI and does not test whether it reads handwriting. The divergence instrumentation is what stands in for an offline metric: it measures in use, not before.
+        Until August, accuracy numbers did not exist. Since 10 October there is an offline evaluation against public photo datasets: objective marks read correctly in 447 of 450 and 59 of 60, and full-page transcription at 2.2% and 3.5% character error rate. What is still missing is a dataset in Didata's own format, a printed sheet, filled in and photographed on a phone. Until then the numbers say the model can read, not that it reads the photo a teacher takes, and the divergence instrumentation remains the in-use measure.
       </p>
     </div>
   </section>
@@ -348,7 +352,7 @@
       </h2>
       <p class="head__note">
 
-        Next.js 16 on a single Vercel deployment, no separate service, no queue and no worker. Long work is streamed inside the request; periodic work is four cron jobs.
+        Next.js 16 on a single Vercel deployment, no separate service, no queue and no worker, with the database in São Paulo since August (database latency fell from 393 ms to 63 ms). Long work is streamed inside the request; periodic work is seven cron jobs.
       </p>
     </div>
 
@@ -410,11 +414,11 @@
     <dl class="figures figures--paper">
       <div class="figure">
         <dt class="figure__label">Unit tests</dt>
-        <dd class="figure__value">1.595</dd>
+        <dd class="figure__value">4,512</dd>
       </div>
       <div class="figure">
         <dt class="figure__label">Data models</dt>
-        <dd class="figure__value">34</dd>
+        <dd class="figure__value">77</dd>
       </div>
       <div class="figure">
         <dt class="figure__label">State curricula</dt>
@@ -422,22 +426,22 @@
       </div>
       <div class="figure">
         <dt class="figure__label">Migrations</dt>
-        <dd class="figure__value">86</dd>
+        <dd class="figure__value">118</dd>
       </div>
     </dl>
 
     <div class="doc__body doc__body--tight">
       <p>
 
-        Also: 111 pages, 32 route handlers, 60 Server Action files, 906 TypeScript files, 33 end-to-end test blocks across 9 specs, 33 production dependencies and 798 commits since May 2026. Test coverage does not exist: no script collects it, so quoting a percentage would be inventing one.
+        Counted in the code on 5 Nov 2026; unit tests are the 2 Nov run. Also: 159 pages, 76 route handlers, 90 Server Action files, 53 end-to-end tests across 12 specs, 33 ADRs, 38 production dependencies and 1,290 commits since May 2026. In August there were 1,595 tests and 86 migrations. Test coverage does not exist: no script collects it, so quoting a percentage would be inventing one.
       </p>
       <p class="doc__caveat">
 
-        Usage numbers do not exist, and this case publishes none. There is no count of active teachers, generated materials, schools or revenue. The product is live with a free and a paid plan, but was never announced. The Vision cost meter and the divergence instrumentation are already built: the choice is to measure in use, not to publish an estimate. Didata's own product document forbids fabricated social proof, and the same rule applies here.
+        This case publishes no usage numbers: active teachers, generated materials, schools or revenue. Dated aggregate snapshots exist in the repository, and they stay there until they become continuous measurement rather than a photograph. The Vision cost meter and the divergence instrumentation are already built: the choice is to measure in use, not to publish an estimate. Didata's own product document forbids fabricated social proof, and the same rule applies here.
       </p>
       <ul class="stack stack--lg">
         <li>Next.js 16</li><li>React</li><li>TypeScript</li><li>Prisma 7</li><li>PostgreSQL</li>
-        <li>Supabase</li><li>pgvector</li><li>Anthropic</li><li>OpenAI</li><li>Vision</li><li>RAG</li><li>Vercel</li>
+        <li>Supabase</li><li>pgvector</li><li>OpenAI</li><li>Anthropic</li><li>Vision</li><li>RAG</li><li>Asaas</li><li>Resend</li><li>Sentry</li><li>Vercel</li>
       </ul>
     </div>
   </section>
@@ -497,7 +501,7 @@
     </div>
     <p class="doc__date">
 
-      Updated 5 August 2026
+      Updated 6 November 2026
     </p>
   </section>
 

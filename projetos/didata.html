@@ -45,7 +45,7 @@
       "image": "https://www.pedrolou.dev/uploads/og-card.jpg",
       "inLanguage": "pt-BR",
       "datePublished": "2026-08-05",
-      "dateModified": "2026-08-05",
+      "dateModified": "2026-11-06",
       "author": {
         "@type": "Person",
         "@id": "https://www.pedrolou.dev/#pedro",
@@ -121,7 +121,7 @@
     <h1 class="doc__title doc__title--didata">Didata</h1>
 
     <p class="doc__lede">
-      Plataforma onde professores brasileiros geram aula, atividade, prova e slides com IA, corrigem prova por foto e acompanham a turma. Está em produção em usedidata.com.br, com plano gratuito e pago, sem lançamento divulgado.
+      Plataforma onde professores brasileiros geram aula, atividade, prova e slides com IA, corrigem prova por foto e acompanham a turma. Está em produção em usedidata.com.br, com plano gratuito e pago, cobrado pelo Asaas.
 
     </p>
 
@@ -192,11 +192,15 @@
 
         </p>
         <p>
-          O custo em conveniência é real e foi pago de propósito. Numa prova de 30 alunos por 10 questões são 300 leituras para aceitar. A mitigação não foi afrouxar a regra, foi reduzir o esforço de aceitar: confirmação em lote das de alta confiança, e uma fila que prioriza o que pede atenção. O viés da fila é declarado e pró-cautela, questão sem leitura nenhuma conta como incerta.
+          O custo em conveniência é real e foi pago de propósito. Numa prova de 30 alunos por 10 questões são 300 leituras para aceitar. A primeira mitigação foi baratear o aceite: confirmação em lote das de alta confiança e uma fila que prioriza o que pede atenção, com viés declarado e pró-cautela, em que questão sem leitura nenhuma conta como incerta.
 
           </p>
         <p>
           A mesma regra amarra a geração de material. Todo prompt carrega a instrução de revisar e adaptar antes de aplicar em sala.
+
+        </p>
+        <p>
+          Em outubro a regra apertou por fora. O Parecer CNE/CP 15/2026 veda nota de IA em dissertativa e redação e exige validação humana efetiva e documentada nas objetivas. O Didata seguiu antes da homologação do MEC, porque esperar deixaria o produto vendendo o que a escola não poderia usar: na dissertativa e na redação a IA só transcreve e a nota é digitada pelo professor; nas objetivas, o botão de confirmar em lote saiu, e cada confirmação é questão por questão, com data registrada. A fila ficou, e virou a única forma de agilizar.
 
         </p>
       </div>
@@ -224,7 +228,7 @@
 
         </h3>
         <p>
-          Série, disciplina e tipo de professor resolvem uma faixa BNCC. Para 9º ano de matemática, devolve EF09MA01 a EF09MA24, com os temas. Essa linha entra no prompt do usuário, nunca no sistema, porque o system é constante e serve ao cache dos providers.
+          Série, disciplina e tipo de professor resolvem as habilidades da turma. Quando a combinação está na tabela curada, com 171 habilidades em cinco disciplinas, a lista entra completa, com código e texto oficial, e a IA escolhe dela em vez de inventar. Fora da tabela, entra só a faixa (para 9º ano de matemática, EF09MA01 a EF09MA24) com a instrução de não citar os códigos. Isso vai no prompt do usuário, nunca no sistema, porque o system é constante e serve ao cache dos providers.
 
         </p>
       </article>
@@ -313,8 +317,8 @@
       </li>
       <li class="svc__row">
         <span class="svc__num">04</span>
-        <span class="svc__name">Vision com tool use forçada</span>
-        <span class="svc__note">Claude Haiku 4.5, todas as páginas do aluno numa chamada. A saída sai por schema de ferramenta, não JSON em texto livre, porque prosa em volta derrubava a foto inteira no parse.</span>
+        <span class="svc__name">Vision com schema estrito</span>
+        <span class="svc__note">Modelo de visão da OpenAI, todas as páginas do aluno numa chamada, com saída por <code>json_schema</code> estrito e sem retenção do dado pelo provedor. Até outubro era o Claude Haiku 4.5 com tool use forçada; a regra continua a mesma, nunca JSON em texto livre, porque prosa em volta derrubava a foto inteira no parse.</span>
       </li>
       <li class="svc__row">
         <span class="svc__num">05</span>
@@ -325,7 +329,7 @@
 
     <div class="doc__body doc__body--tight">
       <p>
-        Quando a leitura falha, três caminhos separados por tipo de falha. Erro passível de nova tentativa cai para GPT-4o com schema idêntico e registra alerta com as tags de primário e fallback; erro 4xx e schema inválido propagam sem tentar. Questão que voltou sem leitura vira status de erro e entra num contador de faltantes. E confiança ausente é tratada como baixa: ausência de sinal conta contra a IA, não a favor.
+        Quando a leitura falha, três caminhos separados por tipo de falha. Erro passível de nova tentativa só cai para o segundo provedor se o catálogo de provedores autorizados para fotos de alunos permitir, e desde outubro só um está liberado: a falha aparece em vez de a foto ir para onde não foi autorizada. Erro 4xx e schema inválido propagam sem tentar. Questão que voltou sem leitura vira status de erro e entra num contador de faltantes. E confiança ausente é tratada como baixa: ausência de sinal conta contra a IA, não a favor.
 
       </p>
       <p>
@@ -333,7 +337,7 @@
 
       </p>
       <p class="doc__caveat">
-        Números de acurácia não existem. Não há conjunto de teste com fotos rotuladas nem relatório de avaliação. O mock de Vision diz, no próprio cabeçalho, que exercita a máquina em volta da IA e não testa se ela lê manuscrito. A instrumentação de divergência é o que existe no lugar da métrica offline: ela mede em uso, não antes.
+        Até agosto, números de acurácia não existiam. Desde 10/10 há uma avaliação offline contra conjuntos públicos de fotos: marcas objetivas lidas certo em 447 de 450 e 59 de 60, e transcrição de página inteira com 2,2% e 3,5% de erro por caractere. O que ainda falta é o conjunto no formato do Didata, folha impressa, preenchida e fotografada no celular. Até lá, os números dizem que o modelo lê, não que lê a foto que o professor tira, e a instrumentação de divergência continua sendo a medida em uso.
 
       </p>
     </div>
@@ -347,7 +351,7 @@
         Arquitetura
       </h2>
       <p class="head__note">
-        Next.js 16 em rota única na Vercel, sem serviço separado, sem fila e sem worker. O trabalho longo é streaming dentro da request; o periódico são quatro crons.
+        Next.js 16 em rota única na Vercel, sem serviço separado, sem fila e sem worker, com o banco em São Paulo desde agosto (a latência do banco caiu de 393 ms para 63 ms). O trabalho longo é streaming dentro da request; o periódico são sete crons.
 
       </p>
     </div>
@@ -410,11 +414,11 @@
     <dl class="figures figures--paper">
       <div class="figure">
         <dt class="figure__label">Testes unitários</dt>
-        <dd class="figure__value">1.595</dd>
+        <dd class="figure__value">4.512</dd>
       </div>
       <div class="figure">
         <dt class="figure__label">Modelos de dados</dt>
-        <dd class="figure__value">34</dd>
+        <dd class="figure__value">77</dd>
       </div>
       <div class="figure">
         <dt class="figure__label">Currículos estaduais</dt>
@@ -422,22 +426,22 @@
       </div>
       <div class="figure">
         <dt class="figure__label">Migrations</dt>
-        <dd class="figure__value">86</dd>
+        <dd class="figure__value">118</dd>
       </div>
     </dl>
 
     <div class="doc__body doc__body--tight">
       <p>
-        Também: 111 páginas, 32 route handlers, 60 arquivos de Server Action, 906 arquivos TypeScript, 33 blocos de teste end to end em 9 specs, 33 dependências de produção e 798 commits desde maio de 2026. Cobertura de testes não existe: nenhum script coleta, então citar percentual seria inventar.
+        Contados no código em 05/11/2026; os testes unitários são a execução de 02/11. Também: 159 páginas, 76 route handlers, 90 arquivos de Server Action, 53 testes end to end em 12 specs, 33 ADRs, 38 dependências de produção e 1.290 commits desde maio de 2026. Em agosto eram 1.595 testes e 86 migrations. Cobertura de testes não existe: nenhum script coleta, então citar percentual seria inventar.
 
       </p>
       <p class="doc__caveat">
-        Números de uso não existem, e este case não publica nenhum. Não há contagem de professores ativos, materiais gerados, escolas ou receita. O produto está no ar com plano gratuito e pago, mas não teve lançamento divulgado. O medidor de custo de Vision e a instrumentação de divergência já estão implementados: a escolha é medir em uso, não publicar estimativa. O documento de produto do Didata proíbe prova social fabricada, e a mesma regra vale aqui.
+        Este case não publica números de uso: professores ativos, materiais gerados, escolas ou receita. Existem retratos agregados e datados no repositório, e eles ficam lá até virarem medição contínua, não fotografia. O medidor de custo de Vision e a instrumentação de divergência já estão implementados: a escolha é medir em uso, não publicar estimativa. O documento de produto do Didata proíbe prova social fabricada, e a mesma regra vale aqui.
 
       </p>
       <ul class="stack stack--lg">
         <li>Next.js 16</li><li>React</li><li>TypeScript</li><li>Prisma 7</li><li>PostgreSQL</li>
-        <li>Supabase</li><li>pgvector</li><li>Anthropic</li><li>OpenAI</li><li>Vision</li><li>RAG</li><li>Vercel</li>
+        <li>Supabase</li><li>pgvector</li><li>OpenAI</li><li>Anthropic</li><li>Vision</li><li>RAG</li><li>Asaas</li><li>Resend</li><li>Sentry</li><li>Vercel</li>
       </ul>
     </div>
   </section>
@@ -496,7 +500,7 @@
       </a>
     </div>
     <p class="doc__date">
-      Atualizado em 5 de agosto de 2026
+      Atualizado em 6 de novembro de 2026
 
     </p>
   </section>
